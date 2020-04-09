@@ -29,7 +29,10 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
           shiny::dateRangeInput(ns("param"), NULL,
                              #value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
                              start = min(x(), na.rm = TRUE), 
-                             end = max(x(), na.rm = TRUE))
+                             end = max(x(), na.rm = TRUE),
+                             min = min(x(), na.rm = TRUE), 
+                             max = max(x(), na.rm = TRUE)
+                             )
         } else {
           shiny::div(
             style = "padding-top: 10px; opacity: 0.3; text-align: center;",

@@ -9,7 +9,7 @@ starwars2 <- read_xpt("adsl.xpt") %>%
   mutate(blank = "") %>%
   select(VISIT1DT)
 
-View(starwars2)
+# View(starwars2)
 
 ui <- fluidPage(
   titlePanel("Filter Data Example"),
