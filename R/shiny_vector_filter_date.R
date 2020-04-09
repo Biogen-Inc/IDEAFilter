@@ -9,7 +9,7 @@ shiny_vector_filter_ui.Date <- function(data, inputId) {
 
 #' @export
 shiny_vector_filter.Date <- function(data, inputId, ...) {
-  function(input, output, session, x = shiny::reactive(numeric()), 
+  function(input, output, session, x = shiny::reactive(Date()), 
            filter_na = shiny::reactive(FALSE), verbose = FALSE) {
     
     ns <- session$ns
