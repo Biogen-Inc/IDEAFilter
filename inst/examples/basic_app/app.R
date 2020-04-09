@@ -6,14 +6,15 @@ library(haven)
 starwars2 <- read_xpt("adsl.xpt") %>% 
   mutate(a_datetime = as.POSIXct(paste(RFSTDTC, "00:00:00"))) %>%
   select(a_datetime,everything()) %>%
-  mutate(blank = "")
+  mutate(blank = "") %>%
+  select(VISIT1DT)
 
 ui <- fluidPage(
   titlePanel("Filter Data Example"),
   fluidRow(
     column(8,
            verbatimTextOutput("data_filter_code"),
-           tableOutput("data_summary")
+           dataTableOutput("data_summary")
     ),
     column(4, shiny_data_filter_ui("data_filter"))))
 
@@ -34,7 +35,7 @@ server <- function(input, output, session) {
     ))
   })
   
-  output$data_summary <- renderTable({
+  output$data_summary <- renderDataTable({
     filtered_data() 
   }, 
   options = list(
