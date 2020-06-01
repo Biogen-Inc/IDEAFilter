@@ -1,4 +1,4 @@
-
+#' @importFrom shinyTime timeInput
 #' @importFrom shiny NS uiOutput
 #' @export
 shiny_vector_filter_ui.POSIXct <- function(data, inputId) {
