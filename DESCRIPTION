@@ -11,7 +11,7 @@ Maintainer: Maya Gans <maya.gans@biogen.com>
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Imports:
     shiny,
     ggplot2,
@@ -22,4 +22,7 @@ Imports:
     shinyTime
 Suggests:
     shinytest,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

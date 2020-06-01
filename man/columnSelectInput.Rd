@@ -4,8 +4,15 @@
 \alias{columnSelectInput}
 \title{A selectizeInput customized for data frames with column labels}
 \usage{
-columnSelectInput(inputId, label, data, selected = "", ...,
-  placeholder = "", onInitialize)
+columnSelectInput(
+  inputId,
+  label,
+  data,
+  selected = "",
+  ...,
+  placeholder = "",
+  onInitialize
+)
 }
 \arguments{
 \item{inputId}{passed to \code{\link[shiny]{selectizeInput}}}

@@ -68,7 +68,7 @@ server <- function(input, output, session) {
     verbose = FALSE)
   
   output$data_filter_code <- renderPrint({
-    cat(gsub("\%>\%", "\%>\% \\n ", 
+    cat(gsub("\%>\%", "\%>\% \n ", 
       gsub("\\\\s{2,}", " ", 
         paste0(
           capture.output(attr(filtered_data(), "code")), 
