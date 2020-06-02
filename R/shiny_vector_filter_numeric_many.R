@@ -1,5 +1,16 @@
 #' A vector filter for numeric variables with only many choices
 #'
+#' @param input requisite shiny module field specifying incoming ui input
+#'   reactiveValues
+#' @param output requisite shiny module field capturing output for the shiny
+#'   data filter ui
+#' @param session requisite shiny module field containing the active shiny
+#'   session
+#' @param x The TODO
+#' @param filter_na The \code{logical} TODO
+#' @param verbose a \code{logical} value indicating whether or not to print log
+#'  statements out to the console
+#'  
 #' @importFrom shiny reactive reactiveValues renderUI div plotOutput sliderInput
 #'   isolate tags validate need renderPlot
 #' @importFrom ggplot2 ggplot aes aes_ geom_area theme_void scale_x_continuous

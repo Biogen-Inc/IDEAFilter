@@ -16,7 +16,7 @@ lhs \%||\% rhs
 Shorthand operator for NULL fallback
 }
 \examples{
-`\%||\%` <- shinyDataFilter:::`\%||\%`
+`\%||\%` <- IDEAFilter:::`\%||\%`
 
 NULL \%||\% 1
 # [1] 1

@@ -61,6 +61,7 @@ shiny_data_filter_ui <- function(inputId) {
 #'
 #' @import shiny
 #' @importFrom utils head tail
+#' @importFrom stats setNames
 #' @export
 #' 
 #' @examples

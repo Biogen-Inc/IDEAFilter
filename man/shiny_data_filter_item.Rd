@@ -26,6 +26,8 @@ session}
 \item{data}{a \code{reactive expression} returning a \code{data.frame} to use
 as the input to the filter item module}
 
+\item{column_name}{a value indicating the name of the column to be filtered}
+
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}
 }

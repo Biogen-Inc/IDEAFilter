@@ -3,11 +3,7 @@ library(IDEAFilter)
 library(dplyr)
 library(haven)
 
-starwars2 <- read_xpt("adsl.xpt") %>% 
-  mutate(a_datetime = as.POSIXct(paste(RFSTDTC, "00:00:00"))) %>%
-  select(a_datetime,everything()) %>%
-  mutate(blank = "") %>%
-  select(VISIT1DT)
+starwars2 <- iris
 
 # View(starwars2)
 
@@ -23,7 +19,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   filtered_data <- callModule(
-    shiny_data_filter,
+    IDEAFilter::shiny_data_filter,
     "data_filter",
     data = starwars2,
     verbose = FALSE)

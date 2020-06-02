@@ -81,6 +81,7 @@ shiny_vector_filter_ui.default <- function(data, inputId) {
 #' 
 #' @param data the data object to be filtered
 #' @param inputId The \code{input} slot that will be used to access the value.
+#' @param global The \code{logical} TODO
 #'
 #' @return a shiny server function as described in the details 
 #' 

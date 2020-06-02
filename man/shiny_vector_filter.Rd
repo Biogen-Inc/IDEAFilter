@@ -10,6 +10,8 @@ shiny_vector_filter(data, inputId, global = FALSE)
 \item{data}{the data object to be filtered}
 
 \item{inputId}{The \code{input} slot that will be used to access the value.}
+
+\item{global}{The \code{logical} TODO}
 }
 \value{
 a shiny server function as described in the details

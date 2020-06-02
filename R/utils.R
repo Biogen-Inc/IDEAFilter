@@ -6,7 +6,7 @@
 #' @param rhs rhs for null-or operation
 #' 
 #' @examples 
-#' `%||%` <- shinyDataFilter:::`%||%`
+#' `%||%` <- IDEAFilter:::`%||%`
 #' 
 #' NULL %||% 1
 #' # [1] 1

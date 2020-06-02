@@ -13,6 +13,23 @@ shiny_vector_filter_numeric_many(
   verbose = FALSE
 )
 }
+\arguments{
+\item{input}{requisite shiny module field specifying incoming ui input
+reactiveValues}
+
+\item{output}{requisite shiny module field capturing output for the shiny
+data filter ui}
+
+\item{session}{requisite shiny module field containing the active shiny
+session}
+
+\item{x}{The TODO}
+
+\item{filter_na}{The \code{logical} TODO}
+
+\item{verbose}{a \code{logical} value indicating whether or not to print log
+statements out to the console}
+}
 \description{
 A vector filter for numeric variables with only many choices
 }
