@@ -11,8 +11,10 @@ demo](https://github.com/jcheng5/rpharma-demo).
 ## Installation
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("MayaGans/IDEAFilter")
+# install.packages("remotes")
+Sys.setenv("GITHUB_PAT" = "<your PAT>") # personal access token!
+remotes::install_github("biometrics/IDEAFilter", host = "https://github.biogen.com/api/v3")
+Sys.unsetenv("GITHUB_PAT")
 ```
 
 ## Example App
