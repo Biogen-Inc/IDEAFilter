@@ -1,6 +1,6 @@
 Package: IDEAFilter
 Type: Package
-Version: 0.0.3
+Version: 0.0.2
 Title: agnostic, idiomatic data filter module for shiny
 Description: a small data filter module for shiny.
 Authors@R: as.person(c(
@@ -26,4 +26,3 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Repository: ghe_cran
