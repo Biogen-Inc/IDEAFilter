@@ -12,7 +12,7 @@ demo](https://github.com/jcheng5/rpharma-demo).
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("MayaGans/IDEAFilter")
+devtools::install_github("Biogen-Inc/IDEAFilter")
 ```
 
 ## Example App
