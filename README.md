@@ -11,10 +11,13 @@ demo](https://github.com/jcheng5/rpharma-demo).
 ## Installation
 
 ``` r
-# install.packages("remotes")
-Sys.setenv("GITHUB_PAT" = "<your PAT>") # personal access token!
-remotes::install_github("biometrics/IDEAFilter", host = "https://github.biogen.com/api/v3")
-Sys.unsetenv("GITHUB_PAT")
+# For HPC users, add RSPM's GHE repo:
+options(repos = c(
+  CRAN = "https://cran.rstudio.com/",
+  ghe = "http://10.240.22.159:4242/Git-Biogen/latest")
+)
+options('repos') # to confirm "ghe" was added
+install.packages("IDEAFilter")
 ```
 
 ## Example App
