@@ -13,7 +13,7 @@ demo](https://github.com/jcheng5/rpharma-demo).
 ``` r
 # install.packages("remotes")
 Sys.setenv("GITHUB_PAT" = "<your PAT>") # personal access token!
-remotes::install_github("biometrics/IDEAFilter", host = "https://github.biogen.com/api/v3")
+remotes::install_github("Biogen-Inc/IDEAFilter", host = "https://github.biogen.com/api/v3")
 Sys.unsetenv("GITHUB_PAT")
 ```
 
