@@ -1,7 +1,7 @@
 library(shiny)
 library(IDEAFilter)
 library(dplyr)
-library(haven)
+# library(haven)
 
 starwars2 <- iris
 
@@ -44,3 +44,5 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+
+
