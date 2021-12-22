@@ -4,15 +4,15 @@ output: "github_document"
 
 # IDEAFilter 
 
-Built upon [shinyDataFilter](https://github.com/dgkf/shinyDataFilter), which was built on on top of [Joe Cheng](https://github.com/jcheng5)'s excellent [R/Pharma 2018 shiny demo](https://github.com/jcheng5/rpharma-demo).
+Built upon [shinyDataFilter](https://github.com/dgkf/shinyDataFilter), which was built on on top of [Joe Cheng](https://github.com/jcheng5)'s excellent [R/Pharma 2018 shiny demo](https://github.com/jcheng5/rpharma-demo). This package is required when deploying [tidyCDISC](https://github.com/Biogen-Inc/tidyCDISC) or running locally.
 
 # Getting started
 
 ## Installation
 
 ```{r, eval=FALSE}
-# install.packages("devtools")
-devtools::install_github("MayaGans/IDEAFilter")
+# install.packages("devtools") # if needed
+devtools::install_github("Biogen-Inc/IDEAFilter")
 ```
 
 ## Example App
