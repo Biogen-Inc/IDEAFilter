@@ -1,11 +1,8 @@
 library(shiny)
 library(IDEAFilter)
 library(dplyr)
-# library(haven)
 
-starwars2 <- iris
-
-# View(starwars2)
+data(iris)
 
 ui <- fluidPage(
   titlePanel("Filter Data Example"),
@@ -21,7 +18,7 @@ server <- function(input, output, session) {
   filtered_data <- callModule(
     IDEAFilter::shiny_data_filter,
     "data_filter",
-    data = starwars2,
+    data = iris,
     verbose = FALSE)
   
   output$data_filter_code <- renderPrint({
