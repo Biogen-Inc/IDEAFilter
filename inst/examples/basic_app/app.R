@@ -1,8 +1,9 @@
 library(shiny)
 library(IDEAFilter)
 library(dplyr)
-
 data(iris)
+iris <- iris %>%
+  mutate(Species_chr = as.character(Species))
 
 ui <- fluidPage(
   titlePanel("Filter Data Example"),
