@@ -1,4 +1,4 @@
-# IDEAFilter (development version)
+# IDEAFilter 0.1.1
 
 * Added check to make sure `shiny_vector_filter` exists in global env
 
