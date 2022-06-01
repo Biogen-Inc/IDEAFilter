@@ -1,11 +1,11 @@
 Package: IDEAFilter
 Type: Package
 Version: 0.1.2
-Title: agnostic, idiomatic data filter module for shiny
-Description: a small data filter module for shiny.
+Title: Agnostic, Idiomatic Data Filter Module for Shiny
+Description: A small data filter module for shiny.
 Authors@R: as.person(c(
     "Maya Gans <maya.gans@biogen.com> [aut]", 
-    "Aaron Clark <aaron.clark@biogen.com> [aut, cre]"
+    "Aaron Clark <clark.aaronchris@gmail.com> [aut, cre]"
   ))
 Maintainer: Aaron Clark <aaron.clark@biogen.com>
 License: AGPL-3 + file LICENSE
