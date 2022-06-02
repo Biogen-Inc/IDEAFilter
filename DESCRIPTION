@@ -3,10 +3,16 @@ Type: Package
 Version: 0.1.2
 Title: Agnostic, Idiomatic Data Filter Module for Shiny
 Description: A small data filter module for shiny.
-Authors@R: as.person(c(
-    "Maya Gans <maya.gans@biogen.com> [aut]", 
-    "Aaron Clark <clark.aaronchris@gmail.com> [aut, cre]"
-  ))
+Authors@R: c(
+    person(
+        given = "Aaron", family = "Clark", 
+        email = "clark.aaronchris@gmail.com", role = c("aut", "cre")),
+    person(
+        given = "Doug", family = "Kelkhoff", 
+        email = "doug.kelkhoff@gmail.com", role = "aut"),
+    person(
+        given = "Maya", family = "Gans", 
+        email = "maya.gans@biogen.com", role = "ctb"))
 Maintainer: Aaron Clark <aaron.clark@biogen.com>
 License: AGPL-3 + file LICENSE
 Encoding: UTF-8
