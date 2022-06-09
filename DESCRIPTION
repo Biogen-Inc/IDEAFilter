@@ -6,7 +6,9 @@ Description: A small data filter module for shiny.
 Authors@R: c(
     person(
         given = "Aaron", family = "Clark", 
-        email = "clark.aaronchris@gmail.com", role = c("aut", "cre")),
+        email = "clark.aaronchris@gmail.com",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-0123-0970")),
     person(
         given = "Doug", family = "Kelkhoff", 
         email = "doug.kelkhoff@gmail.com", role = "aut"),
