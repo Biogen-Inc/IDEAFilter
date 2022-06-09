@@ -1,4 +1,5 @@
 context("test_filter_log")
+skip_on_cran()
 
 test_that("testing that filter log produces messages", {
   expect_message(IDEAFilter:::filter_log("test"))
