@@ -144,7 +144,7 @@ usethis::use_pkgdown() # Run once to configure your package to use pkgdown
 # pkgdown::build_articles_index()
 # pkgdown::build_home()
 # pkgdown::build_reference_index(pkg = rprojroot::is_r_package$find_file())
-# pkgdown::build_site(pkg = rprojroot::is_r_package$find_file()) # Run to build the website
+pkgdown::build_site(pkg = rprojroot::is_r_package$find_file()) # Run to build the website
 # pkgdown::build_news()
 
 # # GitHub Actions
@@ -161,9 +161,11 @@ usethis::use_github_action_check_standard()
 # # Add action for PR
 # usethis::use_github_action_pr_commands()
 
-# # run R CMD check on CRAN’s servers
+
+
+# # run R CMD check on CRAN’s servers... doesn't seem to work
 # # ?devtools::check_win_release
-# devtools::check_win_release() #ran
+# devtools::check_win_release() #ran 
 # devtools::check_win_oldrelease()
 # devtools::check_win_devel() #ran but errored before sending:
 #   # Error in curl::curl_fetch_memory(url, handle = h) : Access denied: 403
@@ -184,8 +186,8 @@ attachment::att_amend_desc() # error, come back to this later
 
 # # Run tests and examples (usually done with check)
 # devtools::test()
-# devtools::run_examples()
-# # autotest::autotest_package(test = TRUE)
+devtools::run_examples()
+# autotest::autotest_package(test = TRUE)
 
 # Check package as CRAN
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
@@ -195,13 +197,13 @@ rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
 checkhelper::find_missing_tags()
 
 # Check spelling
-# usethis::use_spell_check()
-spelling::spell_check_package()
+spelling::spell_check_package() # run first
+usethis::use_spell_check() # add everything not fixed to dictionary wordlist
 
 # Check URL are correct
 # remotes::install_github("r-lib/urlchecker")
 urlchecker::url_check()
-urlchecker::url_update()
+# urlchecker::url_update() # only if url_check() finds something
 
 # check on other distributions
 # _rhub

@@ -53,7 +53,7 @@ shiny_data_filter_ui <- function(inputId) {
 #'   statements out to the console
 #' 
 #' @return a \code{reactive expression} which returns the filtered data wrapped
-#'   in an additional class, "shinyDataFilter_df". This structuer also contains
+#'   in an additional class, "shinyDataFilter_df". This structure also contains
 #'   a "code" field which represents the code needed to generate the filtered
 #'   data.
 #'

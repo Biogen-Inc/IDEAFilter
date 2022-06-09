@@ -1,7 +1,7 @@
 
 #' A single filter item as part of a data filter module panel
 #' 
-#' This sub-module contains the logic for the filter item iteself. This contains
+#' This sub-module contains the logic for the filter item itself. This contains
 #' general ui elements such as the button to remove the filter and the grip for
 #' drag-and-drop. It also handles the conditional logic of showing a column
 #' selector or the column name. When a column is selected it also embeds another

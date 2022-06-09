@@ -1,4 +1,4 @@
-ee---
+---
 title: "IDEAFilter"
 output: rmarkdown::html_vignette
 vignette: >

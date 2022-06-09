@@ -15,7 +15,6 @@ Authors@R: c(
     person(
         given = "Maya", family = "Gans", 
         email = "maya.gans@biogen.com", role = "ctb"))
-Maintainer: Aaron Clark <aaron.clark@biogen.com>
 License: AGPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -32,5 +31,7 @@ Suggests:
     shinytest,
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling
 VignetteBuilder: knitr
+Language: en-US
