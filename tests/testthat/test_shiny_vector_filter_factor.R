@@ -1,4 +1,5 @@
 context("test_shiny_vector_filter_factor")
+skip_on_cran()
 
 app_path <- IDEAFilter:::shinytest_path("shinytest_shiny_vector_filter")
 app <- shinytest2::AppDriver$new(app_path)

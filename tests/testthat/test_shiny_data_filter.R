@@ -1,4 +1,5 @@
 context("test_shiny_data_filter")
+skip_on_cran()
 
 app_path <- IDEAFilter:::shinytest_path("shinytest_shiny_data_filter")
 app <- shinytest2::AppDriver$new(app_path)

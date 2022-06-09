@@ -1,4 +1,5 @@
 context("test_shiny_vector_filter_character")
+skip_on_cran()
 
 skip("Test built on old structure, no longer appropriate.")
 

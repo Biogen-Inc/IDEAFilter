@@ -1,4 +1,5 @@
 context("test assorted html scripts")
+skip_on_cran()
 
 app_path <- IDEAFilter:::shinytest_path("shinytest_html_scripts")
 app <- shinytest2::AppDriver$new(app_path)

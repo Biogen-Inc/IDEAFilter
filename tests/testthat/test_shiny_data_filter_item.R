@@ -1,4 +1,5 @@
 context("test_shiny_data_filter_item")
+skip_on_cran()
 
 # reflects data used in shinytest
 data <- mtcars
