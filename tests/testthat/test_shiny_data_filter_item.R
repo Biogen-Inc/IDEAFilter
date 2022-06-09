@@ -22,7 +22,7 @@ app$set_inputs(`filter-vector_filter-param` = c(20, 25))
 
 test_that("test that nrow reactive value is accurate", {
   expect_equal(
-    app$get_js("document.getElementById('filter-nrow').innerHTML"),
+    app$get_value(output = "filter-nrow"),
     as.character(nrow(subset(data, is.na(mpg) | (mpg >= 20 & mpg <= 25)))))
 })
 
@@ -32,7 +32,7 @@ app$set_inputs(`filter-filter_na_btn` = "click")
 
 test_that("test that filtering NAs works", {
   expect_equal(
-    app$get_js("document.getElementById('filter-nrow').innerHTML"),
+    app$get_value(output = "filter-nrow"),
     as.character(nrow(subset(data, mpg >= 20 & mpg <= 25))))
 })
 
