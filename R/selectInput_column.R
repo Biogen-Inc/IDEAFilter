@@ -11,6 +11,7 @@
 #' @return a \code{\link[shiny]{selectizeInput}} dropdown element
 #' 
 #' @importFrom shiny selectizeInput
+#' @keywords internal
 #' 
 columnSelectInput <- function(inputId, label, data, selected = "", ..., 
     placeholder = "", onInitialize) {

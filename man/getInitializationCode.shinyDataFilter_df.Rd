@@ -14,3 +14,4 @@ getInitializationCode.shinyDataFilter_df(obj, name = NULL)
 \description{
 A function for scriptgloss::getInitializationCode to dispatch to
 }
+\keyword{internal}

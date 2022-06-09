@@ -21,6 +21,7 @@
 #' @importFrom ggplot2 ggplot aes aes_ geom_bar coord_flip theme_void
 #'   scale_x_discrete scale_y_continuous
 #' @importFrom grDevices rgb
+#' @keywords internal
 shiny_vector_filter_factor_few <- function(input, output, session, 
     x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), 
     verbose = FALSE) {

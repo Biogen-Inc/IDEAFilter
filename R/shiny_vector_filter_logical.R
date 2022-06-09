@@ -1,5 +1,6 @@
 #' @importFrom shiny NS uiOutput
 #' @export
+#' @keywords internal
 shiny_vector_filter_ui.logical <- function(data, inputId) {
   ns <- shiny::NS(inputId)
   shiny::uiOutput(ns("ui"))
@@ -8,6 +9,7 @@ shiny_vector_filter_ui.logical <- function(data, inputId) {
 
 
 #' @export
+#' @keywords internal
 shiny_vector_filter.logical <- function(data, inputId, ...) {
   function(input, output, session, 
            x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), 

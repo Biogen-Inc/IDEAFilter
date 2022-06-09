@@ -1,5 +1,6 @@
 #' @importFrom shiny div
 #' @export
+#' @keywords internal
 shiny_vector_filter_ui.NULL = function(data, inputId) {
   shiny::div()
 }
@@ -7,6 +8,7 @@ shiny_vector_filter_ui.NULL = function(data, inputId) {
 
 #' @importFrom shiny reactive reactiveValues
 #' @export
+#' @keywords internal
 shiny_vector_filter.NULL <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(NULL), 
     filter_na = shiny::reactive(FALSE), verbose = FALSE) { 

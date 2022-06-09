@@ -12,3 +12,4 @@ filter_log_ns_style(txt)
 \description{
 A crayon style derived from a rough hash of the namespace name
 }
+\keyword{internal}

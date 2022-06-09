@@ -35,3 +35,4 @@ a \code{\link[shiny]{selectizeInput}} dropdown element
 \description{
 A selectizeInput customized for data frames with column labels
 }
+\keyword{internal}

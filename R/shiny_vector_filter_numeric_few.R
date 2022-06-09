@@ -18,6 +18,7 @@
 #' @importFrom grDevices rgb
 #' @importFrom stats density
 #' @export
+#' @keywords internal
 shiny_vector_filter_numeric_few <- function(input, output, session,
             x = shiny::reactive(factor()),  #important: changed x to factor here
            filter_na = shiny::reactive(FALSE), verbose = FALSE) {

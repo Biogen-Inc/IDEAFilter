@@ -73,3 +73,4 @@ shinyApp(ui = ui, server = server)
 \seealso{
 \link{shiny_data_filter}
 }
+\keyword{internal}

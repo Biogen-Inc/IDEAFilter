@@ -65,3 +65,4 @@ a \code{\link[shiny]{reactiveValues}} list containing a logical vector
 called "mask" which can be used to filter the provided vector and an element
 "code" which is the expression used to generate the mask.
 }
+\keyword{internal}

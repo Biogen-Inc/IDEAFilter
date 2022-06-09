@@ -17,3 +17,4 @@ a pillar formatted class name
 Return the class used for dispatch to shiny_vector_filter formatted using
 pillar
 }
+\keyword{internal}

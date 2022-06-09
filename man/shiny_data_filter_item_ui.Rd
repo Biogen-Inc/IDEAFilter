@@ -22,3 +22,4 @@ drag-and-drop. It also handles the conditional logic of showing a column
 selector or the column name. When a column is selected it also embeds another
 module showing module for filtering the specified vector of data.
 }
+\keyword{internal}

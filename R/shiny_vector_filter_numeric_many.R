@@ -18,6 +18,7 @@
 #' @importFrom grDevices rgb
 #' @importFrom stats density
 #' @export
+#' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 
            filter_na = shiny::reactive(FALSE), verbose = FALSE) {
     

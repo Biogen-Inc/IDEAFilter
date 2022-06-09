@@ -7,7 +7,7 @@
 #' 
 #' @importFrom shiny NS tagList div actionButton icon
 #' @export
-#' 
+#' @keywords internal
 #' @seealso \link{shiny_data_filter}
 #' 
 #' @inherit shiny_data_filter examples

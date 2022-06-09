@@ -6,6 +6,7 @@
 #' @param name unused
 #' 
 #' @export
+#' @keywords internal
 getInitializationCode.shinyDataFilter_df <- function(obj, name = NULL) {
   attr(obj, "code")
 }

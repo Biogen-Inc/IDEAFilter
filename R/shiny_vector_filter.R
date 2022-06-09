@@ -11,6 +11,7 @@
 #'
 #' @importFrom shiny NS div uiOutput
 #' @export
+#' @keywords internal
 #'
 shiny_vector_filter_ui <- function(data, inputId) {
   UseMethod("shiny_vector_filter_ui")
@@ -20,6 +21,7 @@ shiny_vector_filter_ui <- function(data, inputId) {
 
 #' @importFrom shiny span code
 #' @export
+#' @keywords internal
 shiny_vector_filter_ui.default <- function(data, inputId) {
   shiny::div(style = "opacity: 0.5;",
     p(width = "100%", 
@@ -86,6 +88,7 @@ shiny_vector_filter_ui.default <- function(data, inputId) {
 #' @return a shiny server function as described in the details 
 #' 
 #' @export
+#' @keywords internal
 #' 
 shiny_vector_filter <- function(data, inputId, global = FALSE) {
   if (!global && exists("shiny_vector_filter", envir = .GlobalEnv)) {
@@ -100,6 +103,7 @@ shiny_vector_filter <- function(data, inputId, global = FALSE) {
 
 #' @importFrom shiny reactive reactiveValues
 #' @export
+#' @keywords internal
 shiny_vector_filter.default <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(NULL), 
       filter_na = shiny::reactive(FALSE), verbose = FALSE) { 
@@ -122,6 +126,7 @@ shiny_vector_filter.default <- function(data, inputId, ...) {
 #' @return a pillar formatted class name
 #'
 #' @importFrom pillar new_pillar_type
+#' @keywords internal
 #' 
 get_dataFilter_class <- function(obj) {
   vf_methods <- gsub(".*\\.", "", as.character(methods(shiny_vector_filter)))

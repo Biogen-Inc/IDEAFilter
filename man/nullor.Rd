@@ -25,3 +25,4 @@ NULL \%||\% 1
 # [1] 1
 
 }
+\keyword{internal}

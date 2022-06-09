@@ -15,6 +15,7 @@
 #' 
 #' @importFrom shiny NS uiOutput
 #' @export
+#' @keywords internal
 #' 
 shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
   ns <- shiny::NS(inputId)
@@ -49,6 +50,7 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #'   icon uiOutput div HTML span textOutput eventReactive renderUI tag
 #'   renderText reactive observeEvent callModule
 #' @export
+#' @keywords internal
 #' 
 shiny_data_filter_item <- function(input, output, session, data, 
     column_name = NULL, verbose = FALSE) {

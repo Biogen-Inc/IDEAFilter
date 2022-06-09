@@ -5,6 +5,7 @@
 #' @param lhs lhs for null-or operation
 #' @param rhs rhs for null-or operation
 #' 
+#' @keywords internal
 #' @examples 
 #' `%||%` <- IDEAFilter:::`%||%`
 #' 
@@ -29,6 +30,7 @@
 #'
 #' @importFrom crayon black
 #' @importFrom utils capture.output
+#' @keywords internal
 #' 
 filter_log <- function(..., ns, verbose = TRUE) isolate({
   if (!verbose) return()
@@ -67,6 +69,7 @@ filter_log <- function(..., ns, verbose = TRUE) isolate({
 #' @importFrom crayon make_style
 #' @importFrom grDevices rgb
 #' @importFrom utils tail
+#' @keywords internal
 filter_log_style <- crayon::make_style(grDevices::rgb(0, 0, 0.7))
 
 
@@ -77,6 +80,7 @@ filter_log_style <- crayon::make_style(grDevices::rgb(0, 0, 0.7))
 #' 
 #' @importFrom crayon make_style black
 #' @importFrom RColorBrewer brewer.pal
+#' @keywords internal
 filter_log_ns_style <- function(txt) {
   if (nchar(txt)) {
     out <- c()
@@ -100,6 +104,7 @@ filter_log_ns_style <- function(txt) {
 #' @return a path that works irrespective of how the code is executed
 #' 
 #' @importFrom utils capture.output
+#' @keywords internal
 #' 
 shinytest_path <- function(path) {
   # catches
@@ -126,6 +131,7 @@ shinytest_path <- function(path) {
 #' @param simplify whether to simplify down to a character vector
 #'
 #' @return the block of text with entire columns of leading whitespace removed
+#' @keywords internal
 #' 
 strip_leading_ws <- function(txt, simplify = TRUE) {
   
@@ -147,6 +153,7 @@ strip_leading_ws <- function(txt, simplify = TRUE) {
 #' @param x text to check if equal to ""
 #'
 #' @return logical of blank or not
+#' @keywords internal
 #' 
 is.empty <- function(x) {
   identical("", x)
