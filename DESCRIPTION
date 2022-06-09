@@ -28,6 +28,7 @@ Imports:
     purrr
 Suggests:
     shinytest,
+    shinytest2,
     testthat,
     knitr,
     rmarkdown
