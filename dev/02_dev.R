@@ -20,7 +20,7 @@ usethis::use_package("ggplot2")
 usethis::use_package("pillar")
 usethis::use_package("crayon")
 usethis::use_package("RColorBrewer")
-usethis::use_package("shinyTime")
+usethis::use_package("shinyTime") 
 usethis::use_package("purrr")
 
 
@@ -117,7 +117,7 @@ usethis::use_package("purrr")
 # Documentation
 
 # ## Vignette ---- run
-# usethis::use_vignette("tidyCDISC")
+usethis::use_vignette("IDEAFilter")
 # usethis::use_vignette("x00_Data_Upload")
 # usethis::use_vignette("x02_Pop_Exp")
 # usethis::use_vignette("x04_Filtering")
@@ -139,7 +139,7 @@ usethis::use_version("patch") #choices: "dev", "patch", "minor", "major"
 # 
 # 
 # # update pkgdown site only if user needs refreshed documentation
-# # usethis::use_pkgdown() # Run once to configure your package to use pkgdown
+usethis::use_pkgdown() # Run once to configure your package to use pkgdown
 # pkgdown::build_articles(pkg = ".")
 # pkgdown::build_articles_index()
 # pkgdown::build_home()
