@@ -14,7 +14,10 @@ Authors@R: c(
         email = "doug.kelkhoff@gmail.com", role = "aut"),
     person(
         given = "Maya", family = "Gans", 
-        email = "maya.gans@biogen.com", role = "ctb"))
+        email = "maya.gans@biogen.com", role = "ctb"),
+    person(
+        given = "Jeff", family = "Thompson", 
+        email = "jeff.thompson51317@gmail.com", role = "ctb"))
 License: AGPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
