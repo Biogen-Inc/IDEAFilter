@@ -15,3 +15,4 @@ a path that works irrespective of how the code is executed
 \description{
 Helper to debug shinytests so they work interactively as well as during test
 }
+\keyword{internal}

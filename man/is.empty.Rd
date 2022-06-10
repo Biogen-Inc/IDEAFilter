@@ -15,3 +15,4 @@ logical of blank or not
 \description{
 Check if string is blank ""
 }
+\keyword{internal}

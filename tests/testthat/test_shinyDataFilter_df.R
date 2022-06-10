@@ -1,4 +1,5 @@
 context("test_shinyDataFilter_df")
+skip_on_cran()
 
 test_that("testing that extended getInitializationCode function returns code attribute", {
   x <- structure(1, code = "this_is_the_code", class = "shinyDataFilter_df")

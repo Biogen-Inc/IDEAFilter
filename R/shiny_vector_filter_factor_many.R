@@ -17,6 +17,7 @@
 #'   element "code" which is the expression used to generate the mask.
 #'
 #' @importFrom shiny reactive reactiveValues renderUI selectInput isolate
+#' @keywords internal
 shiny_vector_filter_factor_many <- function(input, output, session, 
     x = shiny::reactive(factor()), filter_na = shiny::reactive(FALSE), 
     verbose = FALSE) {

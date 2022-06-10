@@ -40,3 +40,4 @@ a \code{\link[shiny]{reactiveValues}} list of three reactive elements;
 \description{
 The server function for the filter item module of a data filter module panel
 }
+\keyword{internal}

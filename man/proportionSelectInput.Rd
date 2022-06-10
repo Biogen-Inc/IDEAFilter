@@ -38,3 +38,4 @@ a \code{\link[shiny]{selectizeInput}} dropdown element
 \description{
 A selectizeInput customized for unique element select from vector
 }
+\keyword{internal}

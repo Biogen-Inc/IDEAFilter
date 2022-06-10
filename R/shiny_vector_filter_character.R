@@ -8,6 +8,7 @@ shiny_vector_filter_ui.character <- function(data, inputId) {
 #' @importFrom shiny reactive reactiveValues renderUI textInput isolate
 #' @importFrom purrr map reduce
 #' @export
+#' @keywords internal
 shiny_vector_filter.character <- function(data, inputId, ...) {
     function(input, output, session, x = shiny::reactive(character()), 
              filter_na = shiny::reactive(FALSE), verbose = FALSE) {
@@ -23,7 +24,7 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     
     filter_log("updating ui", verbose = verbose)
     
-    if (purrr::map(x(), is.empty) %>% purrr::reduce(`&`)) {
+    if (purrr::reduce(purrr::map(x(), is.empty), `&`)) {
       shiny::div(style = "opacity: 0.5;",
                  p(width = "100%", 
                    align = "center", 

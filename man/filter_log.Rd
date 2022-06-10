@@ -20,3 +20,4 @@ derived from parent environment.}
 \description{
 A logging function that captures the shiny namespace
 }
+\keyword{internal}

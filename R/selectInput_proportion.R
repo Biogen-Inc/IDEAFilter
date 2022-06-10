@@ -12,6 +12,7 @@
 #' @return a \code{\link[shiny]{selectizeInput}} dropdown element
 #' 
 #' @importFrom shiny selectizeInput
+#' @keywords internal
 #' 
 proportionSelectInput <- function(inputId, label, vec, selected = "", ..., 
   placeholder = " ", onInitialize, sort = c("count", "alpha", "order")) {

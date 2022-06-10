@@ -12,3 +12,4 @@ filter_log_style(...)
 \description{
 A crayon style for the filter log
 }
+\keyword{internal}

@@ -39,3 +39,4 @@ a \code{\link[shiny]{reactiveValues}} list containing a logical
 \description{
 A vector filter for factors with only a few choices
 }
+\keyword{internal}

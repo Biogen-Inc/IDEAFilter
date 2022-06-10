@@ -33,3 +33,4 @@ statements out to the console}
 \description{
 A vector filter for numeric variables with only many choices
 }
+\keyword{internal}

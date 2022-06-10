@@ -19,3 +19,4 @@ an empty \code{link[shiny]{div}} or a \code{link[shiny]{uiOutput}}
 This is a stub of a UI which assumes any dispatched module will create the
 needed UI in the "ui" uiOutput target
 }
+\keyword{internal}

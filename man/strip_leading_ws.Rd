@@ -17,3 +17,4 @@ the block of text with entire columns of leading whitespace removed
 \description{
 Strip leading white space from a block of text
 }
+\keyword{internal}

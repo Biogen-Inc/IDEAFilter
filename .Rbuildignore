@@ -1,3 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\assets
+^\.github$
+^dev$
+^LICENSE\.md$
+^README\.Rmd$
+^dev$
+cran-comments.md
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

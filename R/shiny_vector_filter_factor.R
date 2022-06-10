@@ -1,5 +1,6 @@
 #' @importFrom shiny NS uiOutput
 #' @export
+#' @keywords internal
 shiny_vector_filter_ui.factor <- function(data, inputId) {
   ns <- shiny::NS(inputId)
   shiny::uiOutput(ns("ui"))
@@ -8,6 +9,7 @@ shiny_vector_filter_ui.factor <- function(data, inputId) {
 
 
 #' @export
+#' @keywords internal
 shiny_vector_filter.factor <- function(data, inputId, ...) {
   if (length(unique(as.character(data))) > 5)
     shiny_vector_filter_factor_many
