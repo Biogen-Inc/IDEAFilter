@@ -28,7 +28,13 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/Biogen-Inc/IDEAFilter/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -38,7 +44,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Shorthand operator for NULL fallback</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/Biogen-Inc/IDEAFilter/blob/HEAD/R/utils.R" class="external-link"><code>R/utils.R</code></a></small>
     <div class="hidden name"><code>nullor.Rd</code></div>
     </div>
 
@@ -60,15 +66,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">`%||%`</span> <span class="op">&lt;-</span> <span class="fu">IDEAFilter</span><span class="fu">:::</span><span class="va">`%||%`</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span class="r-in"><span class="va">`%||%`</span> <span class="op">&lt;-</span> <span class="fu">IDEAFilter</span><span class="fu">:::</span><span class="va">`%||%`</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="cn">NULL</span> <span class="op">%||%</span> <span class="fl">1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span class="co"># [1] 1</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fl">1</span> <span class="op">%||%</span> <span class="fl">2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-in"><span class="co"># [1] 1</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
