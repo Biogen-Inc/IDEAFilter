@@ -66,6 +66,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' 
 #' @examples
 #' \dontrun{
+#' if(interactive()){
 #' library(shiny)
 #' library(shinyDataFilter)
 #' 
@@ -116,6 +117,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' }
 #' 
 #' shinyApp(ui = ui, server = server)
+#' }
 #' }
 #' 
 shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {

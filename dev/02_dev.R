@@ -207,11 +207,19 @@ urlchecker::url_check()
 
 # check on other distributions
 # _rhub
-devtools::check_rhub()
-rhub::check_on_windows(check_args = "--force-multiarch")
-rhub::check_on_solaris()
-# _win devel
-devtools::check_win_devel()
+my_check <- devtools::check_rhub()
+
+cran_rhub_chk <- rhub::check_for_cran()
+
+# rhub::check_on_windows(check_args = "--force-multiarch")
+# rhub::check_on_solaris()
+# previous_checks <- rhub::list_package_checks(
+#   email = "clark.aaronchris@gmail.com",
+#   howmany = 4)
+# previous_checks
+
+# # _win devel
+# devtools::check_win_devel()
 
 # Check reverse dependencies
 # remotes::install_github("r-lib/revdepcheck")

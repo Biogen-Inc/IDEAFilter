@@ -17,6 +17,7 @@ User interface function to add a data filter panel
 }
 \examples{
 \dontrun{
+if(interactive()){
 library(shiny)
 library(shinyDataFilter)
 
@@ -67,6 +68,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+}
 }
 
 }

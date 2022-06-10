@@ -16,6 +16,8 @@ lhs \%||\% rhs
 Shorthand operator for NULL fallback
 }
 \examples{
+\dontrun{
+if(interactive()){
 `\%||\%` <- IDEAFilter:::`\%||\%`
 
 NULL \%||\% 1
@@ -23,6 +25,8 @@ NULL \%||\% 1
 
 1 \%||\% 2
 # [1] 1
+}
+}
 
 }
 \keyword{internal}

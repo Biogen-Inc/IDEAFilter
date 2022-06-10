@@ -19,6 +19,8 @@ Authors@R: c(
         given = "Jeff", family = "Thompson", 
         email = "jeff.thompson51317@gmail.com", role = "ctb"))
 License: AGPL-3 + file LICENSE
+URL: https://biogen-inc.github.io/IDEAFilter/
+BugReports: https://github.com/Biogen-Inc/IDEAFilter/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
