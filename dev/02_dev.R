@@ -219,7 +219,7 @@ cran_rhub_chk <- rhub::check_for_cran()
 # previous_checks
 
 # # _win devel
-# devtools::check_win_devel()
+devtools::check_win_devel()
 
 # Check reverse dependencies
 # remotes::install_github("r-lib/revdepcheck")
@@ -261,7 +261,7 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 
 # When ready, submit to CRAN for the first time
-devtools::release(check = FALSE, args = "--no-build-vignettes")
+devtools::release(check = FALSE) #, args = "--no-build-vignettes")
 # Re-submit:
 # devtools::submit_cran()
 
