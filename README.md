@@ -3,7 +3,7 @@
 
 Agnostic, Idiomatic Data Filter Module for Shiny.
 
-![](man/figures/starwars_example.gif)<!-- -->
+![](man/figures/starwars_example_21s.gif)<!-- -->
 
 ## Overview
 

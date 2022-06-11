@@ -7,7 +7,7 @@ output: "github_document"
 Agnostic, Idiomatic Data Filter Module for Shiny.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("man/figures/starwars_example.gif")
+knitr::include_graphics("man/figures/starwars_example_21s.gif")
 ```
 
 ## Overview
