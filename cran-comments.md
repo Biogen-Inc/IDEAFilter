@@ -3,17 +3,9 @@ This is a re-submission. In this version I have:
 
 * Added more details about the package functionality in the Description field of the DESCRIPTION file.
 
-* Omitted the `\dontrun` calls since I was already using the (sufficient)
-`if(interactive())` wrap on my example(s). This impacted:
-```
-man/nullor.Rd
-man/shiny_data_filter_ui.Rd
-man/shiny_data_filter.Rd
-```
-* Removed examples for unexported functions.
-Please either omit these examples or export these functions.
+* Removed `@examples` for unexported functions.
 
-* Removed use of `:::` in documentation (by removing the unnecessary example on an unexported function): `man/nullor.Rd`
+* Used both `if(interactive())` and `\dontrun` in `man/shiny_data_filter.Rd`'s `@examples` section since using only one (or the other) was insufficient at removing notes & warnings during R CMD Check (below).
 
 
 #### R CMD Check
