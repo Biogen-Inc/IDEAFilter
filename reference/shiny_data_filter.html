@@ -61,22 +61,33 @@
     <dl><dt>input</dt>
 <dd><p>requisite shiny module field specifying incoming ui input
 reactiveValues</p></dd>
+
+
 <dt>output</dt>
 <dd><p>requisite shiny module field capturing output for the shiny
 data filter ui</p></dd>
+
+
 <dt>session</dt>
 <dd><p>requisite shiny module field containing the active shiny
 session</p></dd>
+
+
 <dt>data</dt>
 <dd><p>a <code>data.frame</code> or <code>reactive expression</code> returning a
 <code>data.frame</code> to use as the input to the filter module</p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>a <code>logical</code> value indicating whether or not to print log
 statements out to the console</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a <code>reactive expression</code> which returns the filtered data wrapped
+    
+
+<p>a <code>reactive expression</code> which returns the filtered data wrapped
   in an additional class, "shinyDataFilter_df". This structure also contains
   a "code" field which represents the code needed to generate the filtered
   data.</p>
@@ -89,11 +100,9 @@ statements out to the console</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyDataFilter</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data preprocessing and example data</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data pre-processing and example data</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># prep a new data.frame with more diverse data types</span></span>
 <span class="r-in"><span class="va">starwars2</span> <span class="op">&lt;-</span> <span class="va">starwars</span> <span class="op">%&gt;%</span></span>
@@ -141,7 +150,6 @@ statements out to the console</p></dd>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -157,7 +165,7 @@ statements out to the console</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

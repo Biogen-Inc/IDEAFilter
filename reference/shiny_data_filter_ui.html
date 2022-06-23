@@ -60,10 +60,13 @@
     <h2>Arguments</h2>
     <dl><dt>inputId</dt>
 <dd><p>The <code>input</code> slot that will be used to access the value.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a shiny <code><a href="https://rdrr.io/pkg/htmltools/man/tagList.html" class="external-link">tagList</a></code> containing the filter ui</p>
+    
+
+<p>a shiny <code><a href="https://rdrr.io/pkg/htmltools/man/tagList.html" class="external-link">tagList</a></code> containing the filter ui</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -73,11 +76,9 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">shinyDataFilter</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data preprocessing and example data</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data pre-processing and example data</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># prep a new data.frame with more diverse data types</span></span>
 <span class="r-in"><span class="va">starwars2</span> <span class="op">&lt;-</span> <span class="va">starwars</span> <span class="op">%&gt;%</span></span>
@@ -125,7 +126,6 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html" class="external-link">shinyApp</a></span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
@@ -141,7 +141,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
