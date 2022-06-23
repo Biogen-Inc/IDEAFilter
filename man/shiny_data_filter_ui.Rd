@@ -17,11 +17,9 @@ User interface function to add a data filter panel
 }
 \examples{
 \dontrun{
-if(interactive()){
 library(shiny)
 library(shinyDataFilter)
-
-library(dplyr)  # for data preprocessing and example data
+library(dplyr)  # for data pre-processing and example data
 
 # prep a new data.frame with more diverse data types
 starwars2 <- starwars \%>\%
@@ -68,7 +66,6 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
-}
 }
 
 }

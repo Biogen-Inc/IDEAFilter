@@ -1,3 +1,33 @@
+## Re-submission 2022-06-23
+This is a re-submission. In this version I have:
+
+* Added more details about the package functionality in the Description field of the DESCRIPTION file.
+
+* Omitted the `\dontrun` calls since I was already using the (sufficient)
+`if(interactive())` wrap on my example(s). This impacted:
+```
+man/nullor.Rd
+man/shiny_data_filter_ui.Rd
+man/shiny_data_filter.Rd
+```
+* Removed examples for unexported functions.
+Please either omit these examples or export these functions.
+
+* Removed use of `:::` in documentation (by removing the unnecessary example on an unexported function):
+```
+man/nullor.Rd
+```
+
+#### R CMD Check
+0 errors | 0 warnings | 1 note
+```
+checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Aaron Clark <clark.aaronchris@gmail.com>'
+  
+  New submission
+```
+
+
 ## Re-submission 2022-06-11
 This is a re-submission. In this version I have:
 
@@ -5,7 +35,7 @@ This is a re-submission. In this version I have:
   
 * Reduced the size of the package to be less than 5MB.
   
-### R CMD Check
+#### R CMD Check
 0 errors | 0 warnings | 1 note
 ```
 checking CRAN incoming feasibility ... NOTE
@@ -14,7 +44,7 @@ checking CRAN incoming feasibility ... NOTE
   New submission
 ```
 ## Initial submission 2022-06-10
-### R CMD Check
+#### R CMD Check
 0 errors | 0 warnings | 1 note
 
 ```

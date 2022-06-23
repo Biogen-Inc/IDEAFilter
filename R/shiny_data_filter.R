@@ -66,11 +66,9 @@ shiny_data_filter_ui <- function(inputId) {
 #' 
 #' @examples
 #' \dontrun{
-#' if(interactive()){
 #' library(shiny)
 #' library(shinyDataFilter)
-#' 
-#' library(dplyr)  # for data preprocessing and example data
+#' library(dplyr)  # for data pre-processing and example data
 #' 
 #' # prep a new data.frame with more diverse data types
 #' starwars2 <- starwars %>%
@@ -117,7 +115,6 @@ shiny_data_filter_ui <- function(inputId) {
 #' }
 #' 
 #' shinyApp(ui = ui, server = server)
-#' }
 #' }
 #' 
 shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {

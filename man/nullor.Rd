@@ -8,25 +8,11 @@
 lhs \%||\% rhs
 }
 \arguments{
-\item{lhs}{lhs for null-or operation}
+\item{lhs}{left hand side for null-or operation}
 
-\item{rhs}{rhs for null-or operation}
+\item{rhs}{right hand side for null-or operation}
 }
 \description{
 Shorthand operator for NULL fallback
-}
-\examples{
-\dontrun{
-if(interactive()){
-`\%||\%` <- IDEAFilter:::`\%||\%`
-
-NULL \%||\% 1
-# [1] 1
-
-1 \%||\% 2
-# [1] 1
-}
-}
-
 }
 \keyword{internal}

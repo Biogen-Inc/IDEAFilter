@@ -2,22 +2,10 @@
 #' 
 #' @name nullor
 #' 
-#' @param lhs lhs for null-or operation
-#' @param rhs rhs for null-or operation
+#' @param lhs left hand side for null-or operation
+#' @param rhs right hand side for null-or operation
 #' 
 #' @keywords internal
-#' @examples 
-#' \dontrun{
-#' if(interactive()){
-#' `%||%` <- IDEAFilter:::`%||%`
-#' 
-#' NULL %||% 1
-#' # [1] 1
-#' 
-#' 1 %||% 2
-#' # [1] 1
-#' }
-#' }
 #' 
 `%||%` <- function(lhs, rhs) if (is.null(lhs)) rhs else lhs
 
