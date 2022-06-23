@@ -33,6 +33,7 @@ Shiny data filter module server function
 }
 \examples{
 \dontrun{
+if(interactive()) {
 library(shiny)
 library(shinyDataFilter)
 library(dplyr)  # for data pre-processing and example data
@@ -82,6 +83,7 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
+}
 }
 
 }
