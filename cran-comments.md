@@ -13,10 +13,8 @@ man/shiny_data_filter.Rd
 * Removed examples for unexported functions.
 Please either omit these examples or export these functions.
 
-* Removed use of `:::` in documentation (by removing the unnecessary example on an unexported function):
-```
-man/nullor.Rd
-```
+* Removed use of `:::` in documentation (by removing the unnecessary example on an unexported function): `man/nullor.Rd`
+
 
 #### R CMD Check
 0 errors | 0 warnings | 1 note

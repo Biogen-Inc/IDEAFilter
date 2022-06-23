@@ -68,7 +68,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' \dontrun{
 #' if(interactive()) {
 #' library(shiny)
-#' library(shinyDataFilter)
+#' library(IDEAFilter)
 #' library(dplyr)  # for data pre-processing and example data
 #' 
 #' # prep a new data.frame with more diverse data types
