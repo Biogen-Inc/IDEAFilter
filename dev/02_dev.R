@@ -198,6 +198,7 @@ rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
 checkhelper::find_missing_tags()
 
 # Check spelling
+devtools::spell_check()
 spelling::spell_check_package() # run first
 usethis::use_spell_check() # add everything not fixed to dictionary wordlist
 
@@ -264,7 +265,9 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 # When ready, submit to CRAN for the first time
 devtools::release(check = FALSE) #, args = "--no-build-vignettes")
 # Re-submit:
-# devtools::submit_cran()
+# Check package as CRAN
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
+devtools::submit_cran()
 
 # ## Code coverage ---- not run
 # ## (You'll need GitHub there)
