@@ -16,10 +16,9 @@ a shiny \code{\link[shiny]{tagList}} containing the filter ui
 User interface function to add a data filter panel
 }
 \examples{
-\dontrun{
-if(interactive()) {
+if(all(c(interactive(), require("dplyr"), require("IDEAFilter")))) {
 library(shiny)
-library(shinyDataFilter)
+library(IDEAFilter)
 library(dplyr)  # for data pre-processing and example data
 
 # prep a new data.frame with more diverse data types
@@ -67,7 +66,6 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
-}
 }
 
 }

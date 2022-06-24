@@ -65,8 +65,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' @export
 #' 
 #' @examples
-#' \dontrun{
-#' if(interactive()) {
+#' if(all(c(interactive(), require("dplyr"), require("IDEAFilter")))) {
 #' library(shiny)
 #' library(IDEAFilter)
 #' library(dplyr)  # for data pre-processing and example data
@@ -116,7 +115,6 @@ shiny_data_filter_ui <- function(inputId) {
 #' }
 #' 
 #' shinyApp(ui = ui, server = server)
-#' }
 #' }
 #' 
 shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {

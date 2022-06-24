@@ -49,5 +49,6 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    spelling
+    spelling,
+    dplyr
 Language: en-US

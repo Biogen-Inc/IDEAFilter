@@ -22,7 +22,7 @@ usethis::use_package("crayon")
 usethis::use_package("RColorBrewer")
 usethis::use_package("shinyTime") 
 usethis::use_package("purrr")
-usethis::use_package("purrr")
+usethis::use_package("dplyr", type = "Suggests")
 
 
 

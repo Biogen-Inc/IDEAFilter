@@ -3,9 +3,9 @@ This is a re-submission. In this version I have:
 
 * Added more details about the package functionality in the Description field of the DESCRIPTION file.
 
-* Removed `@examples` for unexported functions.
+* Removed `@examples` section for unexported functions, which coincidentally also removed an instance where `:::` was used.
 
-* Used both `if(interactive())` and `\dontrun` in `man/shiny_data_filter.Rd`'s `@examples` section since using only one (or the other) was insufficient at removing notes & warnings during R CMD Check (below).
+* Used `if(interactive())` and not `\dontrun` in `man/shiny_data_filter.Rd`'s `@examples` section since it is insufficient by itself.
 
 
 #### R CMD Check
