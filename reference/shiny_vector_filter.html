@@ -57,7 +57,7 @@ datatype.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">shiny_vector_filter</span><span class="op">(</span><span class="va">data</span>, <span class="va">inputId</span>, global <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">shiny_vector_filter</span><span class="op">(</span><span class="va">data</span>, <span class="va">inputId</span>, global <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -85,10 +85,11 @@ datatype.</p>
     <p>The <code>shiny_vector_filter</code> functions return the shiny module server
 functions to use for the specified filter. These functions should follow the
 following template:</p>
-<div class="sourceCode"><pre><code><span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span>, <span class="va">x</span>, <span class="va">filter_na</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># ... additional code here</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">reactiveValues</a></span><span class="op">(</span>code <span class="op">=</span> <span class="cn">TRUE</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">}</span></code></pre></div>
+<div class="sourceCode"><pre><code><span></span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span>, <span class="va">x</span>, <span class="va">filter_na</span>, <span class="va">verbose</span> <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># ... additional code here</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactiveValues.html" class="external-link">reactiveValues</a></span><span class="op">(</span>code <span class="op">=</span> <span class="cn">TRUE</span>, mask <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
 
 <p>This function will conform to the following specification</p>
 <p><strong>Arguments</strong></p><dl><dt><code>input</code></dt>
@@ -131,7 +132,7 @@ called "mask" which can be used to filter the provided vector and an element
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
