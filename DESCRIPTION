@@ -8,10 +8,10 @@ Description: When added to an existing shiny app, users may subset any
     AND (&) operator between each, and getting real-time updates on the number
     of rows effected/available along the way. Thus, any downstream processes
     that leverage this data source (like tables, plots, or statistical procedures)
-    will re-render after new filters are applied. The shiny module’s UI has an
-    intentionally “minimalist” aesthetic so that the focus can be on the data &
+    will re-render after new filters are applied. The shiny module’s user interface has
+    a 'minimalist' aesthetic so that the focus can be on the data &
     other visuals. In addition to returning a reactive (filtered) data.frame,
-    {IDEAFilter} as also returns dplyr::filter statements used to actually slice
+    'IDEAFilter' as also returns 'dplyr' filter statements used to actually slice
     the data.
 Authors@R: c(
     person(
