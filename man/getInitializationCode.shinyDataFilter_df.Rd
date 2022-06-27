@@ -11,6 +11,10 @@ getInitializationCode.shinyDataFilter_df(obj, name = NULL)
 
 \item{name}{unused}
 }
+\value{
+Returns the 'code' attribute as a string from any object of class
+  shinyDataFilter_df
+}
 \description{
 A function for scriptgloss::getInitializationCode to dispatch to
 }

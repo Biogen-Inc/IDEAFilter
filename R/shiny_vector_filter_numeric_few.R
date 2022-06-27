@@ -9,7 +9,7 @@
 #' @param x The TODO
 #' @param filter_na The \code{logical} TODO
 #' @param verbose a \code{logical} value indicating whether or not to print log
-#'  statements out to the console
+#'   statements out to the console
 #'
 #' @importFrom shiny reactive reactiveValues renderUI div plotOutput sliderInput
 #'   isolate tags validate need renderPlot
@@ -17,6 +17,10 @@
 #'   scale_y_continuous
 #' @importFrom grDevices rgb
 #' @importFrom stats density
+#'
+#' @return a \code{\link[shiny]{reactiveValues}} list containing a logical
+#'   vector called "mask" which can be used to filter the provided vector and an
+#'   element "code" which is the expression used to generate the mask.
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_few <- function(input, output, session,

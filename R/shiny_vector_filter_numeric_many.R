@@ -17,6 +17,10 @@
 #'   scale_y_continuous
 #' @importFrom grDevices rgb
 #' @importFrom stats density
+#' 
+#' @return a \code{\link[shiny]{reactiveValues}} list containing a logical
+#'   vector called "mask" which can be used to filter the provided vector and an
+#'   element "code" which is the expression used to generate the mask.
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 

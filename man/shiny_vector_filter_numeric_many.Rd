@@ -30,6 +30,11 @@ session}
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}
 }
+\value{
+a \code{\link[shiny]{reactiveValues}} list containing a logical
+  vector called "mask" which can be used to filter the provided vector and an
+  element "code" which is the expression used to generate the mask.
+}
 \description{
 A vector filter for numeric variables with only many choices
 }

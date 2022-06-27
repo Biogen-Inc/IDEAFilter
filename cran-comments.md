@@ -1,4 +1,23 @@
-## Re-submission 2022-06-23
+## Re-submission 2022-06-27
+This is a re-submission. In this version I have:
+
+* Referenced package names using single quotes in the description field. Also, spelled out 'UI' to 'user interface'.
+
+* Added appropriate `@return` roxygen comments for the following exported functions to generate `\value` statement in `.Rd` files:
+  - getInitializationCode.shinyDataFilter_df.Rd
+  - shiny_vector_filter_numeric_few.Rd
+  - shiny_vector_filter_numeric_many.Rd
+
+#### R CMD Check
+0 errors | 0 warnings | 1 note
+```
+checking CRAN incoming feasibility ... NOTE
+  Maintainer: 'Aaron Clark <clark.aaronchris@gmail.com>'
+  
+  New submission
+```
+
+## Re-submission 2022-06-24
 This is a re-submission. In this version I have:
 
 * Added more details about the package functionality in the Description field of the DESCRIPTION file.
