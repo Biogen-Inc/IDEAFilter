@@ -247,7 +247,7 @@ revdep_reset()
 usethis::use_cran_comments(open = rlang::is_interactive())
 
 # Upgrade version number
-usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
+usethis::use_version(which = c("patch", "minor", "major", "dev")[4])
 
 ########## end thinkr's checklist #########
 
