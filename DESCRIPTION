@@ -30,7 +30,7 @@ Authors@R: c(
         email = "jeff.thompson51317@gmail.com", role = "ctb"),
     person(given = "Biogen", role = "cph"))
 License: AGPL-3
-URL: https://biogen-inc.github.io/IDEAFilter/
+URL: https://biogen-inc.github.io/IDEAFilter/, https://github.com/Biogen-Inc/IDEAFilter
 BugReports: https://github.com/Biogen-Inc/IDEAFilter/issues
 Encoding: UTF-8
 LazyData: true
