@@ -1,3 +1,5 @@
+# IDEAFilter (development version)
+
 # IDEAFilter 0.1.2 (CRAN Release)
 
 * Prepped package for release on CRAN

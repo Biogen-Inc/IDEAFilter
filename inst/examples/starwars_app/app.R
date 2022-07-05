@@ -17,10 +17,11 @@ attr(starwars2$mass, "label")     <- "mass of character in kilograms"
 attr(starwars2$is_droid, "label") <- "whether character is a droid"
 
 ui <- fluidPage(
- titlePanel("IDEAFilter Example: STARWARS"),
+ titlePanel("{IDEAFilter} Example: Star Wars App"),
  fluidRow(
    column(8, 
      dataTableOutput("data_summary"),
+     h4("Generated code:"),
      verbatimTextOutput("data_filter_code")),
    column(4, shiny_data_filter_ui("data_filter"))))
 
