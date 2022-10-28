@@ -21,7 +21,8 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-0123-0970")),
     person(
         given = "Doug", family = "Kelkhoff", 
-        email = "doug.kelkhoff@gmail.com", role = "aut"),
+        email = "doug.kelkhoff@gmail.com", role = c("ctb", "cph"),
+        comment = "Author of shinyDataFilter"),
     person(
         given = "Maya", family = "Gans", 
         email = "maya.gans@biogen.com", role = "ctb"),
@@ -29,7 +30,7 @@ Authors@R: c(
         given = "Jeff", family = "Thompson", 
         email = "jeff.thompson51317@gmail.com", role = "ctb"),
     person(given = "Biogen", role = "cph"))
-License: AGPL-3
+License: AGPL-3 | file LICENSE
 URL: https://biogen-inc.github.io/IDEAFilter/, https://github.com/Biogen-Inc/IDEAFilter
 BugReports: https://github.com/Biogen-Inc/IDEAFilter/issues
 Encoding: UTF-8
