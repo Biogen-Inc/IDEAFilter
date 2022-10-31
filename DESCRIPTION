@@ -29,6 +29,8 @@ Authors@R: c(
     person(
         given = "Jeff", family = "Thompson", 
         email = "jeff.thompson51317@gmail.com", role = "ctb"),
+    person(family = "SortableJS contributors", role = "ctb",
+        comment = "SortableJS library"),
     person(given = "Biogen", role = "cph"))
 License: AGPL-3 | file LICENSE
 URL: https://biogen-inc.github.io/IDEAFilter/, https://github.com/Biogen-Inc/IDEAFilter
