@@ -32,7 +32,7 @@ Authors@R: c(
     person(family = "SortableJS contributors", role = "ctb",
         comment = "SortableJS library"),
     person(given = "Biogen", role = "cph"))
-License: AGPL-3 | file LICENSE
+License: AGPL-3 + file LICENSE
 URL: https://biogen-inc.github.io/IDEAFilter/, https://github.com/Biogen-Inc/IDEAFilter
 BugReports: https://github.com/Biogen-Inc/IDEAFilter/issues
 Encoding: UTF-8

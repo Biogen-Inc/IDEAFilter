@@ -128,6 +128,7 @@ usethis::use_vignette("IDEAFilter")
 # usethis::use_vignette("dev02_Pop_Exp")
 # usethis::use_vignette("dev03_Indv_Expl")
 
+# usethis::use_mit_license() # just to create license file
 
 # Before submitting a PR, run this code & update NEWS.md
 usethis::use_version("patch") #choices: "dev", "patch", "minor", "major"
