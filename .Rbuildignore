@@ -3,7 +3,6 @@
 ^\assets
 ^\.github$
 ^dev$
-LICENSE
 ^LICENSE\.md$
 ^README\.Rmd$
 ^dev$
