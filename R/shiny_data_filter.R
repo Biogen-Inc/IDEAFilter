@@ -117,7 +117,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' shinyApp(ui = ui, server = server)
 #' }
 #' 
-shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
+shiny_data_filter <- function(input, output, session, data, preselection = NULL, verbose = FALSE) {
   
   ns <- session$ns
   filter_log("calling module", verbose = verbose)
@@ -197,6 +197,26 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
       where = "beforeEnd",
       ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
   })
+  
+  observeEvent(input$add_filter_select, {
+    req(preselection)
+    
+    filter_log("observing pre-selected columns", verbose = verbose)
+    
+    for (col_sel in preselection) {
+      if (!col_sel %in% names(datar())) next()
+      
+      update_filter(fid <- next_filter_id(), column_name = col_sel)
+      filters(append(filters(), fid))
+      
+      insertUI(
+        selector = sprintf("#%s", ns("sortableList")),
+        where = "beforeEnd",
+        ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
+      
+      updateSelectInput(session, "add_filter_select", selected = "")
+    }
+  }, once = TRUE)
   
   observeEvent(input$add_filter_select, {
     if (!input$add_filter_select %in% names(datar())) return()
