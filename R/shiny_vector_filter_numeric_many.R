@@ -29,6 +29,7 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
     
+    x_filtered <- Filter(function(x) !is.na(x) & eval(if (!is.null(filter_expr)) str2expression(filter_expr) else TRUE), x())
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
       shiny::div(
@@ -41,7 +42,7 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
           shiny::sliderInput(ns("param"), NULL,
-                             value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
+                             value = range(x_filtered), 
                              min = min(round(x(), 1), na.rm = TRUE), 
                              max = max(round(x(), 1), na.rm = TRUE))
         } else {
