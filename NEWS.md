@@ -1,3 +1,5 @@
+# IDEAFilter (development version)
+
 # IDEAFilter 0.1.3
 * Cited works of other contributors (`shinyDataFilter` & `SortableJS`)
 
