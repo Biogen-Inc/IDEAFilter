@@ -271,7 +271,7 @@ shiny_data_filter <- function(input, output, session, data, preselection = NULL,
   reactive({
     filter_log("recalculating filtered data", verbose = verbose)
     structure(
-      d <- filter_returns[[utils::tail(filters(), 1)]]$data(),
+      d <- filter_returns[[utils::tail(filters(), 1)]]$data() %||% data.frame(),
       code = code(),
       class = c("shinyDataFilter_df", class(d)))
   })

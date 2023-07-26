@@ -1,3 +1,6 @@
+# IDEAFilter (development version)
+* Fix bug that was trying to assign an attribute to a NULL (#15)
+
 # IDEAFilter 0.1.3
 * Cited works of other contributors (`shinyDataFilter` & `SortableJS`)
 
