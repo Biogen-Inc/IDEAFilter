@@ -1,6 +1,6 @@
 Package: IDEAFilter
 Type: Package
-Version: 0.1.3.9000
+Version: 0.1.3.9001
 Title: Agnostic, Idiomatic Data Filter Module for Shiny
 Description: When added to an existing shiny app, users may subset any
     developer-chosen R data.frame on the fly. That is, users are empowered to
