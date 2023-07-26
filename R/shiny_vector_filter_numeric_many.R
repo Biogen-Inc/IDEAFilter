@@ -24,7 +24,7 @@
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 
-           filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_expr = NULL, verbose = FALSE) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)

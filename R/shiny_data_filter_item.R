@@ -53,9 +53,11 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' @keywords internal
 #' 
 shiny_data_filter_item <- function(input, output, session, data, 
-    column_name = NULL, verbose = FALSE) {
+    column_name = NULL, preselection = NULL, verbose = FALSE) {
   
   ns <- session$ns
+  
+  fna <- if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE
   
   module_return <- shiny::reactiveValues(
     data = data, 
@@ -145,7 +147,7 @@ shiny_data_filter_item <- function(input, output, session, data,
   
   filter_na <- shiny::reactive({
     if (is.null(input$filter_na_btn)) FALSE
-    else input$filter_na_btn %% 2 == 1
+    else (input$filter_na_btn + 1*fna) %% 2 == 1
   })
   
   x <- shiny::eventReactive(filter_na(), { filter_log("observing filter_na")})
@@ -177,6 +179,7 @@ shiny_data_filter_item <- function(input, output, session, data,
       "vector_filter", 
       x = vec, 
       filter_na = filter_na,
+      filter_expr = preselection[["filter_expr"]],
       verbose = verbose)
   })
   

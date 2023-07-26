@@ -25,7 +25,7 @@
 #' @keywords internal
 shiny_vector_filter_numeric_few <- function(input, output, session,
             x = shiny::reactive(factor()),  #important: changed x to factor here
-           filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_expr = NULL, verbose = FALSE) {
     
   ns <- session$ns
   

@@ -19,7 +19,7 @@
 #' @importFrom shiny reactive reactiveValues renderUI selectInput isolate
 #' @keywords internal
 shiny_vector_filter_factor_many <- function(input, output, session, 
-    x = shiny::reactive(factor()), filter_na = shiny::reactive(FALSE), 
+    x = shiny::reactive(factor()), filter_na = shiny::reactive(FALSE), filter_expr = NULL, 
     verbose = FALSE) {
   
   ns <- session$ns

@@ -138,7 +138,7 @@ shiny_data_filter <- function(input, output, session, data, preselection = NULL,
     code = reactive(TRUE), 
     remove = NULL))
   
-  update_filter <- function(fid, in_fid, column_name = NULL) {
+  update_filter <- function(fid, in_fid, column_name = NULL, preselection = NULL) {
     fs <- isolate(filters())
     
     if (missing(in_fid))
@@ -158,7 +158,8 @@ shiny_data_filter <- function(input, output, session, data, preselection = NULL,
       fid,
       data = filter_returns[[in_fid]]$data,
       column_name = column_name,
-      verbose = verbose)
+      verbose = verbose,
+      preselection = preselection)
   }
   
   output$add_filter_select_ui <- renderUI({
@@ -203,10 +204,13 @@ shiny_data_filter <- function(input, output, session, data, preselection = NULL,
     
     filter_log("observing pre-selected columns", verbose = verbose)
     
-    for (col_sel in preselection) {
-      if (!col_sel %in% names(datar())) next()
+    for (col_sel in (names(preselection) %||% preselection)) {
+      if (!col_sel %in% names(datar())) {
+        warning(sprintf("Unable to add `%s` to filter list.", col_sel))
+        next()
+      }
       
-      update_filter(fid <- next_filter_id(), column_name = col_sel)
+      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselection)) preselection[[col_sel]])
       filters(append(filters(), fid))
       
       insertUI(

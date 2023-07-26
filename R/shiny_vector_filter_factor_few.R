@@ -23,7 +23,7 @@
 #' @importFrom grDevices rgb
 #' @keywords internal
 shiny_vector_filter_factor_few <- function(input, output, session, 
-    x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), 
+    x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), filter_expr = NULL, 
     verbose = FALSE) {
   
   ns <- session$ns
