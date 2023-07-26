@@ -10,6 +10,7 @@ shiny_vector_filter_numeric_many(
   session,
   x = shiny::reactive(numeric()),
   filter_na = shiny::reactive(FALSE),
+  filter_expr = NULL,
   verbose = FALSE
 )
 }
@@ -26,6 +27,8 @@ session}
 \item{x}{The TODO}
 
 \item{filter_na}{The \code{logical} TODO}
+
+\item{filter_expr}{A character string that can specify initial filtering}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

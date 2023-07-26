@@ -8,6 +8,7 @@
 #'   session
 #' @param x The TODO
 #' @param filter_na The \code{logical} TODO
+#' @param filter_expr A character string that can specify initial filtering
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'

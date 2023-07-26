@@ -38,6 +38,7 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' @param data a \code{reactive expression} returning a \code{data.frame} to use
 #'   as the input to the filter item module
 #' @param column_name a value indicating the name of the column to be filtered
+#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'   

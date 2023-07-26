@@ -10,6 +10,7 @@ shiny_data_filter_item(
   session,
   data,
   column_name = NULL,
+  preselection = NULL,
   verbose = FALSE
 )
 }
@@ -27,6 +28,8 @@ session}
 as the input to the filter item module}
 
 \item{column_name}{a value indicating the name of the column to be filtered}
+
+\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

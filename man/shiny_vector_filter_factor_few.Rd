@@ -10,6 +10,7 @@ shiny_vector_filter_factor_few(
   session,
   x = shiny::reactive(factor()),
   filter_na = shiny::reactive(TRUE),
+  filter_expr = NULL,
   verbose = FALSE
 )
 }
@@ -27,6 +28,8 @@ session}
 
 \item{filter_na}{a logical value indicating whether to filter \code{NA}
 values from the \code{x} vector}
+
+\item{filter_expr}{A character string that can specify initial filtering}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

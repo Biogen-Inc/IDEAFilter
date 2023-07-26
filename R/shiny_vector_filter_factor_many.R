@@ -9,6 +9,7 @@
 #' @param x a reactive expression resolving to the vector to filter
 #' @param filter_na a logical value indicating whether to filter \code{NA}
 #'   values from the \code{x} vector
+#' @param filter_expr A character string that can specify initial filtering
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'
