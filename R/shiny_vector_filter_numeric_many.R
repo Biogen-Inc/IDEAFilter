@@ -33,7 +33,7 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
-    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE, quiet = FALSE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE)
     
     x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     output$ui <- shiny::renderUI({
