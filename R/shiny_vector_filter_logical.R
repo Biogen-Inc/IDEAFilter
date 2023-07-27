@@ -12,7 +12,7 @@ shiny_vector_filter_ui.logical <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.logical <- function(data, inputId, ...) {
   function(input, output, session, 
-           x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), filter_expr = NULL, 
+           x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), filter_fn = NULL, 
            verbose = FALSE) {
     
     ns <- session$ns

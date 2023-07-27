@@ -12,7 +12,7 @@ shiny_vector_filter_ui.POSIXct <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(), 
-           filter_na = shiny::reactive(FALSE), filter_expr = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)

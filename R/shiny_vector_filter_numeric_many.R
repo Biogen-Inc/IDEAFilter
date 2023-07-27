@@ -8,7 +8,10 @@
 #'   session
 #' @param x The TODO
 #' @param filter_na The \code{logical} TODO
-#' @param filter_expr A character string that can specify initial filtering
+#' @param filter_fn A function to modify, specified in one of the following ways:
+#'   * A named function, e.g. `mean`.
+#'   * An anonymous function, e.g. `\(x) x + 1` or `function(x) x + 1`.
+#'   * A formula, e.g. `~ .x + 1`.
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'  statements out to the console
 #'  
@@ -18,6 +21,7 @@
 #'   scale_y_continuous
 #' @importFrom grDevices rgb
 #' @importFrom stats density
+#' @importFrom purrr possibly
 #' 
 #' @return a \code{\link[shiny]{reactiveValues}} list containing a logical
 #'   vector called "mask" which can be used to filter the provided vector and an
@@ -25,12 +29,13 @@
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 
-           filter_na = shiny::reactive(FALSE), filter_expr = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE, quiet = FALSE)
     
-    x_filtered <- Filter(function(x) !is.na(x) & eval(if (!is.null(filter_expr)) str2expression(filter_expr) else TRUE), x())
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
       shiny::div(

@@ -180,7 +180,7 @@ shiny_data_filter_item <- function(input, output, session, data,
       "vector_filter", 
       x = vec, 
       filter_na = filter_na,
-      filter_expr = preselection[["filter_expr"]],
+      filter_fn = preselection[["filter_fn"]],
       verbose = verbose)
   })
   
