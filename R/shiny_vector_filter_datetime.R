@@ -16,6 +16,9 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE)
+    
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     
     p <- reactive({
       as.POSIXct(x(), origin = "1970-01-01 00:00:00", tz = "GMT")
@@ -35,15 +38,15 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
           my_date <- as.Date(p())
           div( 
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("st_date"), "Start Date",value = min(my_date, na.rm = TRUE)
+                    shiny::dateInput(ns("st_date"), "Start Date",value = min(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = min(p(), na.rm = TRUE))# automatically takes the time element
+                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = min(x_filtered))# automatically takes the time element
                 ),    
             
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("end_date"), "End Date",value = max(my_date, na.rm = TRUE)
+                    shiny::dateInput(ns("end_date"), "End Date",value = max(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = max(p(), na.rm = TRUE))  # automatically takes the time element
+                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = max(x_filtered))  # automatically takes the time element
             )
           )
         } else {
