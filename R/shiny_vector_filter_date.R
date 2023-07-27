@@ -16,6 +16,9 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE)
+    
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
@@ -30,8 +33,8 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
         if (any(!is.na(x()))) {
           shiny::dateRangeInput(ns("param"), NULL,
                              #value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
-                             start = min(x(), na.rm = TRUE), 
-                             end = max(x(), na.rm = TRUE),
+                             start = min(x_filtered), 
+                             end = max(x_filtered),
                              min = min(x(), na.rm = TRUE), 
                              max = max(x(), na.rm = TRUE)
                              )

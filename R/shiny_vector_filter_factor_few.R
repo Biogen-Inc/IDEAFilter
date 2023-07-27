@@ -34,6 +34,9 @@ shiny_vector_filter_factor_few <- function(input, output, session,
   
   x_wo_NA <- shiny::reactive(Filter(Negate(is.na), x()))
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+  fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+  
+  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
   
   choices <- shiny::reactive(unique(as.character(x_wo_NA())))
   
@@ -50,7 +53,7 @@ shiny_vector_filter_factor_few <- function(input, output, session,
       ),
       shiny::checkboxGroupInput(ns("param"), NULL,
         choices = choices(),
-        selected = shiny::isolate(input$param) %||% c(),
+        selected = x_filtered,
         width = "100%"))
   })
     

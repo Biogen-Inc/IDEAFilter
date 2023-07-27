@@ -19,6 +19,9 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
   x_wo_NAs <- shiny::reactive(Filter(Negate(is.na), x()))
   
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+  fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+  
+  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
   
   output$ui <- shiny::renderUI({
     
@@ -32,7 +35,7 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     } else {
       proportionSelectInput(ns("param"), NULL,
                             vec = x,
-                            selected = shiny::isolate(input$param) %||% c(),
+                            selected = x_filtered,
                             multiple = TRUE,
                             width = "100%")
     }
