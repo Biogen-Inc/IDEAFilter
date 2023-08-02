@@ -17,10 +17,8 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
     
-    p <- reactive({
-      as.POSIXct(x(), origin = "1970-01-01 00:00:00", tz = "GMT")
-    })
-    
+    tzone <- reactive(attr(x(), "tzone"))
+
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
       shiny::div(
@@ -32,18 +30,18 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
-          my_date <- as.Date(p())
+          my_date <- as.Date(x())
           div( 
             div(style = "display: inline-block; vertical-align:middle;",
                     shiny::dateInput(ns("st_date"), "Start Date",value = min(my_date, na.rm = TRUE)
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = min(p(), na.rm = TRUE))# automatically takes the time element
+                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = min(x(), na.rm = TRUE))# automatically takes the time element
                 ),    
             
             div(style = "display: inline-block; vertical-align:middle;",
                     shiny::dateInput(ns("end_date"), "End Date",value = max(my_date, na.rm = TRUE)
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = max(p(), na.rm = TRUE))  # automatically takes the time element
+                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = max(x(), na.rm = TRUE))  # automatically takes the time element
             )
           )
         } else {
@@ -54,21 +52,21 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
     })
     
     st_dt <- reactive({
-      st <- substr(strftime(input$st_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"),12,20)
-      as.POSIXct(paste(input$st_date, st), tz = "GMT")
+      st <- substr(strftime(input$st_time, "%Y-%m-%d %H:%M:%S", tz = tzone()),12,20)
+      as.POSIXct(paste(input$st_date, st), tz = tzone())
     })
     end_dt <- reactive({
-      end <- substr(strftime(input$end_time, "%Y-%m-%d %H:%M:%S", tz = "GMT"),12,20)
-      as.POSIXct(paste(input$end_date, end), tz = "GMT")
+      end <- substr(strftime(input$end_time, "%Y-%m-%d %H:%M:%S", tz = tzone()),12,20)
+      as.POSIXct(paste(input$end_date, end), tz = tzone())
     })
     
     module_return$code <- shiny::reactive({
       exprs <- list()
-      
+
       if (!is.null(input$st_date) & !is.null(input$st_time) & !is.null(input$end_date) & !is.null(input$end_time)) {
-        if (st_dt() > min(p(), na.rm = TRUE))
+        if (st_dt() > min(x(), na.rm = TRUE))
           exprs <- append(exprs, bquote(.x >= .(st_dt())))
-        if (end_dt() < max(p(), na.rm = TRUE))
+        if (end_dt() < max(x(), na.rm = TRUE))
           exprs <- append(exprs, bquote(.x <= .(end_dt())))
       }
       
