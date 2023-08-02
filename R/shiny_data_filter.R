@@ -229,6 +229,27 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
     apply_preselection(preselectionr())
   }, once = TRUE)
   
+  observeEvent(preselectionr(), {
+    req(!is.null(input$add_filter_select))
+    
+    filter_log("scrubbing all filters", verbose = verbose)
+    for (fid in filters()[-1]) {
+        idx <- utils::head(which(filters() == fid), 1)
+        filter_returns[[fid]]$destroy
+        
+        filters(setdiff(filters(), fid))
+        
+        # overwrite existing module call with one taking new input data
+        if (!idx > length(filters())) update_filter(filters()[[idx]])
+        
+        removeUI(selector = sprintf("#%s-ui", ns(fid)))
+    }
+    
+    filter_log("applying updated selection", verbose = verbose)
+    apply_preselection(preselectionr())
+    
+  })
+  
   observeEvent(input$add_filter_select, {
     if (!input$add_filter_select %in% names(datar())) return()
     
