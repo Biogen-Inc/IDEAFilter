@@ -26,6 +26,8 @@ a \code{\link[shiny]{reactiveValues}} list of three reactive elements;
   filter.
 }
 \description{
-Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes
+\code{moduleSever()} for a more modern implementation of the data item
+filter.
 }
 \keyword{internal}

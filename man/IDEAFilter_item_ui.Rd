@@ -13,6 +13,7 @@ IDEAFilter_item_ui(id)
 a shiny \code{\link[shiny]{wellPanel}} to house the filter
 }
 \description{
-This is a wrapper for \code{\link{shiny_data_filter_item_ui}} created to match up with the module server function \code{\link{IDEAFilter_item}}.
+This is a wrapper for \code{\link{shiny_data_filter_item_ui}} created to
+match up with the module server function \code{\link{IDEAFilter_item}}.
 }
 \keyword{internal}

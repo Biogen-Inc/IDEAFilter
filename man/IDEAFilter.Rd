@@ -24,7 +24,9 @@ a \code{reactive expression} which returns the filtered data wrapped
   data.
 }
 \description{
-Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes
+\code{moduleSever()} for a more modern implementation of the data item
+filter.
 }
 \examples{
 if(all(c(interactive(), require("dplyr"), require("IDEAFilter")))) {
@@ -55,10 +57,7 @@ ui <- fluidPage(
     column(4, IDEAFilter_ui("data_filter"))))
 
 server <- function(input, output, session) {
-  filtered_data <- IDEAFilter(
-    "data_filter", 
-    data = starwars2,
-    verbose = FALSE)
+  filtered_data <- IDEAFilter("data_filter", data = starwars2, verbose = FALSE)
   
   output$data_filter_code <- renderPrint({
     cat(gsub("\%>\%", "\%>\% \n ", 

@@ -13,7 +13,8 @@ IDEAFilter_ui(id)
 a shiny \code{\link[shiny]{tagList}} containing the filter ui
 }
 \description{
-This is a wrapper for \code{\link{shiny_data_filter_ui}} created to match up with the module server function \code{\link{IDEAFilter}}.
+This is a wrapper for \code{\link{shiny_data_filter_ui}} created to match up
+with the module server function \code{\link{IDEAFilter}}.
 }
 \examples{
 if(all(c(interactive(), require("dplyr"), require("IDEAFilter")))) {

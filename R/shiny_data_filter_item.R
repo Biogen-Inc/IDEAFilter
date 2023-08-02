@@ -206,7 +206,8 @@ shiny_data_filter_item <- function(input, output, session, data,
 
 #' A single filter item as part of a IDEA filter module panel
 #' 
-#' This is a wrapper for \code{\link{shiny_data_filter_item_ui}} created to match up with the module server function \code{\link{IDEAFilter_item}}.
+#' This is a wrapper for \code{\link{shiny_data_filter_item_ui}} created to
+#' match up with the module server function \code{\link{IDEAFilter_item}}.
 #' 
 #' @param id a module id name
 #'   
@@ -222,7 +223,9 @@ IDEAFilter_item_ui <- function(id) {
 
 #' The server function for the IDEA filter item module
 #' 
-#' Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+#' Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes
+#' \code{moduleSever()} for a more modern implementation of the data item
+#' filter.
 #' 
 #' @param id a module id name
 #' @param data a \code{reactive expression} returning a \code{data.frame} to use

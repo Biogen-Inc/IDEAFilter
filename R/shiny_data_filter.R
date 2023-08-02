@@ -255,7 +255,8 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
 
 #' User interface function to add a data filter panel
 #' 
-#' This is a wrapper for \code{\link{shiny_data_filter_ui}} created to match up with the module server function \code{\link{IDEAFilter}}.
+#' This is a wrapper for \code{\link{shiny_data_filter_ui}} created to match up
+#' with the module server function \code{\link{IDEAFilter}}.
 #' 
 #' @param id a module id name
 #' @return a shiny \code{\link[shiny]{tagList}} containing the filter ui
@@ -275,7 +276,9 @@ IDEAFilter_ui <- function(id) {
 
 #' IDEA data filter module server function
 #' 
-#' Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+#' Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes
+#' \code{moduleSever()} for a more modern implementation of the data item
+#' filter.
 #' 
 #' @param id a module id name
 #' @param data a \code{data.frame} or \code{reactive expression} returning a
@@ -325,10 +328,7 @@ IDEAFilter_ui <- function(id) {
 #'     column(4, IDEAFilter_ui("data_filter"))))
 #' 
 #' server <- function(input, output, session) {
-#'   filtered_data <- IDEAFilter(
-#'     "data_filter", 
-#'     data = starwars2,
-#'     verbose = FALSE)
+#'   filtered_data <- IDEAFilter("data_filter", data = starwars2, verbose = FALSE)
 #'   
 #'   output$data_filter_code <- renderPrint({
 #'     cat(gsub("%>%", "%>% \n ", 

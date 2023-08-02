@@ -103,11 +103,7 @@ server <- function(input, output, session) {
   
   
  filtered_data <- # name the returned reactive data frame
-   IDEAFilter(
-     "data_filter",     # give the filter a name(space)
-     data = starwars2,  # feed it raw data
-     verbose = FALSE
-    )
+   IDEAFilter("data_filter", data = starwars2,verbose = FALSE)
  
  # extract & display the "code" attribute to see dplyr::filter()
  # statements performed
