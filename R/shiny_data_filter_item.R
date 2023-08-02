@@ -54,7 +54,7 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' @keywords internal
 #' 
 shiny_data_filter_item <- function(input, output, session, data, 
-    column_name = NULL, preselection = NULL, verbose = FALSE) {
+    column_name = NULL, verbose = FALSE, preselection = NULL) {
   
   ns <- session$ns
   

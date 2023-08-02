@@ -118,7 +118,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' shinyApp(ui = ui, server = server)
 #' }
 #' 
-shiny_data_filter <- function(input, output, session, data, preselection = NULL, verbose = FALSE) {
+shiny_data_filter <- function(input, output, session, data, verbose = FALSE, preselection = NULL) {
   
   ns <- session$ns
   filter_log("calling module", verbose = verbose)
