@@ -45,15 +45,14 @@ devtools::install_github("Biogen-Inc/IDEAFilter")
 After installation, you now have access to the`IDEAFilter` shiny module. On the UI side, you need only include the following line of code to place the filtering widget somewhere in your app:
 
 ```{r, eval=FALSE}
-shiny_data_filter_ui(inputId = "data_filter")
+IDEAFilter_ui(id = "data_filter")
 ```
 
-The server side logic needs to call the `shiny_data_filter` module, match the input ID from the UI, and provide a data source. The returned reactive data.frame (called "filtered_data") may used for downstream processes regardless on if the user chooses to apply filters or not.
+The server side logic needs to call the `IDEAFilter` module, match the input ID from the UI, and provide a data source. The returned reactive data.frame (called "filtered_data") may used for downstream processes regardless on if the user chooses to apply filters or not.
 
 ```{r, eval=FALSE}
 filtered_data <- # name the returned reactive data frame
-   callModule(
-     shiny_data_filter, # call the module by name
+   IDEAFilter(
      "data_filter",     # give the filter a name(space)
      data = starwars2,  # feed it raw data
      verbose = FALSE
@@ -98,14 +97,13 @@ ui <- fluidPage(
      dataTableOutput("data_summary"),
      h4("Generated Code"),
      verbatimTextOutput("data_filter_code")),
-   column(4, shiny_data_filter_ui("data_filter"))))
+   column(4, IDEAFilter_ui("data_filter"))))
 
 server <- function(input, output, session) {
   
   
  filtered_data <- # name the returned reactive data frame
-   callModule(
-     shiny_data_filter, # call the module
+   IDEAFilter(
      "data_filter",     # give the filter a name(space)
      data = starwars2,  # feed it raw data
      verbose = FALSE
