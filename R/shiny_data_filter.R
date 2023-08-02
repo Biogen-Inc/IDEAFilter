@@ -126,6 +126,7 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
   # retrieve input from callModule call (sys.call(-5L))  
   data_call <- as.list(sys.call(-5L))$data
   datar <- if (is.reactive(data)) data else reactive(data)
+  preselectionr <- if (is.reactive(preselection)) preselection else reactive(preselection)
   
   filter_counter <- 0
   next_filter_id <- function() {
@@ -201,17 +202,17 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
   })
   
   observeEvent(input$add_filter_select, {
-    req(preselection)
+    req(preselectionr())
     
     filter_log("observing pre-selected columns", verbose = verbose)
     
-    for (col_sel in (names(preselection) %||% preselection)) {
+    for (col_sel in (names(preselectionr()) %||% preselectionr())) {
       if (!col_sel %in% names(datar())) {
         warning(sprintf("Unable to add `%s` to filter list.", col_sel))
         next()
       }
       
-      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselection)) preselection[[col_sel]])
+      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselectionr())) preselectionr()[[col_sel]])
       filters(append(filters(), fid))
       
       insertUI(
