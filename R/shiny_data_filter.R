@@ -253,10 +253,101 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
   })
 }
 
+#' User interface function to add a data filter panel
+#' 
+#' This is a wrapper for \code{\link{shiny_data_filter_ui}} created to match up with the module server function \code{\link{IDEAFilter}}.
+#' 
+#' @param id a module id name
+#' @return a shiny \code{\link[shiny]{tagList}} containing the filter ui
+#' 
+#' @import shiny
+#' 
+#' @importFrom shiny NS tagList div actionButton icon
+#' @export
+#' @keywords internal
+#' @seealso \link{shiny_data_filter_ui}, \link{IDEAFilter}
+#' 
+#' @inherit shiny_data_filter examples
+#' 
 IDEAFilter_ui <- function(id) {
   shiny_data_filter_ui(inputId = id)
 }
 
+#' IDEA data filter module server function
+#' 
+#' Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+#' 
+#' @param id a module id name
+#' @param data a \code{data.frame} or \code{reactive expression} returning a
+#'   \code{data.frame} to use as the input to the filter module
+#' @param ... placeholder for inclusion of additional parameters in future development
+#' @param verbose a \code{logical} value indicating whether or not to print log
+#'   statements out to the console
+#' 
+#' @return a \code{reactive expression} which returns the filtered data wrapped
+#'   in an additional class, "shinyDataFilter_df". This structure also contains
+#'   a "code" field which represents the code needed to generate the filtered
+#'   data.
+#'
+#' @seealso \link{IDEAFilter_ui}, \link{shiny_data_filter}
+#'
+#' @import shiny
+#' @importFrom utils head tail
+#' @importFrom stats setNames
+#' @export
+#' 
+#' @examples
+#' if(all(c(interactive(), require("dplyr"), require("IDEAFilter")))) {
+#' library(shiny)
+#' library(IDEAFilter)
+#' library(dplyr)  # for data pre-processing and example data
+#' 
+#' # prep a new data.frame with more diverse data types
+#' starwars2 <- starwars %>%
+#'   mutate_if(~is.numeric(.) && all(Filter(Negate(is.na), .) %% 1 == 0), as.integer) %>%
+#'   mutate_if(~is.character(.) && length(unique(.)) <= 25, as.factor) %>%
+#'   mutate(is_droid = species == "Droid") %>%
+#'   select(name, gender, height, mass, hair_color, eye_color, vehicles, is_droid)
+#' 
+#' # create some labels to showcase column select input
+#' attr(starwars2$name, "label")     <- "name of character"
+#' attr(starwars2$gender, "label")   <- "gender of character"
+#' attr(starwars2$height, "label")   <- "height of character in centimeters"
+#' attr(starwars2$mass, "label")     <- "mass of character in kilograms"
+#' attr(starwars2$is_droid, "label") <- "whether character is a droid"
+#' 
+#' ui <- fluidPage(
+#'   titlePanel("Filter Data Example"),
+#'   fluidRow(
+#'     column(8, 
+#'       verbatimTextOutput("data_summary"),
+#'       verbatimTextOutput("data_filter_code")),
+#'     column(4, IDEAFilter_ui("data_filter"))))
+#' 
+#' server <- function(input, output, session) {
+#'   filtered_data <- IDEAFilter(
+#'     "data_filter", 
+#'     data = starwars2,
+#'     verbose = FALSE)
+#'   
+#'   output$data_filter_code <- renderPrint({
+#'     cat(gsub("%>%", "%>% \n ", 
+#'       gsub("\\s{2,}", " ", 
+#'         paste0(
+#'           capture.output(attr(filtered_data(), "code")), 
+#'           collapse = " "))
+#'     ))
+#'   })
+#'   
+#'   output$data_summary <- renderPrint({
+#'     if (nrow(filtered_data())) show(filtered_data())
+#'     else "No data available"
+#'   })
+#' }
+#' 
+#' shinyApp(ui = ui, server = server)
+#' }
+#' 
 IDEAFilter <- function(id, data, ..., verbose = FALSE) {
   moduleServer(id, function(input, output, session) {
     shiny_data_filter(input = input, output = output, session = session,
