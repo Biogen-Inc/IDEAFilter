@@ -203,3 +203,50 @@ shiny_data_filter_item <- function(input, output, session, data,
   
   module_return
 }
+
+#' A single filter item as part of a IDEA filter module panel
+#' 
+#' This is a wrapper for \code{\link{shiny_data_filter_item_ui}} created to match up with the module server function \code{\link{IDEAFilter_item}}.
+#' 
+#' @param id a module id name
+#'   
+#' @return a shiny \code{\link[shiny]{wellPanel}} to house the filter
+#' 
+#' @importFrom shiny NS uiOutput
+#' @export
+#' @keywords internal
+#' 
+IDEAFilter_item_ui <- function(id) {
+  shiny_data_filter_item_ui(inputId = id)
+}
+
+#' The server function for the IDEA filter item module
+#' 
+#' Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes \code{moduleSever()} for a more modern implementation of the data item filter.
+#' 
+#' @param id a module id name
+#' @param data a \code{reactive expression} returning a \code{data.frame} to use
+#'   as the input to the filter item module
+#' @param column_name a value indicating the name of the column to be filtered
+#' @param ... placeholder for inclusion of additional parameters in future development
+#' @param verbose a \code{logical} value indicating whether or not to print log
+#'   statements out to the console
+#'   
+#' @return a \code{\link[shiny]{reactiveValues}} list of three reactive elements;
+#'   (1) a reactive data frame, (2) the code to filter a vector with the name of
+#'   the specified data column, and (3) a flag indicating when to remove this
+#'   filter.
+#'   
+#' @importFrom shiny reactiveValues wellPanel fillRow selectInput h4 actionLink
+#'   icon uiOutput div HTML span textOutput eventReactive renderUI tag
+#'   renderText reactive observeEvent callModule
+#' @export
+#' @keywords internal
+#' 
+IDEAFilter_item <- function(id, data, column_name = NULL, ..., verbose = FALSE) {
+  moduleServer(id, function(input, output, session) {
+    shiny_data_filter_item(input = input, output = output, session = session,
+                           data = data, column_name = column_name,
+                           verbose = verbose)
+  })
+}

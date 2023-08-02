@@ -252,3 +252,14 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
       class = c("shinyDataFilter_df", class(d)))
   })
 }
+
+IDEAFilter_ui <- function(id) {
+  shiny_data_filter_ui(inputId = id)
+}
+
+IDEAFilter <- function(id, data, ..., verbose = FALSE) {
+  moduleServer(id, function(input, output, session) {
+    shiny_data_filter(input = input, output = output, session = session,
+                      data = data, verbose = verbose)
+  })
+}
