@@ -164,6 +164,26 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
       preselection = preselection)
   }
   
+  apply_preselection <- function(preselection = NULL) {
+    
+    for (col_sel in (names(preselectionr()) %||% preselectionr())) {
+      if (!col_sel %in% names(datar())) {
+        warning(sprintf("Unable to add `%s` to filter list.", col_sel))
+        next()
+      }
+      
+      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselectionr())) preselectionr()[[col_sel]])
+      filters(append(filters(), fid))
+      
+      insertUI(
+        selector = sprintf("#%s", ns("sortableList")),
+        where = "beforeEnd",
+        ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
+      
+      updateSelectInput(session, "add_filter_select", selected = "")
+    }
+  }
+  
   output$add_filter_select_ui <- renderUI({
     columnSelectInput(
       ns("add_filter_select"),
@@ -206,22 +226,7 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
     
     filter_log("observing pre-selected columns", verbose = verbose)
     
-    for (col_sel in (names(preselectionr()) %||% preselectionr())) {
-      if (!col_sel %in% names(datar())) {
-        warning(sprintf("Unable to add `%s` to filter list.", col_sel))
-        next()
-      }
-      
-      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselectionr())) preselectionr()[[col_sel]])
-      filters(append(filters(), fid))
-      
-      insertUI(
-        selector = sprintf("#%s", ns("sortableList")),
-        where = "beforeEnd",
-        ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
-      
-      updateSelectInput(session, "add_filter_select", selected = "")
-    }
+    apply_preselection(preselectionr())
   }, once = TRUE)
   
   observeEvent(input$add_filter_select, {
