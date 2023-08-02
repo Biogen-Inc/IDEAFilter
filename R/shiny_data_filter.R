@@ -49,9 +49,9 @@ shiny_data_filter_ui <- function(inputId) {
 #'   session
 #' @param data a \code{data.frame} or \code{reactive expression} returning a
 #'   \code{data.frame} to use as the input to the filter module
-#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
+#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' 
 #' @return a \code{reactive expression} which returns the filtered data wrapped
 #'   in an additional class, "shinyDataFilter_df". This structure also contains

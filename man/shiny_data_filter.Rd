@@ -9,8 +9,8 @@ shiny_data_filter(
   output,
   session,
   data,
-  preselection = NULL,
-  verbose = FALSE
+  verbose = FALSE,
+  preselection = NULL
 )
 }
 \arguments{
@@ -26,10 +26,10 @@ session}
 \item{data}{a \code{data.frame} or \code{reactive expression} returning a
 \code{data.frame} to use as the input to the filter module}
 
-\item{preselection}{a \code{list} that can be used to pre-populate the filter}
-
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}
+
+\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 }
 \value{
 a \code{reactive expression} which returns the filtered data wrapped
