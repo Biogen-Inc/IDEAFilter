@@ -115,7 +115,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
     ns <- session$ns
     filter_log("calling module", verbose = verbose)
     
-    data_call <- as.list(sys.call(-5L))$data
+    data_call <- as.list(sys.call(-7L))$data
     datar <- if (is.reactive(data)) data else reactive(data)
     
     filter_counter <- 0
