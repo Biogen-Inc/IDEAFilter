@@ -226,6 +226,9 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
     }) 
     
     filter_logical <- reactiveVal(TRUE)
+    observeEvent(datar(), {
+      filter_logical(TRUE)
+    })
     code <- reactive({
       filter_log("building code", verbose = verbose)
       filter_exprs <- Filter(
