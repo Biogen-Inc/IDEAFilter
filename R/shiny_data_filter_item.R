@@ -18,6 +18,7 @@
 #' @keywords internal
 #' 
 shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
+  .Deprecated("IDEAFilter_item_ui")
   ns <- shiny::NS(inputId)
   shiny::uiOutput(ns("ui"),
     class = "list-group-item well",
@@ -55,6 +56,7 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' 
 shiny_data_filter_item <- function(input, output, session, data, 
     column_name = NULL, verbose = FALSE, preselection = NULL) {
+  .Deprecated("IDEAFilter_item")
   
   ns <- session$ns
   
