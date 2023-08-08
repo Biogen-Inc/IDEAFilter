@@ -48,7 +48,7 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
           shiny::sliderInput(ns("param"), NULL,
-                             value = range(x_filtered), 
+                             value = isolate(input$param) %||% range(x_filtered), 
                              min = min(round(x(), 1), na.rm = TRUE), 
                              max = max(round(x(), 1), na.rm = TRUE))
         } else {

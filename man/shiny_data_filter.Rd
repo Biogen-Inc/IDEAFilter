@@ -4,14 +4,7 @@
 \alias{shiny_data_filter}
 \title{Shiny data filter module server function}
 \usage{
-shiny_data_filter(
-  input,
-  output,
-  session,
-  data,
-  verbose = FALSE,
-  preselection = NULL
-)
+shiny_data_filter(input, output, session, data, verbose = FALSE)
 }
 \arguments{
 \item{input}{requisite shiny module field specifying incoming ui input
@@ -28,8 +21,6 @@ session}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}
-
-\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 }
 \value{
 a \code{reactive expression} which returns the filtered data wrapped

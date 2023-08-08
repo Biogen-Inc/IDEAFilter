@@ -41,7 +41,6 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' @param column_name a value indicating the name of the column to be filtered
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
-#' @param preselection a \code{list} that can be used to pre-populate the filter
 #'   
 #' @return a \code{\link[shiny]{reactiveValues}} list of three reactive elements;
 #'   (1) a reactive data frame, (2) the code to filter a vector with the name of
@@ -55,12 +54,10 @@ shiny_data_filter_item_ui <- function(inputId, verbose = FALSE) {
 #' @keywords internal
 #' 
 shiny_data_filter_item <- function(input, output, session, data, 
-    column_name = NULL, verbose = FALSE, preselection = NULL) {
+    column_name = NULL, verbose = FALSE) {
   .Deprecated("IDEAFilter_item")
   
   ns <- session$ns
-  
-  fna <- if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE
   
   module_return <- shiny::reactiveValues(
     data = data, 
@@ -150,7 +147,7 @@ shiny_data_filter_item <- function(input, output, session, data,
   
   filter_na <- shiny::reactive({
     if (is.null(input$filter_na_btn)) FALSE
-    else (input$filter_na_btn + 1*fna) %% 2 == 1
+    else input$filter_na_btn %% 2 == 1
   })
   
   x <- shiny::eventReactive(filter_na(), { filter_log("observing filter_na")})
@@ -182,7 +179,6 @@ shiny_data_filter_item <- function(input, output, session, data,
       "vector_filter", 
       x = vec, 
       filter_na = filter_na,
-      filter_fn = preselection[["filter_fn"]],
       verbose = verbose)
   })
   

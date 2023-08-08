@@ -35,7 +35,7 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     } else {
       proportionSelectInput(ns("param"), NULL,
                             vec = x,
-                            selected = x_filtered,
+                            selected = isolate(input$param) %||% x_filtered,
                             multiple = TRUE,
                             width = "100%")
     }

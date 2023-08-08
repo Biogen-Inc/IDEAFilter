@@ -8,8 +8,9 @@ IDEAFilter_item(
   id,
   data,
   column_name = NULL,
-  ...,
   filters = list(),
+  ...,
+  preselection = NULL,
   verbose = FALSE
 )
 }
@@ -21,10 +22,12 @@ as the input to the filter item module}
 
 \item{column_name}{a value indicating the name of the column to be filtered}
 
-\item{...}{placeholder for inclusion of additional parameters in future development}
-
 \item{filters}{a \code{reactive expression} containing the a list of filters
 passed as \code{language} types}
+
+\item{...}{placeholder for inclusion of additional parameters in future development}
+
+\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

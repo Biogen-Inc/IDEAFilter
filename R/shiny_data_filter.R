@@ -52,7 +52,6 @@ shiny_data_filter_ui <- function(inputId) {
 #'   \code{data.frame} to use as the input to the filter module
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
-#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' 
 #' @return a \code{reactive expression} which returns the filtered data wrapped
 #'   in an additional class, "shinyDataFilter_df". This structure also contains
@@ -119,7 +118,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' shinyApp(ui = ui, server = server)
 #' }
 #' 
-shiny_data_filter <- function(input, output, session, data, verbose = FALSE, preselection = NULL) {
+shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
   .Deprecated("IDEAFilter")
   
   ns <- session$ns
@@ -128,7 +127,6 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
   # retrieve input from callModule call (sys.call(-5L))  
   data_call <- as.list(sys.call(-5L))$data
   datar <- if (is.reactive(data)) data else reactive(data)
-  preselectionr <- if (is.reactive(preselection)) preselection else reactive(preselection)
   
   filter_counter <- 0
   next_filter_id <- function() {
@@ -142,7 +140,7 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
     code = reactive(TRUE), 
     remove = NULL))
   
-  update_filter <- function(fid, in_fid, column_name = NULL, preselection = NULL) {
+  update_filter <- function(fid, in_fid, column_name = NULL) {
     fs <- isolate(filters())
     
     if (missing(in_fid))
@@ -162,28 +160,7 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
       fid,
       data = filter_returns[[in_fid]]$data,
       column_name = column_name,
-      verbose = verbose,
-      preselection = preselection)
-  }
-  
-  apply_preselection <- function(preselection = NULL) {
-    
-    for (col_sel in (names(preselectionr()) %||% preselectionr())) {
-      if (!col_sel %in% names(datar())) {
-        warning(sprintf("Unable to add `%s` to filter list.", col_sel))
-        next()
-      }
-      
-      update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselectionr())) preselectionr()[[col_sel]])
-      filters(append(filters(), fid))
-      
-      insertUI(
-        selector = sprintf("#%s", ns("sortableList")),
-        where = "beforeEnd",
-        ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
-      
-      updateSelectInput(session, "add_filter_select", selected = "")
-    }
+      verbose = verbose)
   }
   
   output$add_filter_select_ui <- renderUI({
@@ -221,35 +198,6 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE, pre
       selector = sprintf("#%s", ns("sortableList")),
       where = "beforeEnd",
       ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
-  })
-  
-  observeEvent(input$add_filter_select, {
-    req(preselectionr())
-    
-    filter_log("observing pre-selected columns", verbose = verbose)
-    
-    apply_preselection(preselectionr())
-  }, once = TRUE)
-  
-  observeEvent(preselectionr(), {
-    req(!is.null(input$add_filter_select))
-    
-    filter_log("scrubbing all filters", verbose = verbose)
-    for (fid in filters()[-1]) {
-        idx <- utils::head(which(filters() == fid), 1)
-        filter_returns[[fid]]$destroy
-        
-        filters(setdiff(filters(), fid))
-        
-        # overwrite existing module call with one taking new input data
-        if (!idx > length(filters())) update_filter(filters()[[idx]])
-        
-        removeUI(selector = sprintf("#%s-ui", ns(fid)))
-    }
-    
-    filter_log("applying updated selection", verbose = verbose)
-    apply_preselection(preselectionr())
-    
   })
   
   observeEvent(input$add_filter_select, {

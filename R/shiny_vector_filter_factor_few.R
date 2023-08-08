@@ -53,7 +53,7 @@ shiny_vector_filter_factor_few <- function(input, output, session,
       ),
       shiny::checkboxGroupInput(ns("param"), NULL,
         choices = choices(),
-        selected = x_filtered,
+        selected = isolate(input$param) %||% x_filtered,
         width = "100%"))
   })
     

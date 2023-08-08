@@ -4,7 +4,7 @@
 \alias{IDEAFilter}
 \title{IDEA data filter module server function}
 \usage{
-IDEAFilter(id, data, ..., verbose = FALSE)
+IDEAFilter(id, data, ..., preselection = NULL, verbose = FALSE)
 }
 \arguments{
 \item{id}{a module id name}
@@ -13,6 +13,8 @@ IDEAFilter(id, data, ..., verbose = FALSE)
 \code{data.frame} to use as the input to the filter module}
 
 \item{...}{placeholder for inclusion of additional parameters in future development}
+
+\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

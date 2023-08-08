@@ -10,8 +10,7 @@ shiny_data_filter_item(
   session,
   data,
   column_name = NULL,
-  verbose = FALSE,
-  preselection = NULL
+  verbose = FALSE
 )
 }
 \arguments{
@@ -31,8 +30,6 @@ as the input to the filter item module}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}
-
-\item{preselection}{a \code{list} that can be used to pre-populate the filter}
 }
 \value{
 a \code{\link[shiny]{reactiveValues}} list of three reactive elements;

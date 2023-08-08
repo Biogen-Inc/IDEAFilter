@@ -38,7 +38,7 @@ shiny_vector_filter_factor_many <- function(input, output, session,
     filter_log("updating ui", verbose = verbose)
     proportionSelectInput(ns("param"), NULL,
       vec = x,
-      selected = x_filtered,
+      selected = isolate(input$param) %||% x_filtered,
       multiple = TRUE,
       width = "100%")
   })
