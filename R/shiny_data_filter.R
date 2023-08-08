@@ -13,6 +13,7 @@
 #' @inherit shiny_data_filter examples
 #' 
 shiny_data_filter_ui <- function(inputId) {
+  .Deprecated("IDEAFilter_ui")
   ns <- shiny::NS(inputId)
   
   shinyDataFilter_resourcePath()
@@ -118,6 +119,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' }
 #' 
 shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
+  .Deprecated("IDEAFilter")
   
   ns <- session$ns
   filter_log("calling module", verbose = verbose)
