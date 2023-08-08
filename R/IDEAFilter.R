@@ -243,12 +243,14 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
         init = data_call)
     })
     
-    reactive({
-      filter_log("recalculating filtered data", verbose = verbose)
-      structure(
-        d <- subset(datar(), filter_logical()) %||% data.frame(),
-        code = code(),
-        class = c("shinyDataFilter_df", class(d)))
-    })
+    bindEvent(
+      reactive({
+        filter_log("recalculating filtered data", verbose = verbose)
+        structure(
+          d <- subset(datar(), filter_logical()) %||% data.frame(),
+          code = code(),
+          class = c("shinyDataFilter_df", class(d)))
+      }),
+      code())
   })
 }

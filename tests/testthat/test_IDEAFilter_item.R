@@ -1,4 +1,4 @@
-context("test_shiny_data_filter_item")
+context("test_IDEAFilter_item")
 skip_on_cran()
 
 # reflects data used in shinytest

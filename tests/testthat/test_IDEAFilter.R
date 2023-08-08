@@ -1,4 +1,4 @@
-context("test_shiny_data_filter")
+context("test_IDEAFilter")
 skip_on_cran()
 
 app_path <- IDEAFilter:::shinytest_path("shinytest_IDEAFilter")
