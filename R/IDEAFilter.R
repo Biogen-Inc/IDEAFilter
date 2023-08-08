@@ -46,6 +46,7 @@ IDEAFilter_ui <- function(id) {
 #' @param data a \code{data.frame} or \code{reactive expression} returning a
 #'   \code{data.frame} to use as the input to the filter module
 #' @param ... placeholder for inclusion of additional parameters in future development
+#' @param col_subset a \code{vector} containing the list of allowable columns to filter on
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #' 
