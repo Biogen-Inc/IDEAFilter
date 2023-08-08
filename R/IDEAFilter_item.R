@@ -30,13 +30,16 @@ IDEAFilter_item_ui <- function(id) {
 #'   as the input to the filter item module
 #' @param column_name a value indicating the name of the column to be filtered
 #' @param ... placeholder for inclusion of additional parameters in future development
+#' @param filters a \code{reactive expression} containing the a list of filters
+#'   passed as \code{language} types
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'   
-#' @return a \code{\link[shiny]{reactiveValues}} list of three reactive elements;
-#'   (1) a reactive data frame, (2) the code to filter a vector with the name of
-#'   the specified data column, and (3) a flag indicating when to remove this
-#'   filter.
+#' @return a \code{\link[shiny]{reactiveValues}} list of four reactive elements;
+#'   (1) the code to filter a vector with the name of the specified data column,
+#'   (2) a flag indicating when to remove this filter, (3) the append list of
+#'   combining the `filters` argument with (1), and (4) the column name of the
+#'   `data` used to create the item.
 #'   
 #' @importFrom shiny reactiveValues wellPanel fillRow selectInput h4 actionLink
 #'   icon uiOutput div HTML span textOutput eventReactive renderUI tag
@@ -50,7 +53,6 @@ IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(),
     ns <- session$ns
     
     module_return <- shiny::reactiveValues(
-      # data = data,
       code = TRUE, 
       remove = FALSE, 
       filters = filters,
