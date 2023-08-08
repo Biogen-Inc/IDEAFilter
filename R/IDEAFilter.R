@@ -110,13 +110,14 @@ IDEAFilter_ui <- function(id) {
 #' shinyApp(ui = ui, server = server)
 #' }
 #' 
-IDEAFilter <- function(id, data, ..., verbose = FALSE) {
+IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     filter_log("calling module", verbose = verbose)
     
     data_call <- as.list(sys.call(-7L))$data
     datar <- if (is.reactive(data)) data else reactive(data)
+    datar_subset <- if (is.null(col_subset)) datar else reactive(datar()[col_subset])
     
     filter_counter <- 0
     next_filter_id <- function() {
@@ -126,7 +127,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
     
     filters <- reactiveVal(c("filter_0"))
     filter_returns <- list(filter_0 = reactiveValues(
-      data = datar, 
+      data = datar_subset, 
       code = reactive(TRUE), 
       filters = reactive(list()),
       remove = NULL))
@@ -148,7 +149,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
       
       filter_returns[[fid]] <<- IDEAFilter_item(
         fid,
-        data = datar,
+        data = datar_subset,
         column_name = column_name,
         filters = filter_returns[[in_fid]]$filters,
         verbose = verbose)
@@ -158,7 +159,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
       columnSelectInput(
         ns("add_filter_select"),
         label = NULL, 
-        data = datar,
+        data = datar_subset,
         placeholder = "Add Filter",
         width = "100%")
     })
@@ -192,7 +193,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
     })
     
     observeEvent(input$add_filter_select, {
-      if (!input$add_filter_select %in% names(datar())) return()
+      if (!input$add_filter_select %in% names(datar_subset())) return()
       
       filter_log("observing add filter button press", verbose = verbose)
       update_filter(fid <- next_filter_id(), column_name = input$add_filter_select)
@@ -226,7 +227,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
     }) 
     
     filter_logical <- reactiveVal(TRUE)
-    observeEvent(datar(), {
+    observeEvent(datar_subset(), {
       filter_logical(TRUE)
     })
     code <- reactive({
@@ -235,7 +236,7 @@ IDEAFilter <- function(id, data, ..., verbose = FALSE) {
         Negate(isTRUE), 
         Map(function(fi) filter_returns[[fi]]$code(), filters()))
       
-      filter_logical(if (!length(filter_exprs)) rep(TRUE,nrow(datar())) else Reduce("&", Map(function(x) with(datar(), eval(x)), filter_exprs)))
+      filter_logical(if (!length(filter_exprs)) rep(TRUE,nrow(datar_subset())) else Reduce("&", Map(function(x) with(datar_subset(), eval(x)), filter_exprs)))
       
       Reduce(
         function(l,r) bquote(.(l) %>% filter(.(r))), 
