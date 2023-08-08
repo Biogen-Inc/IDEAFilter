@@ -154,7 +154,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(),
     nna <- shiny::reactive(sum(is.na(vec())))
     
     vec <- shiny::reactive({
-      if (is.null(module_return$column_name)) NULL
+      if (is.null(module_return$column_name) || !(module_return$column_name %in% names(data()))) NULL
       else data()[filter_logical(), module_return$column_name, drop = TRUE]
     })
     
