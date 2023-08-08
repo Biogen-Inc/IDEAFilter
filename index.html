@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">IDEAFilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3.9003</span>
       </span>
     </div>
 
@@ -113,12 +113,11 @@
 </h3>
 <p>After installation, you now have access to the<code>IDEAFilter</code> shiny module. On the UI side, you need only include the following line of code to place the filtering widget somewhere in your app:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/shiny_data_filter_ui.html">shiny_data_filter_ui</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"data_filter"</span><span class="op">)</span></span></code></pre></div>
-<p>The server side logic needs to call the <code>shiny_data_filter</code> module, match the input ID from the UI, and provide a data source. The returned reactive data.frame (called “filtered_data”) may used for downstream processes regardless on if the user chooses to apply filters or not.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/IDEAFilter_ui.html">IDEAFilter_ui</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"data_filter"</span><span class="op">)</span></span></code></pre></div>
+<p>The server side logic needs to call the <code>IDEAFilter</code> module, match the input ID from the UI, and provide a data source. The returned reactive data.frame (called “filtered_data”) may used for downstream processes regardless on if the user chooses to apply filters or not.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="co"># name the returned reactive data frame</span></span>
-<span>   <span class="fu">callModule</span><span class="op">(</span></span>
-<span>     <span class="va">shiny_data_filter</span>, <span class="co"># call the module by name</span></span>
+<span>   <span class="fu"><a href="reference/IDEAFilter.html">IDEAFilter</a></span><span class="op">(</span></span>
 <span>     <span class="st">"data_filter"</span>,     <span class="co"># give the filter a name(space)</span></span>
 <span>     data <span class="op">=</span> <span class="va">starwars2</span>,  <span class="co"># feed it raw data</span></span>
 <span>     verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -134,7 +133,7 @@
 <p><br></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://biogen-inc.github.io/IDEAFilter/">IDEAFilter</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://biogen-inc.github.io/IDEAFilter">IDEAFilter</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>  <span class="co"># for data pre-processing and example data</span></span>
 <span> </span>
 <span><span class="co"># prep a new data.frame with more diverse data types</span></span>
@@ -158,18 +157,13 @@
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html" class="external-link">dataTableOutput</a></span><span class="op">(</span><span class="st">"data_summary"</span><span class="op">)</span>,</span>
 <span>     <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">h4</a></span><span class="op">(</span><span class="st">"Generated Code"</span><span class="op">)</span>,</span>
 <span>     <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"data_filter_code"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>   <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html" class="external-link">column</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fu"><a href="reference/shiny_data_filter_ui.html">shiny_data_filter_ui</a></span><span class="op">(</span><span class="st">"data_filter"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>   <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html" class="external-link">column</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fu"><a href="reference/IDEAFilter_ui.html">IDEAFilter_ui</a></span><span class="op">(</span><span class="st">"data_filter"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  </span>
 <span> <span class="va">filtered_data</span> <span class="op">&lt;-</span> <span class="co"># name the returned reactive data frame</span></span>
-<span>   <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/callModule.html" class="external-link">callModule</a></span><span class="op">(</span></span>
-<span>     <span class="va">shiny_data_filter</span>, <span class="co"># call the module</span></span>
-<span>     <span class="st">"data_filter"</span>,     <span class="co"># give the filter a name(space)</span></span>
-<span>     data <span class="op">=</span> <span class="va">starwars2</span>,  <span class="co"># feed it raw data</span></span>
-<span>     verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span>    <span class="op">)</span></span>
+<span>   <span class="fu"><a href="reference/IDEAFilter.html">IDEAFilter</a></span><span class="op">(</span><span class="st">"data_filter"</span>, data <span class="op">=</span> <span class="va">starwars2</span>,verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span> </span>
 <span> <span class="co"># extract &amp; display the "code" attribute to see dplyr::filter()</span></span>
 <span> <span class="co"># statements performed</span></span>
