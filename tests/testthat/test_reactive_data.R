@@ -29,6 +29,7 @@ test_that("test that a new filter item has been added", {
 
 app$set_inputs(`data_filter-add_filter_select` = "mpg")
 app$wait_for_js('document.getElementById("data_filter-filter_2-remove_filter_btn")')
+app$wait_for_idle()
 app$set_inputs(`data_filter-filter_2-vector_filter-param` = c(20, 25))
 
 test_that("test that a new filter item has been added", {
