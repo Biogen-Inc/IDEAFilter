@@ -8,6 +8,10 @@
 #'   session
 #' @param x The TODO
 #' @param filter_na The \code{logical} TODO
+#' @param filter_fn A function to modify, specified in one of the following ways:
+#'   * A named function, e.g. `mean`.
+#'   * An anonymous function, e.g. `\(x) x + 1` or `function(x) x + 1`.
+#'   * A formula, e.g. `~ .x + 1`.
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'
@@ -25,12 +29,15 @@
 #' @keywords internal
 shiny_vector_filter_numeric_few <- function(input, output, session,
             x = shiny::reactive(factor()),  #important: changed x to factor here
-           filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
     
   ns <- session$ns
   
   x_wo_NA <- shiny::reactive(Filter(Negate(is.na), x()))
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+  fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+  
+  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
   
   choices <- shiny::reactive(unique(as.character(sort(x_wo_NA()))))
   
@@ -47,7 +54,7 @@ shiny_vector_filter_numeric_few <- function(input, output, session,
                ),
                shiny::checkboxGroupInput(ns("param"), NULL,
                                          choices = choices(),
-                                         selected = shiny::isolate(input$param) %||% c(),
+                                         selected = isolate(input$param) %||% x_filtered,
                                          width = "100%"))
   })
   

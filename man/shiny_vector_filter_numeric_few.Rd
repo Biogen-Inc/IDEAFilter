@@ -10,6 +10,7 @@ shiny_vector_filter_numeric_few(
   session,
   x = shiny::reactive(factor()),
   filter_na = shiny::reactive(FALSE),
+  filter_fn = NULL,
   verbose = FALSE
 )
 }
@@ -26,6 +27,11 @@ session}
 \item{x}{The TODO}
 
 \item{filter_na}{The \code{logical} TODO}
+
+\item{filter_fn}{A function to modify, specified in one of the following ways:
+* A named function, e.g. `mean`.
+* An anonymous function, e.g. `\(x) x + 1` or `function(x) x + 1`.
+* A formula, e.g. `~ .x + 1`.}
 
 \item{verbose}{a \code{logical} value indicating whether or not to print log
 statements out to the console}

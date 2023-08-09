@@ -29,9 +29,10 @@ IDEAFilter_item_ui <- function(id) {
 #' @param data a \code{reactive expression} returning a \code{data.frame} to use
 #'   as the input to the filter item module
 #' @param column_name a value indicating the name of the column to be filtered
-#' @param ... placeholder for inclusion of additional parameters in future development
 #' @param filters a \code{reactive expression} containing the a list of filters
 #'   passed as \code{language} types
+#' @param ... placeholder for inclusion of additional parameters in future development
+#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'   
@@ -47,10 +48,12 @@ IDEAFilter_item_ui <- function(id) {
 #' @export
 #' @keywords internal
 #' 
-IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(), verbose = FALSE) {
+IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ..., preselection = NULL, verbose = FALSE) {
   filters <- if (is.reactive(filters)) filters else reactiveVal(filters)
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    
+    filter_na <- reactiveVal(if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE)
     
     module_return <- shiny::reactiveValues(
       code = TRUE, 
@@ -146,9 +149,8 @@ IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(),
       sum(out_log, na.rm = TRUE)
       })
     
-    filter_na <- shiny::reactive({
-      if (is.null(input$filter_na_btn)) FALSE
-      else input$filter_na_btn %% 2 == 1
+    observeEvent(input$filter_na_btn, {
+      filter_na(!filter_na())
     })
     
     x <- shiny::eventReactive(filter_na(), { filter_log("observing filter_na")})
@@ -157,7 +159,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(),
     
     vec <- shiny::reactive({
       if (is.null(module_return$column_name) || !(module_return$column_name %in% names(data()))) NULL
-      else data()[filter_logical(), module_return$column_name, drop = TRUE]
+      else subset(data(), filter_logical(), module_return$column_name, drop = TRUE)
     })
     
     shiny::observeEvent(input$column_select, {
@@ -180,6 +182,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, ..., filters = list(),
         "vector_filter", 
         x = vec, 
         filter_na = filter_na,
+        filter_fn = preselection[["filter_fn"]],
         verbose = verbose)
     })
     

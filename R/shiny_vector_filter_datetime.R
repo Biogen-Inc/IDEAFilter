@@ -12,10 +12,13 @@ shiny_vector_filter_ui.POSIXct <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(), 
-           filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE)
+    
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     
     tzone <- reactive(attr(x(), "tzone"))
 
@@ -33,15 +36,15 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
           my_date <- as.Date(x())
           div( 
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("st_date"), "Start Date",value = min(my_date, na.rm = TRUE)
+                    shiny::dateInput(ns("st_date"), "Start Date", value = isolate(input$st_date) %||% min(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = min(x(), na.rm = TRUE))# automatically takes the time element
+                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = isolate(input$st_time) %||% min(x_filtered))# automatically takes the time element
                 ),    
             
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("end_date"), "End Date",value = max(my_date, na.rm = TRUE)
+                    shiny::dateInput(ns("end_date"), "End Date", value = isolate(input$end_date) %||% max(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = max(x(), na.rm = TRUE))  # automatically takes the time element
+                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = isolate(input$end_time) %||% max(x_filtered))  # automatically takes the time element
             )
           )
         } else {

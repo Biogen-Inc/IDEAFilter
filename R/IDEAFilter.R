@@ -47,6 +47,7 @@ IDEAFilter_ui <- function(id) {
 #'   \code{data.frame} to use as the input to the filter module
 #' @param ... placeholder for inclusion of additional parameters in future development
 #' @param col_subset a \code{vector} containing the list of allowable columns to filter on
+#' @param preselection a \code{list} that can be used to pre-populate the filter
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #' 
@@ -111,7 +112,7 @@ IDEAFilter_ui <- function(id) {
 #' shinyApp(ui = ui, server = server)
 #' }
 #' 
-IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
+IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, verbose = FALSE) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     filter_log("calling module", verbose = verbose)
@@ -119,6 +120,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
     data_call <- as.list(sys.call(-7L))$data
     datar <- if (is.reactive(data)) data else reactive(data)
     datar_subset <- if (is.null(col_subset)) datar else reactive(datar()[col_subset])
+    preselectionr <- if (is.reactive(preselection)) preselection else reactive(preselection)
     
     filter_counter <- 0
     next_filter_id <- function() {
@@ -133,7 +135,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
       filters = reactive(list()),
       remove = NULL))
     
-    update_filter <- function(fid, in_fid, column_name = NULL) {
+    update_filter <- function(fid, in_fid, column_name = NULL, preselection = NULL) {
       fs <- isolate(filters())
       
       if (missing(in_fid))
@@ -153,7 +155,28 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
         data = datar_subset,
         column_name = column_name,
         filters = filter_returns[[in_fid]]$filters,
+        preselection = preselection,
         verbose = verbose)
+    }
+    
+    apply_preselection <- function(preselection = NULL) {
+      
+      for (col_sel in (names(preselectionr()) %||% preselectionr())) {
+        if (!col_sel %in% names(datar())) {
+          warning(sprintf("Unable to add `%s` to filter list.", col_sel))
+          next()
+        }
+        
+        update_filter(fid <- next_filter_id(), column_name = col_sel, preselection = if(is.list(preselectionr())) preselectionr()[[col_sel]])
+        filters(append(filters(), fid))
+        
+        insertUI(
+          selector = sprintf("#%s", ns("sortableList")),
+          where = "beforeEnd",
+          ui = IDEAFilter_item_ui(ns(fid)))
+        
+        updateSelectInput(session, "add_filter_select", selected = "")
+      }
     }
     
     output$add_filter_select_ui <- renderUI({
@@ -191,6 +214,35 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
         selector = sprintf("#%s", ns("sortableList")),
         where = "beforeEnd",
         ui = IDEAFilter_item_ui(ns(fid)))
+    })  
+    
+    observeEvent(input$add_filter_select, {
+      req(preselectionr())
+      
+      filter_log("observing pre-selected columns", verbose = verbose)
+      
+      apply_preselection(preselectionr())
+    }, once = TRUE)
+    
+    observeEvent(preselectionr(), {
+      req(!is.null(input$add_filter_select))
+      
+      filter_log("scrubbing all filters", verbose = verbose)
+      for (fid in filters()[-1]) {
+        idx <- utils::head(which(filters() == fid), 1)
+        filter_returns[[fid]]$destroy
+        
+        filters(setdiff(filters(), fid))
+        
+        # overwrite existing module call with one taking new input data
+        if (!idx > length(filters())) update_filter(filters()[[idx]])
+        
+        removeUI(selector = sprintf("#%s-ui", ns(fid)))
+      }
+      
+      filter_log("applying updated selection", verbose = verbose)
+      apply_preselection(preselectionr())
+      
     })
     
     observeEvent(input$add_filter_select, {
@@ -233,9 +285,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, verbose = FALSE) {
     })
     code <- reactive({
       filter_log("building code", verbose = verbose)
-      filter_exprs <- Filter(
-        Negate(isTRUE), 
-        Map(function(fi) filter_returns[[fi]]$code(), filters()))
+      filter_exprs <- filter_returns[[utils::tail(filters(), 1)]]$filters()
       
       filter_logical(if (!length(filter_exprs)) rep(TRUE,nrow(datar_subset())) else Reduce("&", Map(function(x) with(datar_subset(), eval(x)), filter_exprs)))
       
