@@ -173,7 +173,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
         insertUI(
           selector = sprintf("#%s", ns("sortableList")),
           where = "beforeEnd",
-          ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
+          ui = IDEAFilter_item_ui(ns(fid)))
         
         updateSelectInput(session, "add_filter_select", selected = "")
       }
