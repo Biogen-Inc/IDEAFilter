@@ -285,9 +285,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
     })
     code <- reactive({
       filter_log("building code", verbose = verbose)
-      filter_exprs <- Filter(
-        Negate(isTRUE), 
-        Map(function(fi) filter_returns[[fi]]$code(), filters()))
+      filter_exprs <- filter_returns[[utils::tail(filters(), 1)]]$filters()
       
       filter_logical(if (!length(filter_exprs)) rep(TRUE,nrow(datar_subset())) else Reduce("&", Map(function(x) with(datar_subset(), eval(x)), filter_exprs)))
       
