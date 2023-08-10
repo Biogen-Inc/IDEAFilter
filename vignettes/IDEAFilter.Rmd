@@ -1,0 +1,23 @@
+---
+title: "Introduction to IDEAFilter"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to IDEAFilter}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(IDEAFilter)
+```
+
+When exploring data in a Shiny application, one may want to look at a subset of the data. Oftentimes, you as the developer will restrict this filtering by design based on the specifications of your app. But what if you need to let the user filter on the fields of their choice? Or what if the data set the user will be exploring does not have a stable structure?
+
+In this situation you need a filtering structure that is not constrained to a specific data set but can also be understood by users. The IDEAFilter package can help you solve your problem by providing an agnostic and idiomatic data filter module to be used in your application.

@@ -55,3 +55,4 @@ Suggests:
     spelling,
     testthat
 Language: en-US
+VignetteBuilder: knitr
