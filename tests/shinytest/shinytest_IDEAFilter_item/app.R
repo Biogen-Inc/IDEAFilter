@@ -12,9 +12,7 @@ srv <- function(input, output, session) {
   
   filter_logical <- reactiveVal(TRUE)
   observe({
-    filter_exprs <- Filter(
-      Negate(isTRUE), 
-      Map(function(fi) filtered_data$code(), filtered_data$filters()))
+    filter_exprs <- filtered_data$filters()
     
     filter_logical(if (!length(filter_exprs)) rep(TRUE,nrow(data)) else Reduce("&", Map(function(x) with(data, eval(x)), filter_exprs)))
   })
