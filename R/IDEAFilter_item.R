@@ -56,13 +56,13 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     filter_na <- reactiveVal(if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE)
     
     module_return <- shiny::reactiveValues(
-      code = TRUE, 
+      pre_filters = filters, 
       remove = FALSE, 
       filters = filters,
       column_name = column_name)
     
     filter_logical <- reactive({
-      if (!length(filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), filters()))
+      if (!length(module_return$pre_filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), module_return$pre_filters()))
       })
     
     
@@ -145,7 +145,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     })
     
     output$nrow <- shiny::renderText({
-      out_log <- if (isTRUE(module_return$code())) filter_logical() else with(data(), eval(module_return$code())) & filter_logical()
+      out_log <- if (isTRUE(code())) filter_logical() else with(data(), eval(code())) & filter_logical()
       sum(out_log, na.rm = TRUE)
       })
     
@@ -186,7 +186,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
         verbose = verbose)
     })
     
-    module_return$code <- shiny::reactive({
+    code <- shiny::reactive({
       if (is.null(module_return$column_name)) return(TRUE)
       
       do.call(substitute, list(
@@ -196,7 +196,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     
     module_return$filters <- shiny::reactive({
       Filter(Negate(isTRUE), 
-             append(filters(), module_return$code()))
+             append(module_return$pre_filters(), code()))
     })
     
     module_return
