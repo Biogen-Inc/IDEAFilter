@@ -103,7 +103,10 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
                      shiny::span(")")))),
         shiny::actionLink(ns("remove_filter_btn"), NULL,
                           style = 'float: right;',
-                          shiny::icon("times-circle"))
+                          shiny::icon("times-circle")),
+        shiny::actionLink(ns("erase_filter_btn"), NULL,
+                          style = 'float: right; margin-right: 10px;',
+                          shiny::icon("eraser"))
       ),
       shiny::uiOutput(ns("vector_filter_ui")))
     
@@ -174,6 +177,10 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       module_return$remove <- TRUE
     })
     
+    observeEvent(input$erase_filter_btn, {
+      filter_na(FALSE)
+    })
+    
     vector_module_srv <- shiny::reactive(shiny_vector_filter(vec(), "vec"))
     
     vector_module_return <- shiny::reactive({
@@ -183,6 +190,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
         x = vec, 
         filter_na = filter_na,
         filter_fn = preselection[["filter_fn"]],
+        erase_filters = reactive(input$erase_filter_btn),
         verbose = verbose)
     })
     

@@ -13,7 +13,8 @@ shiny_vector_filter_ui.logical <- function(data, inputId) {
 shiny_vector_filter.logical <- function(data, inputId, ...) {
   function(input, output, session, 
            x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), filter_fn = NULL, 
-           verbose = FALSE) {
+           verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     
@@ -44,6 +45,7 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
                                            selected = isolate(input$param) %||% filter_selected,
                                            width = "100%"))
     })
+    observeEvent(erase_filters(), updateCheckboxGroupInput(session, "param", selected = ""))
     
     module_return$code <- shiny::reactive({
       exprs <- list()

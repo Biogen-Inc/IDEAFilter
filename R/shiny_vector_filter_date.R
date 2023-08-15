@@ -12,7 +12,8 @@ shiny_vector_filter_ui.Date <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.Date <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(Date()), 
-           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
@@ -44,6 +45,7 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
             shiny::tags$h5(shiny::tags$i("no numeric values")))
         })
     })
+    observeEvent(erase_filters(), updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)))
     
     module_return$code <- shiny::reactive({
       exprs <- list()

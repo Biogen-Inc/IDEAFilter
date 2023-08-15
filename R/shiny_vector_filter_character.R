@@ -11,7 +11,8 @@ shiny_vector_filter_ui.character <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.character <- function(data, inputId, ...) {
     function(input, output, session, x = shiny::reactive(character()), 
-             filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+             filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+             erase_filters = shiny::reactive(0)) {
   
   ns <- session$ns
   
@@ -41,6 +42,7 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     }
 
   })
+  observeEvent(erase_filters(), updateSelectizeInput(session, "param", selected = ""))
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

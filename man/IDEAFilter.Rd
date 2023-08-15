@@ -4,7 +4,14 @@
 \alias{IDEAFilter}
 \title{IDEA data filter module server function}
 \usage{
-IDEAFilter(id, data, ..., col_subset = NULL, preselection = NULL, verbose = FALSE)
+IDEAFilter(
+  id,
+  data,
+  ...,
+  col_subset = NULL,
+  preselection = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{id}{a module id name}

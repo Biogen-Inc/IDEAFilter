@@ -24,7 +24,8 @@
 #' @keywords internal
 shiny_vector_filter_factor_many <- function(input, output, session, 
     x = shiny::reactive(factor()), filter_na = shiny::reactive(FALSE), filter_fn = NULL, 
-    verbose = FALSE) {
+    verbose = FALSE,
+    erase_filters = shiny::reactive(0)) {
   
   ns <- session$ns
 
@@ -42,6 +43,7 @@ shiny_vector_filter_factor_many <- function(input, output, session,
       multiple = TRUE,
       width = "100%")
   })
+  observeEvent(erase_filters(), updateSelectizeInput(session, "param", selected = ""))
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

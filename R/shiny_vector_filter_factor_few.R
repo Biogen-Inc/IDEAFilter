@@ -28,7 +28,8 @@
 #' @keywords internal
 shiny_vector_filter_factor_few <- function(input, output, session, 
     x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), filter_fn = NULL, 
-    verbose = FALSE) {
+    verbose = FALSE,
+    erase_filters = shiny::reactive(0)) {
   
   ns <- session$ns
   
@@ -56,6 +57,7 @@ shiny_vector_filter_factor_few <- function(input, output, session,
         selected = isolate(input$param) %||% x_filtered,
         width = "100%"))
   })
+  observeEvent(erase_filters(), updateCheckboxGroupInput(session, "param", selected = ""))
     
     # Normalized
     # ggplot2::ggplot() + 
