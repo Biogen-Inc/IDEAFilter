@@ -114,6 +114,8 @@ IDEAFilter_ui <- function(id) {
 #' 
 IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, verbose = FALSE) {
   moduleServer(id, function(input, output, session) {
+    req(data)
+    
     ns <- session$ns
     filter_log("calling module", verbose = verbose)
     
