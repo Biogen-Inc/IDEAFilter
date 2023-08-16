@@ -165,6 +165,8 @@ shiny_data_filter_item <- function(input, output, session, data,
   
   shiny::observeEvent(input$column_select_edit_btn, {
     module_return$column_name <- NULL
+    remove_shiny_inputs("vector_filter", input, ns = ns)
+    session$userData$eraser_observer$destroy()
   })
   
   shiny::observeEvent(input$remove_filter_btn, {
