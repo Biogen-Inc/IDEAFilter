@@ -62,6 +62,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       column_name = column_name)
     
     filter_logical <- reactive({
+      req(data())
       if (!length(module_return$pre_filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), module_return$pre_filters()))
       })
     
