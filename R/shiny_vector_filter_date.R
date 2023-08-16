@@ -32,10 +32,11 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
+          my_min_date <- if (is.null(isolate(input$param))) NULL else max(isolate(input$param[[1]]), min(x(), na.rm = TRUE))
+          my_max_date <- if (is.null(isolate(input$param))) NULL else min(isolate(input$param[[2]]), max(x(), na.rm = TRUE))
           shiny::dateRangeInput(ns("param"), NULL,
-                             #value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
-                             start = isolate(input$param[[1]]) %||% min(x_filtered), 
-                             end = isolate(input$param[[2]]) %||% max(x_filtered),
+                             start = my_min_date %||% min(x_filtered), 
+                             end = my_max_date %||% max(x_filtered),
                              min = min(x(), na.rm = TRUE), 
                              max = max(x(), na.rm = TRUE)
                              )
