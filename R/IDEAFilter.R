@@ -179,6 +179,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
     }
     
     output$add_filter_select_ui <- renderUI({
+      req(datar_subset())
       columnSelectInput(
         ns("add_filter_select"),
         label = NULL, 
@@ -283,6 +284,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
       filter_logical(TRUE)
     })
     code <- reactive({
+      req(datar_subset())
       filter_log("building code", verbose = verbose)
       filter_exprs <- filter_returns[[utils::tail(filters(), 1)]]$filters()
       
