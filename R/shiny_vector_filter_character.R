@@ -43,7 +43,11 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
 
   })
   session$userData$eraser_observer <-
-    observeEvent(erase_filters(), updateSelectizeInput(session, "param", selected = ""))
+    observeEvent(
+      erase_filters(), 
+      updateSelectizeInput(session, "param", selected = ""),
+      ignoreInit = TRUE
+    )
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

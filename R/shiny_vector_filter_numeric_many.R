@@ -59,7 +59,11 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
         })
     })
     session$userData$eraser_observer <-
-      observeEvent(erase_filters(), updateSliderInput(session, "param", value = range(x(), na.rm = TRUE)))
+      observeEvent(
+        erase_filters(), 
+        updateSliderInput(session, "param", value = range(x(), na.rm = TRUE)),
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()

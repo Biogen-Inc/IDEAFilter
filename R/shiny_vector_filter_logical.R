@@ -46,7 +46,11 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
                                            width = "100%"))
     })
     session$userData$eraser_observer <-
-      observeEvent(erase_filters(), updateCheckboxGroupInput(session, "param", selected = ""))
+      observeEvent(
+        erase_filters(), 
+        updateCheckboxGroupInput(session, "param", selected = ""),
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()

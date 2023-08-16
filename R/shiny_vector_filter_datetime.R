@@ -66,7 +66,7 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
       shinyTime::updateTimeInput(session, "st_time", value = min(x(), na.rm = TRUE))
       updateDateInput(session, "end_date", value = max(my_date, na.rm = TRUE))
       shinyTime::updateTimeInput(session, "end_time", value = max(x(), na.rm = TRUE))
-    })
+    }, ignoreInit = TRUE)
 
     st_dt <- reactive({
       st <- substr(strftime(input$st_time, "%Y-%m-%d %H:%M:%S", tz = tzone()),12,20)

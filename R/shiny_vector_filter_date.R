@@ -47,7 +47,11 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
         })
     })
     session$userData$eraser_observer <-
-      observeEvent(erase_filters(), updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)))
+      observeEvent(
+        erase_filters(),
+        updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)), 
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()
