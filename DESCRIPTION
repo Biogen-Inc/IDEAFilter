@@ -55,3 +55,5 @@ Suggests:
     spelling,
     testthat
 Language: en-US
+Depends: 
+    R (>= 2.10)
