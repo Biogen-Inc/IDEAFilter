@@ -1,4 +1,4 @@
-#' @importFrom shinyTime timeInput
+#' @importFrom shinyTime timeInput updateTimeInput
 #' @importFrom shiny NS uiOutput
 #' @export
 #' @keywords internal
@@ -12,7 +12,8 @@ shiny_vector_filter_ui.POSIXct <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(), 
-           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
@@ -20,7 +21,7 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
     
     x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     
-    tzone <- reactive(attr(x(), "tzone"))
+    tzone <- reactive(attr(x(), "tzone") %||% "")
 
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
@@ -34,17 +35,21 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
           my_date <- as.Date(x())
+          my_min_date <- if (is.null(isolate(input$st_date))) NULL else max(isolate(input$st_date), min(my_date, na.rm = TRUE))
+          my_min_time <- if (is.null(isolate(input$st_time))) NULL else max(isolate(st_dt()), min(x(), na.rm = TRUE))
+          my_max_date <- if (is.null(isolate(input$end_date))) NULL else min(isolate(input$end_date), max(my_date, na.rm = TRUE))
+          my_max_time <- if (is.null(isolate(input$end_time))) NULL else min(isolate(end_dt()), max(x(), na.rm = TRUE))
           div( 
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("st_date"), "Start Date", value = isolate(input$st_date) %||% min(as.Date(x_filtered))
+                    shiny::dateInput(ns("st_date"), "Start Date", value = my_min_date %||% min(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = isolate(input$st_time) %||% min(x_filtered))# automatically takes the time element
+                shinyTime::timeInput(ns("st_time"), "Start Time (HH:MM:SS)", value = my_min_time %||% min(x_filtered))# automatically takes the time element
                 ),    
             
             div(style = "display: inline-block; vertical-align:middle;",
-                    shiny::dateInput(ns("end_date"), "End Date", value = isolate(input$end_date) %||% max(as.Date(x_filtered))
+                    shiny::dateInput(ns("end_date"), "End Date", value = my_max_date %||% max(as.Date(x_filtered))
                                  , min = min(my_date, na.rm = TRUE), max = max(my_date, na.rm = TRUE)),
-                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = isolate(input$end_time) %||% max(x_filtered))  # automatically takes the time element
+                shinyTime::timeInput(ns("end_time"), "End Time (HH:MM:SS)", value = my_max_time %||% max(x_filtered))  # automatically takes the time element
             )
           )
         } else {
@@ -54,6 +59,15 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
         })
     })
     
+    session$userData$eraser_observer <-
+      observeEvent(erase_filters(), {
+      my_date <- as.Date(x())
+      updateDateInput(session, "st_date", value = min(my_date, na.rm = TRUE))
+      shinyTime::updateTimeInput(session, "st_time", value = min(x(), na.rm = TRUE))
+      updateDateInput(session, "end_date", value = max(my_date, na.rm = TRUE))
+      shinyTime::updateTimeInput(session, "end_time", value = max(x(), na.rm = TRUE))
+    }, ignoreInit = TRUE)
+
     st_dt <- reactive({
       st <- substr(strftime(input$st_time, "%Y-%m-%d %H:%M:%S", tz = tzone()),12,20)
       as.POSIXct(paste(input$st_date, st), tz = tzone())

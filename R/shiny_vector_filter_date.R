@@ -12,7 +12,8 @@ shiny_vector_filter_ui.Date <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.Date <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(Date()), 
-           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
@@ -31,10 +32,11 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
+          my_min_date <- if (is.null(isolate(input$param))) NULL else max(isolate(input$param[[1]]), min(x(), na.rm = TRUE))
+          my_max_date <- if (is.null(isolate(input$param))) NULL else min(isolate(input$param[[2]]), max(x(), na.rm = TRUE))
           shiny::dateRangeInput(ns("param"), NULL,
-                             #value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
-                             start = isolate(input$param[[1]]) %||% min(x_filtered), 
-                             end = isolate(input$param[[2]]) %||% max(x_filtered),
+                             start = my_min_date %||% min(x_filtered), 
+                             end = my_max_date %||% max(x_filtered),
                              min = min(x(), na.rm = TRUE), 
                              max = max(x(), na.rm = TRUE)
                              )
@@ -44,6 +46,12 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
             shiny::tags$h5(shiny::tags$i("no numeric values")))
         })
     })
+    session$userData$eraser_observer <-
+      observeEvent(
+        erase_filters(),
+        updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)), 
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()

@@ -106,7 +106,8 @@ shiny_vector_filter <- function(data, inputId, global = FALSE) {
 #' @keywords internal
 shiny_vector_filter.default <- function(data, inputId, ...) {
   function(input, output, session, x = shiny::reactive(NULL), 
-      filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) { 
+      filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+      erase_filters = shiny::reactive(0)) { 
     
     module_return <- shiny::reactiveValues(code = FALSE, mask = FALSE)
     module_return$code <- shiny::reactive(FALSE)
