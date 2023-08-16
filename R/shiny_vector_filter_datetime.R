@@ -59,7 +59,8 @@ shiny_vector_filter.POSIXct <- function(data, inputId, ...) {
         })
     })
     
-    observeEvent(erase_filters(), {
+    session$userData$eraser_observer <-
+      observeEvent(erase_filters(), {
       my_date <- as.Date(x())
       updateDateInput(session, "st_date", value = min(my_date, na.rm = TRUE))
       shinyTime::updateTimeInput(session, "st_time", value = min(x(), na.rm = TRUE))

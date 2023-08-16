@@ -46,7 +46,8 @@ shiny_vector_filter.Date <- function(data, inputId, ...) {
             shiny::tags$h5(shiny::tags$i("no numeric values")))
         })
     })
-    observeEvent(erase_filters(), updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)))
+    session$userData$eraser_observer <-
+      observeEvent(erase_filters(), updateDateRangeInput(session, "param", start = min(x(), na.rm = TRUE), end = max(x(), na.rm = TRUE)))
     
     module_return$code <- shiny::reactive({
       exprs <- list()

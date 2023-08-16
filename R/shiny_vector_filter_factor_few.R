@@ -57,7 +57,8 @@ shiny_vector_filter_factor_few <- function(input, output, session,
         selected = isolate(input$param) %||% x_filtered,
         width = "100%"))
   })
-  observeEvent(erase_filters(), updateCheckboxGroupInput(session, "param", selected = ""))
+  session$userData$eraser_observer <-
+    observeEvent(erase_filters(), updateCheckboxGroupInput(session, "param", selected = ""))
     
     # Normalized
     # ggplot2::ggplot() + 

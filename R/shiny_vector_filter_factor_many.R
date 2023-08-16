@@ -43,7 +43,8 @@ shiny_vector_filter_factor_many <- function(input, output, session,
       multiple = TRUE,
       width = "100%")
   })
-  observeEvent(erase_filters(), updateSelectizeInput(session, "param", selected = ""))
+  session$userData$eraser_observer <-
+    observeEvent(erase_filters(), updateSelectizeInput(session, "param", selected = ""))
   
   module_return$code <- shiny::reactive({
     if (length(input$param))
