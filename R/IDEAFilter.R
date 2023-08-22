@@ -161,7 +161,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
     apply_preselection <- function(preselection = NULL) {
       
       for (col_sel in (names(preselectionr()) %||% preselectionr())) {
-        if (!col_sel %in% names(datar())) {
+        if (!is.character(col_sel) || length(col_sel) != 1) {
           warning(sprintf("Unable to add `%s` to filter list.", col_sel))
           next()
         }
