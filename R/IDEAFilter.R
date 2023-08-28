@@ -131,7 +131,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
     filters <- reactiveVal(c("filter_0"))
     filter_returns <- list(filter_0 = reactiveValues(
       data = datar_subset, 
-      code = reactive(TRUE), 
+      pre_filters = reactive(list()), 
       filters = reactive(list()),
       remove = NULL))
     
@@ -146,17 +146,16 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
         stop('no known filter for inbound filter id.')
       
       if (fid %in% names(filter_returns)) {
-        column_name <- filter_returns[[fid]]$column_name
-        filter_returns[[fid]]$destroy
+        filter_returns[[fid]]$pre_filters <- filter_returns[[in_fid]]$filters
+      } else {
+        filter_returns[[fid]] <<- IDEAFilter_item(
+          fid,
+          data = datar_subset,
+          column_name = column_name,
+          filters = filter_returns[[in_fid]]$filters,
+          preselection = preselection,
+          verbose = verbose)
       }
-      
-      filter_returns[[fid]] <<- IDEAFilter_item(
-        fid,
-        data = datar_subset,
-        column_name = column_name,
-        filters = filter_returns[[in_fid]]$filters,
-        preselection = preselection,
-        verbose = verbose)
     }
     
     apply_preselection <- function(preselection = NULL) {
@@ -180,6 +179,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
     }
     
     output$add_filter_select_ui <- renderUI({
+      req(datar_subset())
       columnSelectInput(
         ns("add_filter_select"),
         label = NULL, 
@@ -284,6 +284,7 @@ IDEAFilter <- function(id, data, ..., col_subset = NULL, preselection = NULL, ve
       filter_logical(TRUE)
     })
     code <- reactive({
+      req(datar_subset())
       filter_log("building code", verbose = verbose)
       filter_exprs <- filter_returns[[utils::tail(filters(), 1)]]$filters()
       

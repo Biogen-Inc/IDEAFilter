@@ -11,7 +11,8 @@ shiny_vector_filter_factor_few(
   x = shiny::reactive(factor()),
   filter_na = shiny::reactive(TRUE),
   filter_fn = NULL,
-  verbose = FALSE
+  verbose = FALSE,
+  erase_filters = shiny::reactive(0)
 )
 }
 \arguments{

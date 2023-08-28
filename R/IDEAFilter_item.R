@@ -56,13 +56,14 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     filter_na <- reactiveVal(if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE)
     
     module_return <- shiny::reactiveValues(
-      code = TRUE, 
+      pre_filters = filters, 
       remove = FALSE, 
       filters = filters,
       column_name = column_name)
     
     filter_logical <- reactive({
-      if (!length(filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), filters()))
+      req(data())
+      if (!length(module_return$pre_filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), module_return$pre_filters()))
       })
     
     
@@ -103,7 +104,10 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
                      shiny::span(")")))),
         shiny::actionLink(ns("remove_filter_btn"), NULL,
                           style = 'float: right;',
-                          shiny::icon("times-circle"))
+                          shiny::icon("times-circle")),
+        shiny::actionLink(ns("erase_filter_btn"), NULL,
+                          style = 'float: right; margin-right: 10px;',
+                          shiny::icon("eraser"))
       ),
       shiny::uiOutput(ns("vector_filter_ui")))
     
@@ -145,7 +149,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     })
     
     output$nrow <- shiny::renderText({
-      out_log <- if (isTRUE(module_return$code())) filter_logical() else with(data(), eval(module_return$code())) & filter_logical()
+      out_log <- if (isTRUE(code())) filter_logical() else with(data(), eval(code())) & filter_logical()
       sum(out_log, na.rm = TRUE)
       })
     
@@ -168,10 +172,18 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     
     shiny::observeEvent(input$column_select_edit_btn, {
       module_return$column_name <- NULL
+      remove_shiny_inputs("vector_filter", input, ns = ns)
+      try(session$userData$eraser_observer$destroy(), silent = TRUE)
     })
     
     shiny::observeEvent(input$remove_filter_btn, {
       module_return$remove <- TRUE
+      remove_shiny_inputs("vector_filter", input, ns = ns)
+      try(session$userData$eraser_observer$destroy(), silent = TRUE)
+    })
+    
+    observeEvent(input$erase_filter_btn, {
+      filter_na(FALSE)
     })
     
     vector_module_srv <- shiny::reactive(shiny_vector_filter(vec(), "vec"))
@@ -183,10 +195,11 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
         x = vec, 
         filter_na = filter_na,
         filter_fn = preselection[["filter_fn"]],
+        erase_filters = reactive(input$erase_filter_btn),
         verbose = verbose)
     })
     
-    module_return$code <- shiny::reactive({
+    code <- shiny::reactive({
       if (is.null(module_return$column_name)) return(TRUE)
       
       do.call(substitute, list(
@@ -196,7 +209,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     
     module_return$filters <- shiny::reactive({
       Filter(Negate(isTRUE), 
-             append(filters(), module_return$code()))
+             append(module_return$pre_filters(), code()))
     })
     
     module_return

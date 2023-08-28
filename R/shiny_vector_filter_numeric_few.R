@@ -29,7 +29,8 @@
 #' @keywords internal
 shiny_vector_filter_numeric_few <- function(input, output, session,
             x = shiny::reactive(factor()),  #important: changed x to factor here
-           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
   ns <- session$ns
   
@@ -57,22 +58,12 @@ shiny_vector_filter_numeric_few <- function(input, output, session,
                                          selected = isolate(input$param) %||% x_filtered,
                                          width = "100%"))
   })
-  
-  # Normalized
-  # ggplot2::ggplot() + 
-  #   # sort factor so that it reflects checkbox order
-  #   ggplot2::aes(x = factor(
-  #     as.character(x_wo_NA()), 
-  #     levels = rev(choices()))) + 
-  #   ggplot2::geom_bar(
-  #     width = 0.95,
-  #     fill = grDevices::rgb(66/255, 139/255, 202/255), 
-  #     color = NA, 
-  #     alpha = 0.2) +
-  #   ggplot2::coord_flip() +
-  #   ggplot2::theme_void() + 
-  #   ggplot2::scale_x_discrete(expand = c(0, 0)) +
-  #   ggplot2::scale_y_continuous(expand = c(0, 0))
+  session$userData$eraser_observer <-
+    observeEvent(
+      erase_filters(), 
+      updateCheckboxGroupInput(session, "param", selected = ""),
+      ignoreInit = TRUE
+    )
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

@@ -29,7 +29,8 @@
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 
-           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
@@ -48,7 +49,7 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
           shiny::sliderInput(ns("param"), NULL,
-                             value = isolate(input$param) %||% range(x_filtered), 
+                             value = range(isolate(input$param) %||% x_filtered), 
                              min = min(round(x(), 1), na.rm = TRUE), 
                              max = max(round(x(), 1), na.rm = TRUE))
         } else {
@@ -57,15 +58,22 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
             shiny::tags$h5(shiny::tags$i("no numeric values")))
         })
     })
+    session$userData$eraser_observer <-
+      observeEvent(
+        erase_filters(), 
+        updateSliderInput(session, "param", value = range(x(), na.rm = TRUE)),
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()
+      last_n <- length(input$param)
       
       if (!is.null(input$param)) {
         if (input$param[[1]] > min(x(), na.rm = TRUE))
           exprs <- append(exprs, bquote(.x >= .(as.numeric(input$param[[1]]))))
-        if (input$param[[2]] < max(x(), na.rm = TRUE))
-          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param[[2]]))))
+        if (input$param[[last_n]] < max(x(), na.rm = TRUE))
+          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param[[last_n]]))))
       }
       
       if (length(exprs) > 1) {
