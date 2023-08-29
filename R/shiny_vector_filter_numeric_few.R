@@ -38,7 +38,7 @@ shiny_vector_filter_numeric_few <- function(input, output, session,
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
   fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
   
-  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
+  x_filtered <- unique(as.character(Filter(function(x) !is.na(x) & fn(x), x())))
   
   choices <- shiny::reactive(unique(as.character(sort(x_wo_NA()))))
   
@@ -53,21 +53,21 @@ shiny_vector_filter_numeric_few <- function(input, output, session,
                           0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                           transform-origin: left;" #,
                ),
-               shiny::checkboxGroupInput(ns("param"), NULL,
+               shiny::checkboxGroupInput(ns("param_few"), NULL,
                                          choices = choices(),
-                                         selected = isolate(input$param) %||% x_filtered,
+                                         selected = isolate(input$param_few) %||% x_filtered,
                                          width = "100%"))
   })
   session$userData$eraser_observer <-
     observeEvent(
       erase_filters(), 
-      updateCheckboxGroupInput(session, "param", selected = ""),
+      updateCheckboxGroupInput(session, "param_few", selected = ""),
       ignoreInit = TRUE
     )
   
   module_return$code <- shiny::reactive({
-    if (length(input$param))
-      bquote(.x %in% .(c(if (filter_na()) c() else NA, input$param)))
+    if (length(input$param_few))
+      bquote(.x %in% .(c(if (filter_na()) c() else NA, input$param_few)))
     else if (filter_na())
       bquote(!is.na(.x))
     else

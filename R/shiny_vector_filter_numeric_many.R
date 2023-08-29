@@ -48,8 +48,8 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
-          shiny::sliderInput(ns("param"), NULL,
-                             value = range(isolate(input$param) %||% x_filtered), 
+          shiny::sliderInput(ns("param_many"), NULL,
+                             value = range(isolate(input$param_many) %||% x_filtered), 
                              min = min(round(x(), 1), na.rm = TRUE), 
                              max = max(round(x(), 1), na.rm = TRUE))
         } else {
@@ -61,19 +61,19 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
     session$userData$eraser_observer <-
       observeEvent(
         erase_filters(), 
-        updateSliderInput(session, "param", value = range(x(), na.rm = TRUE)),
+        updateSliderInput(session, "param_many", value = range(x(), na.rm = TRUE)),
         ignoreInit = TRUE
       )
     
     module_return$code <- shiny::reactive({
       exprs <- list()
-      last_n <- length(input$param)
+      last_n <- length(input$param_many)
       
-      if (!is.null(input$param)) {
-        if (input$param[[1]] > min(x(), na.rm = TRUE))
-          exprs <- append(exprs, bquote(.x >= .(as.numeric(input$param[[1]]))))
-        if (input$param[[last_n]] < max(x(), na.rm = TRUE))
-          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param[[last_n]]))))
+      if (!is.null(input$param_many)) {
+        if (input$param_many[[1]] > min(x(), na.rm = TRUE))
+          exprs <- append(exprs, bquote(.x >= .(as.numeric(input$param_many[[1]]))))
+        if (input$param_many[[last_n]] < max(x(), na.rm = TRUE))
+          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param_many[[last_n]]))))
       }
       
       if (length(exprs) > 1) {
