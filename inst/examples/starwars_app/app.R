@@ -23,10 +23,39 @@ ui <- fluidPage(
      dataTableOutput("data_summary"),
      h4("Generated code:"),
      verbatimTextOutput("data_filter_code")),
-   column(4, IDEAFilter_ui("data_filter"))))
+   column(4, 
+          varSelectizeInput("col_subset", "Choose Column Subset", starwars2, multiple = TRUE),
+          div(
+            class = "form-group",
+            tags$label(class = "control-label", "Choose Pre-selection"),
+            div(
+              style = "display: flex",
+              actionButton("ex1", HTML("<b>gender:</b> feminine<br><b>height:</b> >= 180cm"), width = "50%"),
+              actionButton("ex2", HTML("<b>is_droid:</b> TRUE; not NA<br><b>mass:</b> < 50kg"), width = "50%")
+            )
+          ),
+          hr(),
+          br(),
+          IDEAFilter_ui("data_filter"))
+   ))
 
 server <- function(input, output, session) {
- filtered_data <- IDEAFilter("data_filter", data = starwars2, verbose = FALSE)
+  
+  preselection <- reactiveVal(NULL)
+  observeEvent(input$ex1, {
+    preselection(
+      list(gender = list(filter_fn = ~ .x == "feminine"),
+           height = list(filter_fn = ~ .x >= 180))
+    )
+  })
+  observeEvent(input$ex2, {
+    preselection(
+      list(is_droid = list(filter_na = TRUE, filter_fn = ~ isTRUE(.x)),
+           mass = list(filter_fn = ~ .x < 50))
+    )
+  })
+  
+ filtered_data <- IDEAFilter("data_filter", data = starwars2, col_subset = reactive(input$col_subset), preselection = preselection, verbose = FALSE)
  
  output$data_filter_code <- renderPrint({
    cat(gsub("%>%", "%>% \n ", 
