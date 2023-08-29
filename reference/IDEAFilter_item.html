@@ -19,7 +19,7 @@ filter."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mat
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">IDEAFilter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3.9009</span>
       </span>
     </div>
 
@@ -63,6 +63,7 @@ filter.</p>
 <span>  column_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
+<span>  col_subset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  preselection <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -90,6 +91,10 @@ passed as <code>language</code> types</p></dd>
 
 <dt>...</dt>
 <dd><p>placeholder for inclusion of additional parameters in future development</p></dd>
+
+
+<dt>col_subset</dt>
+<dd><p>a <code>vector</code> containing the list of allowable columns to filter on</p></dd>
 
 
 <dt>preselection</dt>
