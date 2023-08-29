@@ -10,6 +10,7 @@ columnSelectInput(
   data,
   selected = "",
   ...,
+  col_subset = NULL,
   placeholder = "",
   onInitialize
 )
@@ -24,6 +25,8 @@ columnSelectInput(
 \item{selected}{default selection}
 
 \item{...}{passed to \code{\link[shiny]{selectizeInput}}}
+
+\item{col_subset}{a \code{vector} containing the list of allowable columns to select}
 
 \item{placeholder}{passed to \code{\link[shiny]{selectizeInput}} options}
 

@@ -5,6 +5,7 @@
 #' @param data \code{data.frame} object from which fields should be populated
 #' @param selected default selection
 #' @param ... passed to \code{\link[shiny]{selectizeInput}}
+#' @param col_subset a \code{vector} containing the list of allowable columns to select
 #' @param placeholder passed to \code{\link[shiny]{selectizeInput}} options
 #' @param onInitialize passed to \code{\link[shiny]{selectizeInput}} options 
 #'
@@ -14,9 +15,10 @@
 #' @keywords internal
 #' 
 columnSelectInput <- function(inputId, label, data, selected = "", ..., 
-    placeholder = "", onInitialize) {
+    col_subset = NULL, placeholder = "", onInitialize) {
   
   datar <- if (is.reactive(data)) data else reactive(data)
+  col_subsetr <- if (is.reactive(col_subset)) col_subset else reactive(col_subset)
   
   labels <- Map(function(col) {
     json <- sprintf(strip_leading_ws('
@@ -30,6 +32,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
     get_dataFilter_class(datar()[[col]]))
   }, col = names(datar()))
   choices <- setNames(names(datar()), labels)
+  choices <- choices[match(col_subsetr() %||% choices, choices)]
   
   shiny::selectizeInput(
     inputId = inputId,
