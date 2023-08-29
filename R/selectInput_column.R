@@ -32,7 +32,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
     get_dataFilter_class(datar()[[col]]))
   }, col = names(datar()))
   choices <- setNames(names(datar()), labels)
-  choices <- choices[match(col_subset() %||% choices, choices)]
+  choices <- choices[match(col_subsetr() %||% choices, choices)]
   
   shiny::selectizeInput(
     inputId = inputId,
