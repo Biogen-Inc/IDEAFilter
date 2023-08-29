@@ -73,7 +73,7 @@ regardless on if the user chooses to apply filters or not.
 filtered_data <- # name the returned reactive data frame
    IDEAFilter(
      "data_filter",     # give the filter a name(space)
-     data = starwars2,  # feed it raw data
+     data = starwars,  # feed it raw data
      verbose = FALSE
     )
 ```
