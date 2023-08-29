@@ -11,7 +11,7 @@ app <- shinytest2::AppDriver$new(app_path)
 app$set_inputs(`data_filter-add_filter_select` = "Ozone")
 app$wait_for_js('document.getElementById("data_filter-filter_1-remove_filter_btn")')
 app$wait_for_idle()
-app$set_inputs(`data_filter-filter_1-vector_filter-param` = c(30, 90))
+app$set_inputs(`data_filter-filter_1-vector_filter-param_many` = c(30, 90))
 
 test_that("test that a new filter item has been added", {
   expect_equivalent(
@@ -30,7 +30,7 @@ test_that("test that a new filter item has been added", {
 app$set_inputs(`data_filter-add_filter_select` = "mpg")
 app$wait_for_js('document.getElementById("data_filter-filter_2-remove_filter_btn")')
 app$wait_for_idle()
-app$set_inputs(`data_filter-filter_2-vector_filter-param` = c(20, 25))
+app$set_inputs(`data_filter-filter_2-vector_filter-param_many` = c(20, 25))
 
 test_that("test that a new filter item has been added", {
   expect_equivalent(
