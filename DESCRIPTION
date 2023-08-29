@@ -20,15 +20,15 @@ Authors@R: c(
         role = c("aut", "cre"),
         comment = c(ORCID = "0000-0002-0123-0970")),
     person(
+        given = "Jeff", family = "Thompson", 
+        email = "jeff.thompson51317@gmail.com", role = "aut"),
+    person(
         given = "Doug", family = "Kelkhoff", 
         email = "doug.kelkhoff@gmail.com", role = c("ctb", "cph"),
         comment = "Author of shinyDataFilter"),
     person(
         given = "Maya", family = "Gans", 
         email = "maya.gans@biogen.com", role = "ctb"),
-    person(
-        given = "Jeff", family = "Thompson", 
-        email = "jeff.thompson51317@gmail.com", role = "ctb"),
     person(family = "SortableJS contributors", role = "ctb",
         comment = "SortableJS library"),
     person(given = "Biogen", role = "cph"))
