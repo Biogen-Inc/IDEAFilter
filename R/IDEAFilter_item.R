@@ -32,6 +32,7 @@ IDEAFilter_item_ui <- function(id) {
 #' @param filters a \code{reactive expression} containing the a list of filters
 #'   passed as \code{language} types
 #' @param ... placeholder for inclusion of additional parameters in future development
+#' @param col_subset a \code{vector} containing the list of allowable columns to filter on
 #' @param preselection a \code{list} that can be used to pre-populate the filter
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
@@ -48,10 +49,13 @@ IDEAFilter_item_ui <- function(id) {
 #' @export
 #' @keywords internal
 #' 
-IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ..., preselection = NULL, verbose = FALSE) {
+IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ..., col_subset = NULL, preselection = NULL, verbose = FALSE) {
   filters <- if (is.reactive(filters)) filters else reactiveVal(filters)
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    
+    datar <- if (is.reactive(data)) data else reactive(data)
+    col_subsetr <- if (is.reactive(col_subset)) col_subset else reactive(col_subset)
     
     filter_na <- reactiveVal(if ("filter_na" %in% names(preselection)) isTRUE(preselection[["filter_na"]]) else FALSE)
     
@@ -62,8 +66,8 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       column_name = column_name)
     
     filter_logical <- reactive({
-      req(data())
-      if (!length(module_return$pre_filters())) rep(TRUE, nrow(data())) else Reduce("&", Map(function(x) with(data(), eval(x)), module_return$pre_filters()))
+      req(datar())
+      if (!length(module_return$pre_filters())) rep(TRUE, nrow(datar())) else Reduce("&", Map(function(x) with(datar(), eval(x)), module_return$pre_filters()))
       })
     
     
@@ -78,7 +82,8 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       columnSelectInput(
         ns("column_select"),
         NULL,
-        data = data,
+        data = datar,
+        col_subset = col_subsetr,
         multiple = TRUE,
         width = '100%'),
       shiny::h4(style = 'float: right; margin: 8px 0px 0px 8px;',
@@ -149,7 +154,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     })
     
     output$nrow <- shiny::renderText({
-      out_log <- if (isTRUE(code())) filter_logical() else with(data(), eval(code())) & filter_logical()
+      out_log <- if (isTRUE(code())) filter_logical() else with(datar(), eval(code())) & filter_logical()
       sum(out_log, na.rm = TRUE)
       })
     
@@ -162,8 +167,8 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     nna <- shiny::reactive(sum(is.na(vec())))
     
     vec <- shiny::reactive({
-      if (is.null(module_return$column_name) || !(module_return$column_name %in% names(data()))) NULL
-      else subset(data(), filter_logical(), module_return$column_name, drop = TRUE)
+      if (is.null(module_return$column_name) || !(module_return$column_name %in% names(datar()))) NULL
+      else subset(datar(), filter_logical(), module_return$column_name, drop = TRUE)
     })
     
     shiny::observeEvent(input$column_select, {

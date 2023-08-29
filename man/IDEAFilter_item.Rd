@@ -10,6 +10,7 @@ IDEAFilter_item(
   column_name = NULL,
   filters = list(),
   ...,
+  col_subset = NULL,
   preselection = NULL,
   verbose = FALSE
 )
@@ -26,6 +27,8 @@ as the input to the filter item module}
 passed as \code{language} types}
 
 \item{...}{placeholder for inclusion of additional parameters in future development}
+
+\item{col_subset}{a \code{vector} containing the list of allowable columns to filter on}
 
 \item{preselection}{a \code{list} that can be used to pre-populate the filter}
 
