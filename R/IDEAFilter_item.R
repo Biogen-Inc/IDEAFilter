@@ -177,6 +177,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     
     shiny::observeEvent(input$column_select_edit_btn, {
       module_return$column_name <- NULL
+      preselection <<- NULL
       remove_shiny_inputs("vector_filter", input, ns = ns)
       try(session$userData$eraser_observer$destroy(), silent = TRUE)
     })

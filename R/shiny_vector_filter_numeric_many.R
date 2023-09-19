@@ -48,10 +48,14 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
+          value_range <- range(isolate(input$param_many) %||% x_filtered)
+          overall_range <- range(x(), na.rm = TRUE)
+          value_range[1] <- min(max(value_range[1], overall_range[1]), overall_range[2])
+          value_range[2] <- max(min(value_range[2], overall_range[2]), overall_range[1])
           shiny::sliderInput(ns("param_many"), NULL,
-                             value = range(isolate(input$param_many) %||% x_filtered), 
-                             min = min(round(x(), 1), na.rm = TRUE), 
-                             max = max(round(x(), 1), na.rm = TRUE))
+                             value = value_range, 
+                             min = overall_range[1], 
+                             max = overall_range[2])
         } else {
           shiny::div(
             style = "padding-top: 10px; opacity: 0.3; text-align: center;",
