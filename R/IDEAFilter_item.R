@@ -116,7 +116,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       ),
       shiny::uiOutput(ns("vector_filter_ui")))
     
-    ui <- shiny::eventReactive(module_return$column_name, ignoreNULL = FALSE, {
+    ui <- shiny::reactive({
       if (is.null(module_return$column_name)) column_select_ui()
       else column_filter_ui
     })
