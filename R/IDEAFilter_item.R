@@ -116,7 +116,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
       ),
       shiny::uiOutput(ns("vector_filter_ui")))
     
-    ui <- shiny::eventReactive(module_return$column_name, ignoreNULL = FALSE, {
+    ui <- shiny::reactive({
       if (is.null(module_return$column_name)) column_select_ui()
       else column_filter_ui
     })
@@ -177,6 +177,7 @@ IDEAFilter_item <- function(id, data, column_name = NULL, filters = list(), ...,
     
     shiny::observeEvent(input$column_select_edit_btn, {
       module_return$column_name <- NULL
+      preselection <<- NULL
       remove_shiny_inputs("vector_filter", input, ns = ns)
       try(session$userData$eraser_observer$destroy(), silent = TRUE)
     })

@@ -16,8 +16,8 @@ test_that("test that filter item initializes with column select", {
 
 
 app$set_inputs(`filter-column_select` = "mpg")
-app$wait_for_js('document.getElementById("filter-vector_filter-param")')
-app$set_inputs(`filter-vector_filter-param` = c(20, 25))
+app$wait_for_js('document.getElementById("filter-vector_filter-param_many")')
+app$set_inputs(`filter-vector_filter-param_many` = c(20, 25))
 
 
 

@@ -15,8 +15,8 @@ test_that("test that a new filter item has been added", {
 
 
 app$set_inputs(`data_filter-add_filter_select` = "Ozone")
-app$wait_for_js('document.getElementById("data_filter-filter_2-vector_filter-param")')
-app$set_inputs(`data_filter-filter_2-vector_filter-param` = c(30, 90))
+app$wait_for_js('document.getElementById("data_filter-filter_2-vector_filter-param_many")')
+app$set_inputs(`data_filter-filter_2-vector_filter-param_many` = c(30, 90))
 
 test_that("test that a new filter item has been added", {
   expect_equal(
@@ -38,8 +38,8 @@ test_that("test that a new filter item has been added", {
 
 
 app$set_inputs(`data_filter-add_filter_select` = "Wind")
-app$wait_for_js('document.getElementById("data_filter-filter_3-vector_filter-param")')
-app$set_inputs(`data_filter-filter_3-vector_filter-param` = c(5, 10))
+app$wait_for_js('document.getElementById("data_filter-filter_3-vector_filter-param_many")')
+app$set_inputs(`data_filter-filter_3-vector_filter-param_many` = c(5, 10))
 
 test_that("test that nrow reactive value is accurate", {
   expect_equal(

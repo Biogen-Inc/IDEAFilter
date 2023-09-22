@@ -28,7 +28,7 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     
     filter_log("updating ui", verbose = verbose)
     
-    if (purrr::reduce(purrr::map(x(), is.empty), `&`)) {
+    if (purrr::reduce(purrr::map(x(), is.empty), `&`, .init = TRUE)) {
       shiny::div(style = "opacity: 0.5;",
                  p(width = "100%", 
                    align = "center", 
