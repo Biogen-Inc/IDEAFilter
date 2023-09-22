@@ -43,8 +43,8 @@ The server side of the module returns the reactive `ShinyDataFilter_df` object w
 
 With the release of `IDEAFilter()` to replace the deprecated `shiny_data_filter()`, a couple more arguments have been introduced to enhance the functionality of the filter.
 
--   Column Sub-setting: you can now restrict the columns a user can add to the filter.
--   Pre-selection: you can now pre-specify a collection of filters to either pre-load in the filter or for users to dynamically apply.
+-   Column Sub-setting: restricting the columns a user can add to the filter.
+-   Pre-selection: pre-specifying a collection of filters to either pre-load in the filter or for users to dynamically apply.
 
 To explore these features we can run the following example application:
 
@@ -57,7 +57,7 @@ runApp(app)
 
 ## Column Sub-setting
 
-In the application you can freely select a subset of columns to include in the filter. You can now freely set what columns users are able to add to the filter. You should note these columns can still be set using pre-selection and will still be applied to the filter. For instance, you can see below that only `height` has been selected but `gender` is still being applied.
+In the application you can freely select a subset of columns to include in the filter. The `col_subset` argument can be set in development of an application or can be a reactive variable in deployment. You should note these columns can still be set using pre-selection and will still be applied to the filter. For instance, you can see below that only `height` has been selected but `gender` is still being applied.
 
 ![](images/colsubset.png){style="position:center; width:100%"}
 
@@ -68,7 +68,7 @@ The application comes with two choices to apply pre-selection:
 -   Gender listed as feminine and height greater than 180 cm
 -   Character is a droid (excluding `NA`s) and has a mass less than 50 kg
 
-Looking at the second example is informative on how a user can create their own pre-selections.
+Looking at the second example is informative on how a developer can create their own pre-selections.
 
 ```{r, eval=FALSE}
 list(
