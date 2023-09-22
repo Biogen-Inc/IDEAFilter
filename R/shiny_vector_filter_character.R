@@ -11,7 +11,8 @@ shiny_vector_filter_ui.character <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.character <- function(data, inputId, ...) {
     function(input, output, session, x = shiny::reactive(character()), 
-             filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+             filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+             erase_filters = shiny::reactive(0)) {
   
   ns <- session$ns
   
@@ -19,12 +20,15 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
   x_wo_NAs <- shiny::reactive(Filter(Negate(is.na), x()))
   
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+  fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+  
+  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
   
   output$ui <- shiny::renderUI({
     
     filter_log("updating ui", verbose = verbose)
     
-    if (purrr::reduce(purrr::map(x(), is.empty), `&`)) {
+    if (purrr::reduce(purrr::map(x(), is.empty), `&`, .init = TRUE)) {
       shiny::div(style = "opacity: 0.5;",
                  p(width = "100%", 
                    align = "center", 
@@ -32,12 +36,18 @@ shiny_vector_filter.character <- function(data, inputId, ...) {
     } else {
       proportionSelectInput(ns("param"), NULL,
                             vec = x,
-                            selected = shiny::isolate(input$param) %||% c(),
+                            selected = isolate(input$param) %||% x_filtered,
                             multiple = TRUE,
                             width = "100%")
     }
 
   })
+  session$userData$eraser_observer <-
+    observeEvent(
+      erase_filters(), 
+      updateSelectizeInput(session, "param", selected = ""),
+      ignoreInit = TRUE
+    )
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

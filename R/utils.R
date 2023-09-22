@@ -150,3 +150,12 @@ strip_leading_ws <- function(txt, simplify = TRUE) {
 is.empty <- function(x) {
   identical("", x)
 }
+
+remove_shiny_inputs <- function(id, .input, ns = NS(NULL)) {
+  invisible(
+    lapply(grep(id, names(.input), value = TRUE), function(i) {
+      .subset2(.input, "impl")$.values$remove(ns(i))
+    })
+  )
+}
+

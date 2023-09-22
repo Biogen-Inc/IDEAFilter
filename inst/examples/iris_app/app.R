@@ -12,15 +12,11 @@ ui <- fluidPage(
            verbatimTextOutput("data_filter_code"),
            dataTableOutput("data_summary")
     ),
-    column(4, shiny_data_filter_ui("data_filter"))))
+    column(4, IDEAFilter_ui("data_filter"))))
 
 server <- function(input, output, session) {
   
-  filtered_data <- callModule(
-    IDEAFilter::shiny_data_filter,
-    "data_filter",
-    data = iris,
-    verbose = FALSE)
+  filtered_data <- IDEAFilter("data_filter", data = iris, verbose = FALSE)
   
   output$data_filter_code <- renderPrint({
     cat(gsub("%>%", "%>% \n ",
@@ -42,5 +38,3 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui = ui, server = server)
-
-

@@ -1,7 +1,7 @@
-context("test_shiny_data_filter")
+context("test_IDEAFilter")
 skip_on_cran()
 
-app_path <- IDEAFilter:::shinytest_path("shinytest_shiny_data_filter")
+app_path <- IDEAFilter:::shinytest_path("shinytest_IDEAFilter")
 app <- shinytest2::AppDriver$new(app_path)
 
 app$set_inputs(`data_filter-add_filter_select` = "Wind")

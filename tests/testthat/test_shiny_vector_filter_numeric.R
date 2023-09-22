@@ -6,11 +6,11 @@ app <- shinytest2::AppDriver$new(app_path)
 
 data <- c(1:9, NA)
 app$set_inputs(`data_dput` = paste(capture.output(dput(data)), paste = "\n"))
-app$wait_for_js('document.getElementById("test_in-param")')
+app$wait_for_js('document.getElementById("test_in-param_many")')
 
 
 test_that("testing that numeric vectors get filtered properly", {
-  app$set_inputs(`test_in-param` = c(3, 6))
+  app$set_inputs(`test_in-param_many` = c(3, 6))
   app$set_inputs(`filter_na` = TRUE)
   
   expect_equal(
@@ -33,7 +33,7 @@ test_that("testing that numeric vectors get filtered properly", {
 
 
 test_that("testing that numeric vector filter code builds properly", {
-  app$set_inputs(`test_in-param` = c(5, 8))
+  app$set_inputs(`test_in-param_many` = c(5, 8))
   app$set_inputs(`filter_na` = TRUE)
   
   expect_equal(

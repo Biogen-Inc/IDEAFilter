@@ -1,11 +1,11 @@
-context("test_shiny_data_filter_item")
+context("test_IDEAFilter_item")
 skip_on_cran()
 
 # reflects data used in shinytest
 data <- mtcars
 data[which((data * 0.987) %% 0.2 < 0.01, arr.ind = TRUE)] <- NA
 
-app_path <- IDEAFilter:::shinytest_path("shinytest_shiny_data_filter_item")
+app_path <- IDEAFilter:::shinytest_path("shinytest_IDEAFilter_item")
 app <- shinytest2::AppDriver$new(app_path)
 
 
