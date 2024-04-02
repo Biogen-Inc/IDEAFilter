@@ -45,7 +45,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
         // format the way that options are rendered
         option: function(item, escape) {
           item.data = JSON.parse(item.label);
-          return '<div>' +
+          return '<div style=\"padding: 3px 12px\">' +
                    '<div><strong>' +
                       escape(item.data.name) + ' ' +
                       '<span style=\"opacity: 0.3;\"><code style=\"color: black;\"> ' + 
@@ -57,7 +57,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
         },
 
         // avoid data vomit splashing on screen when an option is selected
-        item: function(item, escape) { return ''; }
+        item: function(item, escape) { return '<span></span>'; }
       }")),
       
       # fix for highlight persisting
