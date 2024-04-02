@@ -18,7 +18,6 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
     
     ns <- session$ns
     
-    x_wo_NA <- shiny::reactive(Filter(Negate(is.na), x()))
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
     fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
     
@@ -60,7 +59,7 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
       if (FALSE %in% input$param) 
         exprs <- append(exprs, list(quote(!.x)))
       
-      if (length(input$param) == 2 && filter_na())
+      if (length(input$param) %% 2 == 0 && filter_na())
         exprs <- list(quote(!is.na(.x)))
       else if (length(input$param) && !filter_na()) 
         exprs <- append(exprs, list(quote(is.na(.x))))
