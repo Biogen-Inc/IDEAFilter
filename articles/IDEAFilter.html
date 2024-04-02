@@ -147,10 +147,10 @@ less than 50 kg</li>
 </ul>
 <p>Looking at the second example is informative on how a developer can
 create their own pre-selections.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">is_droid =</span> <span class="fu">list</span>(<span class="at">filter_na =</span> <span class="cn">TRUE</span>, <span class="at">filter_fn =</span> <span class="sc">~</span> <span class="fu">isTRUE</span>(.x)),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mass =</span> <span class="fu">list</span>(<span class="at">filter_fn =</span> <span class="sc">~</span> .x <span class="sc">&lt;</span> <span class="dv">50</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="er">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">list</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">is_droid =</span> <span class="fu">list</span>(<span class="at">filter_na =</span> <span class="cn">TRUE</span>, <span class="at">filter_fn =</span> <span class="sc">~</span> <span class="fu">isTRUE</span>(.x)),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">mass =</span> <span class="fu">list</span>(<span class="at">filter_fn =</span> <span class="sc">~</span> .x <span class="sc">&lt;</span> <span class="dv">50</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="er">)</span></span></code></pre></div>
 <p>The argument <code>preselection</code> is a named list where the
 names correspond to column names in the data set and the elements are
 lists containing the elements <code>filter_na</code> and

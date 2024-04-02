@@ -1,9 +1,9 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   IDEAFilter: IDEAFilter.html
-last_built: 2023-09-22T15:11Z
+last_built: 2024-04-02T18:50Z
 urls:
   reference: https://biogen-inc.github.io/IDEAFilter/reference
   article: https://biogen-inc.github.io/IDEAFilter/articles
