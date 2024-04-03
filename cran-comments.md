@@ -13,4 +13,4 @@ This is an intentional redirect that allows the package maintainer to monitor tr
 
 ## Reverse dependency check
 
-The 1 reverse dependency was checked by running R CMD check using the development version of this package
+One reverse dependency exists (`{tidyCDISC}`) and was tested by running R CMD Check using the development version of `IDEAFilter`. The changes have no negative impact on it's reverse dependency.
