@@ -4,7 +4,7 @@
 Agnostic, Idiomatic Data Filter Module for Shiny.
 
 <center>
-<a href="https://bit.ly/demo_IDEAFilter">
+<a href="https://rinpharma.shinyapps.io/IDEAfilter/">
 <img src="man/figures/demo_ideafilter_button.png" alt="Demo example app that leverages the IDEAFilter shiny module" width="25%">
 </a>
 </center>
