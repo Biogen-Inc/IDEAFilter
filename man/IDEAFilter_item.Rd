@@ -43,7 +43,7 @@ a \code{\link[shiny]{reactiveValues}} list of four reactive elements;
   `data` used to create the item.
 }
 \description{
-Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes
+Serves as a wrapper for \code{\link{shiny_data_filter_item}} and utilizes
 \code{moduleSever()} for a more modern implementation of the data item
 filter.
 }

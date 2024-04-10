@@ -21,7 +21,7 @@ IDEAFilter_item_ui <- function(id) {
 
 #' The server function for the IDEA filter item module
 #' 
-#' Serves as a wrapper fo \code{\link{shiny_data_filter_item}} and utilizes
+#' Serves as a wrapper for \code{\link{shiny_data_filter_item}} and utilizes
 #' \code{moduleSever()} for a more modern implementation of the data item
 #' filter.
 #' 
