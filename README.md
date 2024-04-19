@@ -4,7 +4,7 @@
 Agnostic, Idiomatic Data Filter Module for Shiny.
 
 <center>
-<a href="https://bit.ly/demo_IDEAFilter">
+<a href="https://rinpharma.shinyapps.io/IDEAfilter/">
 <img src="man/figures/demo_ideafilter_button.png" alt="Demo example app that leverages the IDEAFilter shiny module" width="25%">
 </a>
 </center>
@@ -61,20 +61,19 @@ On the UI side, you need only include the following line of code to
 place the filtering widget somewhere in your app:
 
 ``` r
-shiny_data_filter_ui(inputId = "data_filter")
+IDEAFilter_ui(id = "data_filter")
 ```
 
-The server side logic needs to call the `shiny_data_filter` module,
-match the input ID from the UI, and provide a data source. The returned
-reactive data.frame (called “filtered_data”) may used for downstream
-processes regardless on if the user chooses to apply filters or not.
+The server side logic needs to call the `IDEAFilter` module, match the
+input ID from the UI, and provide a data source. The returned reactive
+data.frame (called “filtered_data”) may used for downstream processes
+regardless on if the user chooses to apply filters or not.
 
 ``` r
 filtered_data <- # name the returned reactive data frame
-   callModule(
-     shiny_data_filter, # call the module by name
+   IDEAFilter(
      "data_filter",     # give the filter a name(space)
-     data = starwars2,  # feed it raw data
+     data = starwars,  # feed it raw data
      verbose = FALSE
     )
 ```
@@ -86,7 +85,7 @@ workings of the Star Wars app referenced above. Or click the button
 below to test drive the example app now!
 
 <center>
-<a href="https://bit.ly/demo_IDEAFilter">
+<a href="https://rinpharma.shinyapps.io/IDEAfilter/">
 <img src="man/figures/demo_ideafilter_button.png" alt="Demo example app that leverages the IDEAFilter shiny module" width="25%">
 </a>
 </center>
@@ -119,18 +118,13 @@ ui <- fluidPage(
      dataTableOutput("data_summary"),
      h4("Generated Code"),
      verbatimTextOutput("data_filter_code")),
-   column(4, shiny_data_filter_ui("data_filter"))))
+   column(4, IDEAFilter_ui("data_filter"))))
 
 server <- function(input, output, session) {
   
   
  filtered_data <- # name the returned reactive data frame
-   callModule(
-     shiny_data_filter, # call the module
-     "data_filter",     # give the filter a name(space)
-     data = starwars2,  # feed it raw data
-     verbose = FALSE
-    )
+   IDEAFilter("data_filter", data = starwars2,verbose = FALSE)
  
  # extract & display the "code" attribute to see dplyr::filter()
  # statements performed

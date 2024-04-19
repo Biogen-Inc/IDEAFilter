@@ -13,6 +13,7 @@
 #' @inherit shiny_data_filter examples
 #' 
 shiny_data_filter_ui <- function(inputId) {
+  .Deprecated("IDEAFilter_ui")
   ns <- shiny::NS(inputId)
   
   shinyDataFilter_resourcePath()
@@ -118,6 +119,7 @@ shiny_data_filter_ui <- function(inputId) {
 #' }
 #' 
 shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
+  .Deprecated("IDEAFilter")
   
   ns <- session$ns
   filter_log("calling module", verbose = verbose)
@@ -153,12 +155,17 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
       filter_returns[[fid]]$destroy
     }
     
-    filter_returns[[fid]] <<- callModule(
-      shiny_data_filter_item,
-      fid,
-      data = filter_returns[[in_fid]]$data,
-      column_name = column_name,
-      verbose = verbose)
+      filter_returns[[fid]] <<- withCallingHandlers(callModule(
+        shiny_data_filter_item,
+        fid,
+        data = filter_returns[[in_fid]]$data,
+        column_name = column_name,
+        verbose = verbose),
+        warning = function(w) {
+          if (inherits(w, "deprecatedWarning") && grepl("IDEAFilter_item", conditionMessage(w)))
+            invokeRestart("muffleWarning")
+        }
+      )
   }
   
   output$add_filter_select_ui <- renderUI({
@@ -195,7 +202,14 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
     insertUI(
       selector = sprintf("#%s", ns("sortableList")),
       where = "beforeEnd",
-      ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
+      ui = withCallingHandlers(
+        shiny_data_filter_item_ui(ns(fid), verbose = verbose),
+        warning = function(w) {
+          if (inherits(w, "deprecatedWarning") && grepl("IDEAFilter_item", conditionMessage(w)))
+            invokeRestart("muffleWarning")
+        }
+      )
+    )
   })
   
   observeEvent(input$add_filter_select, {
@@ -208,7 +222,14 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
     insertUI(
       selector = sprintf("#%s", ns("sortableList")),
       where = "beforeEnd",
-      ui = shiny_data_filter_item_ui(ns(fid), verbose = verbose))
+      ui = withCallingHandlers(
+        shiny_data_filter_item_ui(ns(fid), verbose = verbose),
+        warning = function(w) {
+          if (inherits(w, "deprecatedWarning") && grepl("IDEAFilter_item", conditionMessage(w)))
+            invokeRestart("muffleWarning")
+        }
+      )
+    )
     
     updateSelectInput(session, "add_filter_select", selected = "")
   }, ignoreInit = TRUE, ignoreNULL = TRUE)
@@ -247,7 +268,7 @@ shiny_data_filter <- function(input, output, session, data, verbose = FALSE) {
   reactive({
     filter_log("recalculating filtered data", verbose = verbose)
     structure(
-      d <- filter_returns[[utils::tail(filters(), 1)]]$data(),
+      d <- filter_returns[[utils::tail(filters(), 1)]]$data() %||% data.frame(),
       code = code(),
       class = c("shinyDataFilter_df", class(d)))
   })

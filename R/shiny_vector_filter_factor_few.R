@@ -9,6 +9,10 @@
 #' @param x a reactive expression resolving to the vector to filter
 #' @param filter_na a logical value indicating whether to filter \code{NA}
 #'   values from the \code{x} vector
+#' @param filter_fn A function to modify, specified in one of the following ways:
+#'   * A named function, e.g. `mean`.
+#'   * An anonymous function, e.g. `\(x) x + 1` or `function(x) x + 1`.
+#'   * A formula, e.g. `~ .x + 1`.
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'   statements out to the console
 #'
@@ -23,13 +27,17 @@
 #' @importFrom grDevices rgb
 #' @keywords internal
 shiny_vector_filter_factor_few <- function(input, output, session, 
-    x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), 
-    verbose = FALSE) {
+    x = shiny::reactive(factor()), filter_na = shiny::reactive(TRUE), filter_fn = NULL, 
+    verbose = FALSE,
+    erase_filters = shiny::reactive(0)) {
   
   ns <- session$ns
   
   x_wo_NA <- shiny::reactive(Filter(Negate(is.na), x()))
   module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+  fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+  
+  x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
   
   choices <- shiny::reactive(unique(as.character(x_wo_NA())))
   
@@ -46,25 +54,15 @@ shiny_vector_filter_factor_few <- function(input, output, session,
       ),
       shiny::checkboxGroupInput(ns("param"), NULL,
         choices = choices(),
-        selected = shiny::isolate(input$param) %||% c(),
+        selected = isolate(input$param) %||% x_filtered,
         width = "100%"))
   })
-    
-    # Normalized
-    # ggplot2::ggplot() + 
-    #   # sort factor so that it reflects checkbox order
-    #   ggplot2::aes(x = factor(
-    #     as.character(x_wo_NA()), 
-    #     levels = rev(choices()))) + 
-    #   ggplot2::geom_bar(
-    #     width = 0.95,
-    #     fill = grDevices::rgb(66/255, 139/255, 202/255), 
-    #     color = NA, 
-    #     alpha = 0.2) +
-    #   ggplot2::coord_flip() +
-    #   ggplot2::theme_void() + 
-    #   ggplot2::scale_x_discrete(expand = c(0, 0)) +
-    #   ggplot2::scale_y_continuous(expand = c(0, 0))
+  session$userData$eraser_observer <-
+    observeEvent(
+      erase_filters(),
+      updateCheckboxGroupInput(session, "param", selected = ""), 
+      ignoreInit = TRUE
+    )
   
   module_return$code <- shiny::reactive({
     if (length(input$param))

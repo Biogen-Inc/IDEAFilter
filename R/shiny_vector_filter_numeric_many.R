@@ -8,6 +8,10 @@
 #'   session
 #' @param x The TODO
 #' @param filter_na The \code{logical} TODO
+#' @param filter_fn A function to modify, specified in one of the following ways:
+#'   * A named function, e.g. `mean`.
+#'   * An anonymous function, e.g. `\(x) x + 1` or `function(x) x + 1`.
+#'   * A formula, e.g. `~ .x + 1`.
 #' @param verbose a \code{logical} value indicating whether or not to print log
 #'  statements out to the console
 #'  
@@ -17,6 +21,7 @@
 #'   scale_y_continuous
 #' @importFrom grDevices rgb
 #' @importFrom stats density
+#' @importFrom purrr possibly
 #' 
 #' @return a \code{\link[shiny]{reactiveValues}} list containing a logical
 #'   vector called "mask" which can be used to filter the provided vector and an
@@ -24,11 +29,14 @@
 #' @export
 #' @keywords internal
 shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::reactive(numeric()), 
-           filter_na = shiny::reactive(FALSE), verbose = FALSE) {
+           filter_na = shiny::reactive(FALSE), filter_fn = NULL, verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) TRUE else purrr::possibly(filter_fn, otherwise = TRUE)
     
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
     output$ui <- shiny::renderUI({
       filter_log("updating ui", verbose = verbose)
       shiny::div(
@@ -40,25 +48,36 @@ shiny_vector_filter_numeric_many <- function(input, output, session, x = shiny::
                    0.5s ease-in  0s 1 shinyDataFilterFadeIn; 
                    transform-origin: bottom;"),
         if (any(!is.na(x()))) {
-          shiny::sliderInput(ns("param"), NULL,
-                             value = shiny::isolate(input$param) %||% range(x(), na.rm = TRUE), 
-                             min = min(round(x(), 1), na.rm = TRUE), 
-                             max = max(round(x(), 1), na.rm = TRUE))
+          value_range <- range(isolate(input$param_many) %||% x_filtered)
+          overall_range <- range(x(), na.rm = TRUE)
+          value_range[1] <- min(max(value_range[1], overall_range[1]), overall_range[2])
+          value_range[2] <- max(min(value_range[2], overall_range[2]), overall_range[1])
+          shiny::sliderInput(ns("param_many"), NULL,
+                             value = value_range, 
+                             min = overall_range[1], 
+                             max = overall_range[2])
         } else {
           shiny::div(
             style = "padding-top: 10px; opacity: 0.3; text-align: center;",
             shiny::tags$h5(shiny::tags$i("no numeric values")))
         })
     })
+    session$userData$eraser_observer <-
+      observeEvent(
+        erase_filters(), 
+        updateSliderInput(session, "param_many", value = range(x(), na.rm = TRUE)),
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()
+      last_n <- length(input$param_many)
       
-      if (!is.null(input$param)) {
-        if (input$param[[1]] > min(x(), na.rm = TRUE))
-          exprs <- append(exprs, bquote(.x >= .(as.numeric(input$param[[1]]))))
-        if (input$param[[2]] < max(x(), na.rm = TRUE))
-          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param[[2]]))))
+      if (!is.null(input$param_many)) {
+        if (input$param_many[[1]] > min(x(), na.rm = TRUE))
+          exprs <- append(exprs, bquote(.x >= .(as.numeric(input$param_many[[1]]))))
+        if (input$param_many[[last_n]] < max(x(), na.rm = TRUE))
+          exprs <- append(exprs, bquote(.x <= .(as.numeric(input$param_many[[last_n]]))))
       }
       
       if (length(exprs) > 1) {

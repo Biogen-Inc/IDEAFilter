@@ -53,7 +53,7 @@ proportionSelectInput <- function(inputId, label, vec, selected = "", ...,
         // format the way that options are rendered
         option: function(item, escape) {
           item.data = JSON.parse(item.label);
-          return '<div style=\"position: relative;\">' +
+          return '<div style=\"position: relative; padding: 3px 12px;\">' +
                     '<div style=\"position: absolute; top: 5%; bottom: 5%; left: 0%; width: ' + item.data.prop * 100 + '%; background-color: #428BCA; opacity: 0.2;\"></div>' + 
                     '<div style=\"z-index: 1;\">' + 
                       escape(item.data.name) + ' ' + 

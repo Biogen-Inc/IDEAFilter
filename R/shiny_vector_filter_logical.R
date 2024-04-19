@@ -12,13 +12,18 @@ shiny_vector_filter_ui.logical <- function(data, inputId) {
 #' @keywords internal
 shiny_vector_filter.logical <- function(data, inputId, ...) {
   function(input, output, session, 
-           x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), 
-           verbose = FALSE) {
+           x = shiny::reactive(logical()), filter_na = shiny::reactive(TRUE), filter_fn = NULL, 
+           verbose = FALSE,
+           erase_filters = shiny::reactive(0)) {
     
     ns <- session$ns
     
-    x_wo_NA <- shiny::reactive(Filter(Negate(is.na), x()))
     module_return <- shiny::reactiveValues(code = TRUE, mask = TRUE)
+    fn <- if (is.null(filter_fn)) function(x) FALSE else purrr::possibly(filter_fn, otherwise = FALSE)
+    
+    x_filtered <- Filter(function(x) !is.na(x) & fn(x), x())
+    filter_selected <- Filter(function(i) i %in% x_filtered, c("True" = TRUE, "False" = FALSE))
+    
     choices <- shiny::reactive({
       Filter(function(i) i %in% x(), c("True" = TRUE, "False" = FALSE))
     })
@@ -36,9 +41,15 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
                             shiny::plotOutput(ns("plot"), height = "100%")),
                  shiny::checkboxGroupInput(ns("param"), NULL,
                                            choices = choices(),
-                                           selected = shiny::isolate(input$param) %||% c(),
+                                           selected = isolate(input$param) %||% filter_selected,
                                            width = "100%"))
     })
+    session$userData$eraser_observer <-
+      observeEvent(
+        erase_filters(), 
+        updateCheckboxGroupInput(session, "param", selected = ""),
+        ignoreInit = TRUE
+      )
     
     module_return$code <- shiny::reactive({
       exprs <- list()
@@ -48,7 +59,7 @@ shiny_vector_filter.logical <- function(data, inputId, ...) {
       if (FALSE %in% input$param) 
         exprs <- append(exprs, list(quote(!.x)))
       
-      if (length(input$param) == 2 && filter_na())
+      if (length(input$param) %% 2 == 0 && filter_na())
         exprs <- list(quote(!is.na(.x)))
       else if (length(input$param) && !filter_na()) 
         exprs <- append(exprs, list(quote(is.na(.x))))

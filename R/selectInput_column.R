@@ -5,6 +5,7 @@
 #' @param data \code{data.frame} object from which fields should be populated
 #' @param selected default selection
 #' @param ... passed to \code{\link[shiny]{selectizeInput}}
+#' @param col_subset a \code{vector} containing the list of allowable columns to select
 #' @param placeholder passed to \code{\link[shiny]{selectizeInput}} options
 #' @param onInitialize passed to \code{\link[shiny]{selectizeInput}} options 
 #'
@@ -14,9 +15,10 @@
 #' @keywords internal
 #' 
 columnSelectInput <- function(inputId, label, data, selected = "", ..., 
-    placeholder = "", onInitialize) {
+    col_subset = NULL, placeholder = "", onInitialize) {
   
   datar <- if (is.reactive(data)) data else reactive(data)
+  col_subsetr <- if (is.reactive(col_subset)) col_subset else reactive(col_subset)
   
   labels <- Map(function(col) {
     json <- sprintf(strip_leading_ws('
@@ -30,6 +32,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
     get_dataFilter_class(datar()[[col]]))
   }, col = names(datar()))
   choices <- setNames(names(datar()), labels)
+  choices <- choices[match(if (length(col_subsetr()) == 0 || isTRUE(col_subsetr() == "")) choices else col_subsetr(), choices)]
   
   shiny::selectizeInput(
     inputId = inputId,
@@ -42,7 +45,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
         // format the way that options are rendered
         option: function(item, escape) {
           item.data = JSON.parse(item.label);
-          return '<div>' +
+          return '<div style=\"padding: 3px 12px\">' +
                    '<div><strong>' +
                       escape(item.data.name) + ' ' +
                       '<span style=\"opacity: 0.3;\"><code style=\"color: black;\"> ' + 
@@ -54,7 +57,7 @@ columnSelectInput <- function(inputId, label, data, selected = "", ...,
         },
 
         // avoid data vomit splashing on screen when an option is selected
-        item: function(item, escape) { return ''; }
+        item: function(item, escape) { return '<span></span>'; }
       }")),
       
       # fix for highlight persisting
