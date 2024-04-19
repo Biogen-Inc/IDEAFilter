@@ -38,7 +38,7 @@ IDEAFilter_ui <- function(id) {
 
 #' IDEA data filter module server function
 #' 
-#' Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes
+#' Serves as a wrapper for \code{\link{shiny_data_filter}} and utilizes
 #' \code{moduleSever()} for a more modern implementation of the data item
 #' filter.
 #' 

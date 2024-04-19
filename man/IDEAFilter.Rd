@@ -35,7 +35,7 @@ a \code{reactive expression} which returns the filtered data wrapped
   data.
 }
 \description{
-Serves as a wrapper fo \code{\link{shiny_data_filter}} and utilizes
+Serves as a wrapper for \code{\link{shiny_data_filter}} and utilizes
 \code{moduleSever()} for a more modern implementation of the data item
 filter.
 }
