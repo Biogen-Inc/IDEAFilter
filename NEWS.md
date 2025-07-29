@@ -1,5 +1,7 @@
 # IDEAFilter 0.2.1
 
+- Update Rd `\links{}` to use a package 'anchor' when referring to a package outside of `IDEAfilter`. This is used for HTML help, rendered by CRAN.
+
 # IDEAFilter 0.2.0
 
 ## New features
