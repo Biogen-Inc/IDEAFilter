@@ -213,6 +213,8 @@ urlchecker::url_check()
 # my_check <- devtools::check_rhub() # deprecated
 # cran_rhub_chk <- rhub::check_for_cran() # deprecated
 
+rhub::rhub_setup()
+
 # rhub::check_on_windows(check_args = "--force-multiarch")
 # rhub::check_on_solaris()
 # previous_checks <- rhub::list_package_checks(
