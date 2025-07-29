@@ -210,9 +210,8 @@ urlchecker::url_check()
 
 # check on other distributions
 # _rhub
-my_check <- devtools::check_rhub()
-
-cran_rhub_chk <- rhub::check_for_cran()
+# my_check <- devtools::check_rhub() # deprecated
+# cran_rhub_chk <- rhub::check_for_cran() # deprecated
 
 # rhub::check_on_windows(check_args = "--force-multiarch")
 # rhub::check_on_solaris()
@@ -264,7 +263,7 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[4])
 
 
 # When ready, submit to CRAN for the first time
-devtools::release(check = FALSE) #, args = "--no-build-vignettes")
+devtools::release(check = TRUE) #, args = "--no-build-vignettes")
 # Re-submit:
 # Check package as CRAN
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))

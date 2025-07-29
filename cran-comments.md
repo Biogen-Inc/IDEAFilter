@@ -1,3 +1,17 @@
+# CRAN v0.2.1 Submission
+
+Update Rd \links{} to use a package 'anchor' when referring to a package outside of `IDEAfilter`. This is used for HTML help files, now rendered by CRAN. Must be completed & resubmitted by 9/3 to stay on CRAN.
+
+### R CMD check results
+0 errors | 0 warnings | 0 note
+
+### Reverse dependency check
+
+One reverse dependency exists (`{tidyCDISC}`) and was tested by running R CMD Check using the development version of `IDEAFilter`. The changes have no negative impact on it's reverse dependency.
+
+<br>
+
+
 # CRAN v0.2.0 Re-submission
 
 On April 10, 2024
