@@ -56,7 +56,7 @@ filter_log <- function(..., ns, verbose = TRUE) isolate({
 
 #' A crayon style for the filter log
 #' 
-#' @param ... passed to a \link{crayon} crayon object
+#' @param ... passed to a \link[crayon]{make_style} crayon object
 #' 
 #' @importFrom crayon make_style
 #' @importFrom grDevices rgb

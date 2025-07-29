@@ -1,6 +1,6 @@
 Package: IDEAFilter
 Type: Package
-Version: 0.2.0.9000
+Version: 0.2.1
 Title: Agnostic, Idiomatic Data Filter Module for Shiny
 Description: When added to an existing shiny app, users may subset any
     developer-chosen R data.frame on the fly. That is, users are empowered to
@@ -37,7 +37,7 @@ URL: https://biogen-inc.github.io/IDEAFilter/, https://github.com/Biogen-Inc/IDE
 BugReports: https://github.com/Biogen-Inc/IDEAFilter/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Imports:
     crayon,
     ggplot2,

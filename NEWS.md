@@ -1,6 +1,9 @@
-# IDEAFilter (development version)
+
+# IDEAFilter 0.2.1
 
 - Add `rhub` GHA workflow
+- Update Rd `\links{}` to use a package 'anchor' when referring to a package outside of `IDEAfilter`. This is used for HTML help, rendered by CRAN.
+
 
 # IDEAFilter 0.2.0
 
