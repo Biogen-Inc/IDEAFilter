@@ -210,9 +210,10 @@ urlchecker::url_check()
 
 # check on other distributions
 # _rhub
-my_check <- devtools::check_rhub()
+# my_check <- devtools::check_rhub() # deprecated
+# cran_rhub_chk <- rhub::check_for_cran() # deprecated
 
-cran_rhub_chk <- rhub::check_for_cran()
+rhub::rhub_setup()
 
 # rhub::check_on_windows(check_args = "--force-multiarch")
 # rhub::check_on_solaris()

@@ -1,5 +1,7 @@
 # IDEAFilter (development version)
 
+- Add `rhub` GHA workflow
+
 # IDEAFilter 0.2.0
 
 ## New features
