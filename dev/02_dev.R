@@ -215,7 +215,8 @@ urlchecker::url_check()
 
 # rhub::rhub_setup() # ran on master
 rhub::rhub_doctor() # works!
-rhub::rhub_check()
+rhub::rhub_check() # kicks off 'manual check' on GHAs
+  # https://github.com/Biogen-Inc/IDEAFilter/actions
 
 # rhub::check_on_windows(check_args = "--force-multiarch")
 # rhub::check_on_solaris()
