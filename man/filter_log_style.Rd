@@ -7,7 +7,7 @@
 filter_log_style(...)
 }
 \arguments{
-\item{...}{passed to a \link{crayon} crayon object}
+\item{...}{passed to a \link[crayon]{make_style} crayon object}
 }
 \description{
 A crayon style for the filter log
