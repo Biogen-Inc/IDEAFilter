@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   IDEAFilter: IDEAFilter.html
-last_built: 2025-07-29T15:45Z
+last_built: 2025-07-29T16:52Z
 urls:
   reference: https://biogen-inc.github.io/IDEAFilter/reference
   article: https://biogen-inc.github.io/IDEAFilter/articles
